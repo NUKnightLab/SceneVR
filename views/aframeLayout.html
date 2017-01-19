@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}Images{% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href="http://localhost:3000/styles/aframe.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+  <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
+</head>
+<body>
+  <section id="content">
+    {% block content %}
+      <p>Forgot to add content?</p>
+    {% endblock %}
+  </section>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<a href="/story/new">Create new story</a>
+{% for story in stories %}
+	<li><a href="/story/{{ story._id.toString() }}">{{ story.title }}</a></li>
+{% endfor %}
+{% endblock %}

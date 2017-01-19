@@ -1,0 +1,16 @@
+{% extends '../aframeLayout.html' %}
+
+{% block content %}
+<a-scene>
+  <a-assets>
+    <img src="{{ imagePath }}" id="vr-test">
+  </a-assets>
+  <a-sky src="#vr-test"></a-sky>
+</a-scene>
+<div id="metadata">
+	<h3>{{ title }}</h3>
+	<h5>by: {{ author }}</h5>
+	<h5>{{ location }}</h5>
+	<p>{{ description }}</p>
+</div>
+{% endblock %}

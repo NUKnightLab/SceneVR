@@ -1,0 +1,39 @@
+{% extends '../aframeLayout.html' %}
+
+{% block content %}
+<a-scene>
+  <a-assets>
+    <img src="{{ imagePath }}" id="vr-test">
+  </a-assets>
+  <a-entity id="camera" camera look-controls>
+	  <a-entity id="cursor"
+	  			cursor="fuse: true; fuseTimeout: 500"
+	            position="0 0 -3"
+	            geometry="primitive: ring; radiusOuter: 0.30; radiusInner: 0.20"
+	            material="color: black; shader: flat">
+	  </a-entity>
+	</a-entity>
+  <a-sky src="#vr-test"></a-sky>
+</a-scene>
+<div id="metadata">
+	<form method="post" action="/story/{{ id }}">
+		<div class="row">
+			<div class="six columns">
+				<label for="title">Title</label>
+				<input class="u-full-width" type="text" id="title" name="title" value="{{ title }}">
+				<label for="author">Author</label>
+				<input class="u-full-width" type="text" id="author" name="author" value="{{ author }}">
+				<label for="author">Location</label>
+				<input class="u-full-width" type="text" id="location" name="location" value="{{ location }}">
+				<label for="description">Description</label>
+				<textarea class="u-full-width" placeholder="" id="description" name="description">{{ description }}</textarea>
+				<label for="image">Image Link</label>
+				<input class="u-full-width" type="text" id="image" name="image" value="{{ imagePath }}">
+				<input class="button-primary" type="submit" value="Submit">
+		  </div>
+	  </div>
+	</form>
+</div>
+
+<script type="text/javascript" src="../../scripts/editor.js"></script>
+{% endblock %}

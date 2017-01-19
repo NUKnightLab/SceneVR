@@ -1,0 +1,12 @@
+{% extends 'aframeLayout.html' %}
+
+{% block content %}
+<a-scene>
+  <a-assets>
+    <img src="{{ path }}" id="vr-test">
+    <img src="../img/logo.png" id="logo">
+  </a-assets>
+  <a-sky src="#vr-test"></a-sky>
+  <!-- <a-curvedimage src="#logo" height="5" radius="5" position="0 2 0"></a-curvedimage> -->
+</a-scene>
+{% endblock %}
