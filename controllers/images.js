@@ -35,7 +35,7 @@ module.exports.create = function *create() {
     author: input.author,
     description: input.description,
     location: input.location,
-    image_path: input.image
+    image_paths: input.images.split(',')
   });
   this.redirect(`story/${story._id}`)
 };
@@ -48,7 +48,7 @@ module.exports.show = function *show(id) {
     author: story.author,
     description: story.description,
     location: story.location,
-    imagePath: story.image_path
+    imagePaths: story.image_paths
   });
 };
 
@@ -61,7 +61,7 @@ module.exports.edit = function *edit(id) {
     author: story.author,
     description: story.description,
     location: story.location,
-    imagePath: story.image_path
+    imagePaths: story.image_paths.join(',')
   });
 };
 
@@ -73,7 +73,7 @@ module.exports.update = function *update(id) {
     author: input.author,
     description: input.description,
     location: input.location,
-    image_path: input.image
+    image_paths: input.images.split(',')
   });
   this.redirect(`${id}`);
 };
