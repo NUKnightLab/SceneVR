@@ -3,14 +3,24 @@
 {% block content %}
 <a-scene>
   <a-assets>
-    <img src="{{ imagePath }}" id="vr-test">
+    {% for path in imagePaths %}
+    <img src="{{ path }}" id="sky-{{ loop.index }}">
+    {% endfor %}
   </a-assets>
-  <a-sky src="#vr-test"></a-sky>
+  <a-sky src="#sky-1">
+  	<a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" to="0"></a-animation>
+  	<a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
+  </a-sky>
 </a-scene>
+<div id="black-background"></div>
 <div id="metadata">
 	<h3>{{ title }}</h3>
 	<h5>by: {{ author }}</h5>
 	<h5>{{ location }}</h5>
 	<p>{{ description }}</p>
+	<!-- <button id="previous" class="button-primary" disabled="true">Previous</button> -->
+	<button id="next" class="button-primary">Next</button>
 </div>
+
+<script type="text/javascript" src="../../scripts/show.js"></script>
 {% endblock %}
