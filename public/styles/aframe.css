@@ -1,12 +1,40 @@
 #black-background {
-	width: 100vw;
-	height: 100vh;
-	background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
 }
 
 #metadata {
-	position: fixed;
-	top: 5vh;
-	left: 5vw;
-	color: white;
+    position: fixed;
+    top: 5vh;
+    left: 5vw;
+    color: white;
+}
+
+#compass {
+    position: fixed;
+    top: 5vh;
+    right: 5vw;
+}
+
+#circle {
+    width: 100px;
+    height: 100px;
+    position:relative;
+    border: 1px solid #000;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+#pointer {
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid black;
+    position: absolute;
+    left: 40px;
+    top: 45px;
+    display: block;
+    transform: rotate(0deg) translateY(-45px);
 }
