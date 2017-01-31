@@ -1,12 +1,12 @@
 #black-background {
-	width: 100vw;
-	height: 100vh;
-	background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
 }
 
 #metadata {
-	position: fixed;
-	top: 5vh;
-	left: 5vw;
-	color: white;
+    position: fixed;
+    top: 5vh;
+    left: 5vw;
+    color: white;
 }
