@@ -17,10 +17,6 @@ module.exports.aframe = function *aframe(image) {
   this.body = yield render('aframe', { 'path': `../img/${image}` });
 };
 
-module.exports.helloworld = function *helloworld(image) {
-  this.body = yield render('helloworld', {});
-};
-
 // show form to create new story
 module.exports.newStory = function *newStory() {
   let results = yield stories.findOne({});
