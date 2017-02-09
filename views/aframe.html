@@ -1,12 +1,28 @@
 {% extends 'aframeLayout.html' %}
 
 {% block content %}
-<a-scene>
+<a-scene position-compass>
   <a-assets>
     <img src="{{ path }}" id="vr-test">
     <img src="../img/logo.png" id="logo">
   </a-assets>
+  <a-entity id="camera" camera look-controls>
+    <a-entity 
+    id="compass"
+    geometry="primitive: ring; radiusInner: 0.95; radiusOuter: 1" 
+    position="0 0 -12"
+    material="color: black; opacity: 0">
+      <a-animation attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
+      <a-entity raycaster id="pointer"
+      geometry="primitive: cone; radiusBottom: 1; radiusTop: 0"
+      position="0 0.75 0"
+      material="color: black; opacity: 0"
+      scale="0.5 0.5 0">
+        <a-animation attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
+      </a-entity>
+    </a-entity>
+  </a-entity>
   <a-sky src="#vr-test"></a-sky>
-  <!-- <a-curvedimage src="#logo" height="5" radius="5" position="0 2 0"></a-curvedimage> -->
+  <script src="../scripts/show.js"></script>
 </a-scene>
 {% endblock %}
