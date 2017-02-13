@@ -8,6 +8,7 @@
   position: fixed;
   top: 40vh;
   right: 5vw;
+  cursor: pointer;
 }
 
 #compass-container {
