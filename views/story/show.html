@@ -1,36 +1,24 @@
 {% extends '../aframeLayout.html' %}
-
 {% block content %}
 <a-scene>
   <a-assets>
     {% for path in imagePaths %}
-    <img src="{{ path }}" id="sky-{{ loop.index }}">
+    <img src="{{ path }}" id="sky-{{ loop.index }}" class="sky">
     {% endfor %}
   </a-assets>
   <a-entity id="camera" camera look-controls>
-    <a-entity 
-    geometry="primitive: ring; radiusInner: 0.95; radiusOuter: 1" 
-    position="0 0 -5"
-    material="color: black">
-      <a-entity id="pointer"
-      geometry="primitive: cone; radiusBottom: 1; radiusTop: 0"
-      position="0 1.5 -5"
-      material="color: black"></a-entity>
-    </a-entity>
   </a-entity>
   <a-sky src="#sky-1">
   	<a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" to="0"></a-animation>
   	<a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
   </a-sky>
 </a-scene>
-<!-- <div id="black-background"></div>
-<div id="metadata">
-	<h3>{{ title }}</h3>
-	<h5>by: {{ author }}</h5>
-	<h5>{{ location }}</h5>
-	<p>{{ description }}</p>
-	<button id="next" class="button-primary">Next</button>
-</div> -->
-
+<div id="black-background"></div>
+<button id="next" class="button-primary">Next</button>
+<div id="compass-container">
+  <div id="compass">
+    <div id="pointer"></div>
+  </div>
+</div>
 <script type="text/javascript" src="../../scripts/show.js"></script>
 {% endblock %}

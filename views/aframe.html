@@ -1,12 +1,24 @@
 {% extends 'aframeLayout.html' %}
-
 {% block content %}
 <a-scene>
   <a-assets>
-    <img src="{{ path }}" id="vr-test">
+    <img src="{{ path }}" id="sky-1" class="sky">
+    <img src="{{ path }}" id="sky-2" class="sky">
     <img src="../img/logo.png" id="logo">
   </a-assets>
-  <a-sky src="#vr-test"></a-sky>
-  <!-- <a-curvedimage src="#logo" height="5" radius="5" position="0 2 0"></a-curvedimage> -->
+  <a-entity id="camera" camera look-controls>
+  </a-entity>
+  <a-sky src="#sky-1">
+  	<a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" to="0"></a-animation>
+  	<a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
+  </a-sky>
 </a-scene>
+<div id="black-background"></div>
+<button id="next" class="button-primary">Next</button>
+<div id="compass-container">
+  <div id="compass">
+    <div id="pointer"></div>
+  </div>
+</div>
+<script type="text/javascript" src="../scripts/show.js"></script>
 {% endblock %}
