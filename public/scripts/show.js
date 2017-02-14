@@ -34,6 +34,6 @@ document.getElementById('camera').addEventListener('componentchanged', (event) =
   if (event.detail.name === 'rotation' && event.detail.newData.y !== angle) {
     angle = event.detail.newData.y;
     angleInRadians = angle * (Math.PI / 180);
-    pointerEl.style.transform = `translate(${-30 * Math.sin(angleInRadians)}px, ${-30 * Math.cos(angleInRadians)}px) rotateZ(${-angle}deg)`
+    pointerEl.style.transform = `rotateZ(${-angle}deg)`
   }
 });
