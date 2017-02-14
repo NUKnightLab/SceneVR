@@ -16,6 +16,14 @@
   cursor: pointer;
 }
 
+#cardboard{
+  position: fixed;
+  top: 70vh;
+  right: 5vw;
+  cursor: pointer;
+  height: 13%;
+}
+
 #compass-container {
   position: fixed;
   top: 5vh;
