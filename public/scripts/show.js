@@ -6,7 +6,15 @@ const aSkyFadeOut = document.querySelector('a-sky #fade-out');
 const aSkyFadeIn = document.querySelector('a-sky #fade-in');
 
 aSkyFadeOut.addEventListener('animationend', () => {
+  // change the a-sky and increment skyIndex
   aSky.setAttribute('src', `#sky-${++skyIndex}`);
+
+  // update the selected thumbnail in the footer
+  let selectedThumbnail = document.querySelector('.selected-thumbnail');
+  selectedThumbnail.className = selectedThumbnail.className.replace('selected-thumbnail','');
+  document.querySelector(`#thumbnail-${skyIndex}`).className += ' selected-thumbnail';
+
+  // fade in the new a-sky
   aSky.emit('fadeIn');
 });
 
