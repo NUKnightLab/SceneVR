@@ -1,12 +1,40 @@
 {% extends 'aframeLayout.html' %}
-
 {% block content %}
 <a-scene>
   <a-assets>
-    <img src="{{ path }}" id="vr-test">
+    <img src="{{ path }}" id="sky-1" class="sky">
+    <img src="{{ path }}" id="sky-2" class="sky">
+    <img src="{{ path }}" id="sky-3" class="sky">
     <img src="../img/logo.png" id="logo">
   </a-assets>
-  <a-sky src="#vr-test"></a-sky>
-  <!-- <a-curvedimage src="#logo" height="5" radius="5" position="0 2 0"></a-curvedimage> -->
+  <a-entity id="camera" camera look-controls>
+  </a-entity>
+  <a-sky src="#sky-1">
+  	<a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" to="0"></a-animation>
+  	<a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
+  </a-sky>
 </a-scene>
+<div id="ui">
+  <div id="black-background"></div>
+  <img id="next" src="../img/next.png">
+  <div id="compass-container">
+    <div id="compass">
+      <div id="pointer"></div>
+    </div>
+  </div>
+  <div id="footer">
+    <div id="footer-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.</p>
+    </div>
+	<div id="thumbnails">
+      <img src="{{ path }}" id="thumbnail-1" class="thumbnail selected-thumbnail">
+      <img src="{{ path }}" id="thumbnail-2" class="thumbnail">
+      <img src="{{ path }}" id="thumbnail-3" class="thumbnail">
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="../scripts/show.js"></script>
 {% endblock %}

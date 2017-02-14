@@ -13,7 +13,6 @@ app.use(logger());
 
 app.use(route.get('/', images.home));
 app.use(route.get('/aframe/:image', images.aframe));
-app.use(route.get('/helloworld', images.helloworld));
 app.use(route.get('/story/new', images.newStory));
 app.use(route.get('/story/:id', images.show));
 app.use(route.get('/story/edit/:id', images.edit));
