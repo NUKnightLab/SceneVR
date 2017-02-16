@@ -12,17 +12,25 @@
 #next {
   position: fixed;
   top: 40vh;
-  right: 5vw;
-  height: 13%;
+  right: 2vw;
+  height: 12%;
   cursor: pointer;
 }
 
-#cardboard{
+/*#cardboard{
   position: fixed;
   top: 70vh;
   right: 5vw;
   cursor: pointer;
   height: 13%;
+}*/
+
+#fullscreen {
+    position: fixed;
+    top: 70vh;
+    right: 2vw;
+    cursor: pointer;
+    height: 11%;
 }
 
 #compass-container {
