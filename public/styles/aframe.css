@@ -56,7 +56,7 @@
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 20px solid black;
-  transform-origin: 50% 20px;
+  transform-origin: 50% 130%;
 }
 
 #footer {
