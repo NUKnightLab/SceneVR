@@ -30,7 +30,7 @@ module.exports = {
     });
 
     nextButton.addEventListener('click', () => {
-      if (skyIndex < storyLength)
+      if (skyIndex < storyLength - 1)
         aSkyEl.emit('fadeOut');
     });
 
