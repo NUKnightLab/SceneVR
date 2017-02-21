@@ -1,4 +1,3 @@
-const template = require('template.js');
 const ui = require('ui.js');
 const gapiClient = require('gapiClient.js');
 
@@ -11,8 +10,9 @@ function buildTemplate() {
       templateData.images.push({ path: p[0] });
     });
 
-    let compiledTemplate = Handlebars.compile(template.template); 
+    let compiledTemplate = Handlebars.compile(document.getElementById('aframe-template').innerHTML); 
     let scene = document.createElement('section');
+    scene.id = 'rendered-template';
     scene.innerHTML = compiledTemplate(templateData);
     document.querySelector('body').appendChild(scene);
     ui.addEventListeners();

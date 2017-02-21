@@ -11,6 +11,9 @@ var _ = require('lodash'),
 data = getData('src/data/data.yml');
 
 //run Helpers
+Handlebars.registerHelper('raw-helper', function(options) {
+  return options.fn();
+});
 helper.getPartial(Handlebars, 'src/templates/partials/');
 
 function getData(file) {

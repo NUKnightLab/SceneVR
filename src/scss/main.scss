@@ -19,36 +19,65 @@
 
 #next {
   position: fixed;
-  top: 40vh;
+  top: 39vh;
+  right: 1vw;
+  height: 11%;
+  cursor: pointer;
+  -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
+  filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
+}
+/*#cardboard{
+  position: fixed;
+  top: 70vh;
   right: 5vw;
   cursor: pointer;
+  height: 13%;
+}*/
+
+#fullscreen {
+    position: fixed;
+    top: 75vh;
+    right: 2vw;
+    cursor: pointer;
+    height: 10%;
+    -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
+    filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
 }
 
 #compass-container {
   position: fixed;
   top: 5vh;
-  right: 5vw;
+  right: 3vw;
 }
 
 #compass {
-  width: 100px;
-  height: 100px;
-  border: 1px solid black;
-  border-radius: 50%;
-  position: relative;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 3vw;
+  -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
+  filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
+  
+  .a {
+    fill:none;
+    stroke:#fff;
+    stroke-miterlimit:10;
+    stroke-width:24px;
+  }
+
+  .b {
+    fill: #fff;
+  }
+
+  #pointer {
+    fill: #fff;
+    transform-origin: 50% 130%;
+    -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
+    filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
+  }
 }
 
-#pointer {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-bottom: 20px solid black;
-  transform-origin: 50% 130%;
-}
+
 
 #footer {
   height: 10%;
