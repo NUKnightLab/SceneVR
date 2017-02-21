@@ -7,6 +7,8 @@ module.exports = {
     const aSkyFadeOut = document.querySelector('a-sky #fade-out');
     const aSkyFadeIn = document.querySelector('a-sky #fade-in');
     const nextButton = document.getElementById('next');
+    const fullscreenButton = document.getElementById('fullscreen');
+    const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
 
     // Compass
     const cameraEl = document.getElementById('camera');
@@ -14,9 +16,6 @@ module.exports = {
     const pointerEl = document.getElementById('pointer');
 
     aSkyFadeOut.addEventListener('animationend', () => {
-      // change the a-sky and increment skyIndex
-      aSkyEl.setAttribute('src', `#sky-${++skyIndex}`);
-
       // update the selected thumbnail in the footer
       let selectedThumbnail = document.querySelector('.selected-thumbnail');
       selectedThumbnail.className = selectedThumbnail.className.replace('selected-thumbnail','');
@@ -26,14 +25,31 @@ module.exports = {
       aSkyEl.emit('fadeIn');
     });
 
-    aSkyFadeIn.addEventListener('animationend', () => {
-    });
-
+    // change a-sky to next image 
     nextButton.addEventListener('click', () => {
-      if (skyIndex < storyLength - 1)
+      if (skyIndex < storyLength - 1) {
         aSkyEl.emit('fadeOut');
+        aSkyEl.setAttribute('src', `#sky-${++skyIndex}`);
+      }
     });
 
+    // full screen on click
+    fullscreenButton.addEventListener('click', () => {
+      document.querySelector('a-scene').enterVR();
+    });
+
+    // change a-sky on click
+    thumbnailElements.forEach((t, i) => {
+      t.addEventListener('click', () => {
+        if (skyIndex !== i) {
+          aSkyEl.emit('fadeOut');
+          skyIndex = i;
+          aSkyEl.setAttribute('src', `#sky-${skyIndex}`);
+        }
+      });
+    });
+
+    // update compass when camera is rotated
     cameraEl.addEventListener('componentchanged', (event) => {
       if (event.detail.name === 'rotation' && event.detail.newData.y !== angle) {
         angle = event.detail.newData.y;
