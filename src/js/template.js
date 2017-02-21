@@ -1,5 +1,5 @@
 module.exports = {
-	template: `<a-scene>
+  template: `<a-scene>
       <a-assets>
       {{#images}}
         <img src="{{path}}" class="sky" id="sky-{{@index}}">
