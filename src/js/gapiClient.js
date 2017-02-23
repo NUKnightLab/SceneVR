@@ -1,26 +1,28 @@
-const CLIENT_ID = '176595787089-tarbcutpcnflpfuk6vklf4mrc1rg3odj.apps.googleusercontent.com';
-const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
-const SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
-
 module.exports = {
-  init: () => {
+  getSpreadsheetData: (spreadsheetId) => {
     return new Promise((resolve, reject) => {
-      gapi.load('client:auth2', () => {
-        gapi.client.init({
-          discoveryDocs: DISCOVERY_DOCS,
-          clientId: CLIENT_ID,
-          scope: SCOPES,
-          apiKey: 'AIzaSyCi2wPWhosxgjVZiPEa1Tttzo5d2htr2GU'
-        }).then(() => {
-          resolve();
+      let xhr = new XMLHttpRequest();
+      const url = `https://spreadsheets.google.com/feeds/list/${spreadsheetId}/1/public/values?alt=json`
+      xhr.open("GET", url, true);
+      xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(JSON.parse(xhr.response).feed);
+          } else {
+            reject({
+              status: this.status,
+              statusText: xhr.statusText
+            });
+          }
+        }
+      };
+      xhr.onerror = function (e) {
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
         });
-      });
-    });
-  },
-  getSpreadsheetData: () => {
-    return gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: '1aLMe-s3SGIPZw51prsyNvM8LENNtI55WP0b7LAyLajE',
-      range: 'A2:A4',
+      };
+      xhr.send(null);
     });
   }
 }

@@ -2,13 +2,13 @@ const ui = require('ui.js');
 const gapiClient = require('gapiClient.js');
 const template = require('template.js');
 
+const spreadsheetId = '1aLMe-s3SGIPZw51prsyNvM8LENNtI55WP0b7LAyLajE';
+
 function initalize() {
-  gapiClient.init().then(() => {
-    return gapiClient.getSpreadsheetData();
-  }).then(response => {
+  gapiClient.getSpreadsheetData(spreadsheetId).then(response => {
     let templateData = { images: [] };
-    response.result.values.forEach(p => {
-      templateData.images.push({ path: p[0] });
+    response.entry.forEach(e => {
+      templateData.images.push({ path: e.gsx$paths.$t });
     });
 
     let scene = template.buildTemplate(templateData);
