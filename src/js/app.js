@@ -1,19 +1,17 @@
 const ui = require('ui.js');
 const gapiClient = require('gapiClient.js');
+const template = require('template.js');
 
-function buildTemplate() {
+function initalize() {
   gapiClient.init().then(() => {
     return gapiClient.getSpreadsheetData();
   }).then(response => {
     let templateData = { images: [] };
-    response.result.values.forEach((p, i) => {
+    response.result.values.forEach(p => {
       templateData.images.push({ path: p[0] });
     });
 
-    let compiledTemplate = Handlebars.compile(document.getElementById('aframe-template').innerHTML); 
-    let scene = document.createElement('section');
-    scene.id = 'rendered-template';
-    scene.innerHTML = compiledTemplate(templateData);
+    let scene = template.buildTemplate(templateData);
     document.querySelector('body').appendChild(scene);
     ui.addEventListeners();
   }, response => {
@@ -21,6 +19,4 @@ function buildTemplate() {
   });
 }
 
-window.onload = () => {
-  buildTemplate();
-}
+window.onload = initalize;
