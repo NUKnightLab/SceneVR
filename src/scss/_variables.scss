@@ -1,0 +1,69 @@
+// STYLE GUIDE // --------------------------------------------------
+// Variables
+// Syntax: <property>-<value>[--componentName]
+// Ex: @color-grayLight--highlightMenu: rgb(51, 51, 50);
+
+$font-size-base: 16px !default;
+$font-size-base-phone: 15px !default;
+$rem-base: 16px !default;
+$rem-base: $font-size-base !default;
+
+// Fonts // --------------------------------------------------
+$fontFamily-sansSerif:		"Apres RE", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$fontFamily-serif:			"Turnip RE", Georgia, "Times New Roman", Times, serif !default;
+$fontFamily-displaySerif:	"Salvo Serif Cond", Georgia, "Times New Roman", Times, serif !default;
+$fontFamily-monospace:		Consolas, "Liberation Mono", Courier, monospace !default;
+
+$font-line-height: 1.618 !default;
+
+// Colors // --------------------------------------------------
+$color-amount--light:		11%;
+$color-amount--lighter:		22%;
+$color-amount--lightest:	33%;
+$color-amount--dark:		11%;
+$color-amount--darker:		22%;
+$color-amount--darkest:		33%;
+
+// Primary
+$color-primary: 			#DF4E13 !default;
+$color-primary--light:		lighten($color-primary, $color-amount--lightest);
+$color-primary--dark:		darken($color-primary, $color-amount--darkest);
+
+// Tetrad
+$color-tetrad: 				adjust_hue($color-primary, 30);
+$color-tetrad--light:		lighten($color-tetrad, $color-amount--lightest);
+$color-tetrad--dark:		darken($color-tetrad, $color-amount--darkest);
+
+// Compliment (Based on primary)
+$color-complement: 			complement($color-primary);
+$color-complement--light:	lighten($color-complement, $color-amount--lightest);
+$color-complement--dark:	darken($color-complement, $color-amount--darkest);
+
+// Secondary (Based on primary)
+$color-secondary: 			desaturate(adjust_hue($color-primary, 120), 20%);
+$color-secondary--light:	lighten($color-secondary, $color-amount--lightest);
+$color-secondary--dark:		darken($color-secondary, $color-amount--darkest);
+
+// Tertiary (Based on primary)
+$color-tertiary: 			adjust_hue($color-primary, -120);
+$color-tertiary--light:		lighten($color-tertiary, $color-amount--lightest);
+$color-tertiary--dark:		darken($color-tertiary, $color-amount--darkest);
+
+// Dark
+$color-dark:			#1d1f21 !default;
+
+// Grey
+$color-grey:			#9C9C9C !default;
+$color-grey--light:		lighten($color-grey, $color-amount--light);
+$color-grey--lighter:	lighten($color-grey, $color-amount--lighter);
+$color-grey--lightest:	lighten($color-grey, $color-amount--lightest);
+$color-grey--dark:		darken($color-grey, $color-amount--dark);
+$color-grey--darker:	darken($color-grey, $color-amount--darker);
+$color-grey--darkest:	darken($color-grey, $color-amount--darkest);
+
+// Defaults
+$color-text-default:	#222222 !default;
+$color-bg-default:		#FFFFFF !default;
+
+// Code Color
+$color-code: 			#c7254e !default;
