@@ -1,26 +1,26 @@
-const ui = require('ui.js');
-const gapiClient = require('gapiClient.js');
+const Story = require('story.js');
 
-function buildTemplate() {
-  gapiClient.init().then(() => {
-    return gapiClient.getSpreadsheetData();
-  }).then(response => {
-    let templateData = { images: [] };
-    response.result.values.forEach((p, i) => {
-      templateData.images.push({ path: p[0] });
-    });
+const exampleSpreadsheetId = '1tTyJECAoiLjHQh9_RWtVavhO_rLk133dt8-5c6lN-F0';
 
-    let compiledTemplate = Handlebars.compile(document.getElementById('aframe-template').innerHTML); 
-    let scene = document.createElement('section');
-    scene.id = 'rendered-template';
-    scene.innerHTML = compiledTemplate(templateData);
-    document.querySelector('body').appendChild(scene);
-    ui.addEventListeners();
-  }, response => {
-    console.log(response.result.error.message);
-  });
+function initalize() {
+  const qs = getQueryParams(window.location.search);
+  qs.source = qs.hasOwnProperty('source') ? qs.source : exampleSpreadsheetId;
+
+  let s = new Story(qs);
 }
 
-window.onload = () => {
-  buildTemplate();
+function getQueryParams(qs) {
+  qs = qs.split("+").join(" ");
+
+  var params = {}, tokens,
+  re = /[?&]?([^=]+)=([^&]*)/g;
+
+  while (tokens = re.exec(qs)) {
+    params[decodeURIComponent(tokens[1])]
+    = decodeURIComponent(tokens[2]);
+  }
+
+  return params;
 }
+
+window.onload = initalize;
