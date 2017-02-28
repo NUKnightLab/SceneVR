@@ -1,59 +1,35 @@
 const dom = require('utils/dom.js');
 
 module.exports = {
-	template: `<a-scene>
+  template: `<a-scene>
       <a-assets>
       </a-assets>
       <a-entity id="camera" camera look-controls>
-      <a-entity   id="cursor"
-    			cursor="fuse: true; fuseTimeout:4500" 
-            	raycaster="objects: .orb"
-                position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360" 
-                material="color: #D3D3D3">
-                <a-animation  begin="fusing" end="stop-loading" easing="ease-in" attribute="geometry.thetaLength"
-                dur=4500 from="360" to="0"></a-animation>
-                <a-animation  begin="rewind" easing="ease-in" attribute="geometry.thetaLength"
-                to="360"></a-animation>
-                <a-animation  begin="click" easing="ease-in" attribute="geometry.thetaLength"
-                dur=500 from="0" to="360"></a-animation>
-  </a-entity>
-  </a-entity>
-  <a-entity id="back-orb-entity" position="-0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable" opacity=0>
-      	<a-sky
-      	id="back-orb"
-      	radius=0.25
-      	phi-start=0
-      	phi-length=360
-      	opacity=1
-      	>	
-      		<a-animation
-      		begin="mouseenter"
-      		dur=4000
-      		attribute="rotation"
-      		to="0 360 0"
-      		fill="none"
-      		</a-animation>
+        <a-entity id="cursor"
+          cursor="fuse: true; fuseTimeout:4500"
+          raycaster="objects: .orb"
+          position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360"
+          material="color: #D3D3D3">
+            <a-animation  begin="fusing" end="stop-loading" easing="ease-in" attribute="geometry.thetaLength"
+            dur=4500 from="360" to="0"></a-animation>
+            <a-animation  begin="rewind" easing="ease-in" attribute="geometry.thetaLength"
+            to="360"></a-animation>
+            <a-animation  begin="click" easing="ease-in" attribute="geometry.thetaLength"
+            dur=500 from="0" to="360"></a-animation>
+        </a-entity>
+      </a-entity>
+      <a-entity id="back-orb-entity" position="-0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable" opacity=0>
+        <a-sky id="back-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>  
+          <a-animation begin="mouseenter" dur=4000 attribute="rotation" to="0 360 0"fill="none"></a-animation>
         </a-sky>
-    </a-entity>
-    <a-entity id="next-orb-entity" position="0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable">
-      	<a-sky
-      		id="next-orb"
-      		radius=0.25
-      		phi-start=0
-      		phi-length=360
-      		opacity=1
-      		>	
-      		<a-animation
-      		begin="mouseenter"
-      		dur=4000
-      		attribute="rotation"
-      		to="0 360 0"
-      		fill="none"
-      		</a-animation>
-      		<a-animation id="fade-out-next" attribute="material.opacity" begin="fadeOutNext" to="0"></a-animation>
-  			<a-animation id="fade-in-next" attribute="material.opacity" begin="fadeInNext" to="1"></a-animation>
+      </a-entity>
+      <a-entity id="next-orb-entity" position="0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable">
+        <a-sky id="next-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>
+          <a-animation begin="mouseenter" dur=4000 attribute="rotation" to="0 360 0" fill="none"></a-animation>
+          <a-animation id="fade-out-next" attribute="material.opacity" begin="fadeOutNext" to="0"></a-animation>
+          <a-animation id="fade-in-next" attribute="material.opacity" begin="fadeInNext" to="1"></a-animation>
         </a-sky>
-    </a-entity>
+      </a-entity>
       <a-sky id="skybox" src="#sky-0">
         <a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" to="0"></a-animation>
         <a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
