@@ -159,34 +159,33 @@
 		
 	}
 
+	//Helper function to update all skyboxes
+	function updateSkies(){
+		aSkyEl.setAttribute('src', `#sky-${skyIndex}`);
+		backOrb.setAttribute('src', `#sky-${backIndex}`);
+		nextOrb.setAttribute('src', `#sky-${nextIndex}`);
+	}
+
 	//Handler when "back" orb is selected
 	 backOrb.addEventListener('click', () => {
 	 	aSkyFadeOut.emit('fadeOut');
 	  	skyIndex--;
 		nextIndex--;
 		backIndex--;
-		if (skyIndex<0)
-			console.log("Uh oh...");
-		else
-		{
-			if (nextIndex==storyLength-1) //If the next orb was invisible because we were on the last image
-			{
+		if (skyIndex>=0){
+			if (nextIndex==storyLength-1){ //If the next orb was invisible because we were on the last image
 				nextOrb.setAttribute('opacity', 1);
 				nextOrbEntity.setAttribute('class',"orb");
 			}
-			if (backIndex==-1) //If we will now be on the first image of the collection
-			{
+			if (backIndex==-1){ //If we will now be on the first image of the collection
 				backOrb.setAttribute('opacity',0);
 				backOrb.setAttribute('src', '');
 				backOrbEntity.setAttribute('class',"not-selectable");
 				aSkyEl.setAttribute('src', `#sky-${skyIndex}`);
 				nextOrb.setAttribute('src', `#sky-${nextIndex}`);
 			}
-			else
-			{
-				aSkyEl.setAttribute('src', `#sky-${skyIndex}`);
-				backOrb.setAttribute('src', `#sky-${backIndex}`);
-				nextOrb.setAttribute('src', `#sky-${nextIndex}`);
+			else{
+				updateSkies();
 			}
 		}
 		cursor.components.raycaster.refreshObjects(); //Update cursor to only select active orbs
@@ -199,26 +198,18 @@
 	  	skyIndex++;
 		nextIndex++;
 		backIndex++;
-		if (skyIndex>=storyLength)
-			console.log("Uh oh...");
-		else
-		{
-			if (backIndex==0) //If the backOrb was invisible because we were on the first image
-			{
+		if (skyIndex<storyLength){
+			if (backIndex==0){ //If the backOrb was invisible because we were on the first image
 			backOrb.setAttribute('opacity', 1);
 			backOrbEntity.setAttribute('class',"orb");}
-			if (nextIndex==storyLength) //If there cannot be another "next" image after this
-			{
+			if (nextIndex==storyLength){ //If there cannot be another "next" image after this
 			nextOrb.setAttribute('opacity', 0);
 			nextOrb.setAttribute('src', '');
 			nextOrbEntity.setAttribute('class',"");
 			aSkyEl.setAttribute('src', `#sky-${skyIndex}`);
 			backOrb.setAttribute('src', `#sky-${backIndex}`);}
-			else
-			{
-			aSkyEl.setAttribute('src', `#sky-${skyIndex}`);
-			backOrb.setAttribute('src', `#sky-${backIndex}`);
-			nextOrb.setAttribute('src', `#sky-${nextIndex}`);
+			else{
+			updateSkies();
 			}
 		}
 		cursor.components.raycaster.refreshObjects(); //Update cursor to only select active orbs
