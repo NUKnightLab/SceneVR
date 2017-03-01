@@ -3,6 +3,9 @@ module.exports = {
   addEventListeners: () => {
     module.exports.setupOrbs();
     module.exports.setupUI();
+    const aScene = document.querySelector('a-scene');
+    aScene.addEventListener('enter-vr', module.exports._showOrbs);
+    aScene.addEventListener('exit-vr', module.exports._hideOrbs);
   },
   setupUI: () => {
     // Fade transitions
@@ -129,6 +132,18 @@ module.exports = {
       cursor.emit('rewind');
       cursor.emit('stop-loading');
     });
+  },
+  _showOrbs: () => {
+    const backOrbEntity = document.getElementById('back-orb-entity');
+    const nextOrbEntity = document.getElementById('next-orb-entity');
+    backOrbEntity.setAttribute('visible', 'true');
+    nextOrbEntity.setAttribute('visible', 'true');
+  },
+  _hideOrbs: () => {
+    const backOrbEntity = document.getElementById('back-orb-entity');
+    const nextOrbEntity = document.getElementById('next-orb-entity');
+    backOrbEntity.setAttribute('visible', 'false');
+    nextOrbEntity.setAttribute('visible', 'false');
   },
   _updateSkies: () => {
     const aSkyEl = document.getElementById('skybox');
