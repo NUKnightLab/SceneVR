@@ -124,6 +124,9 @@
 	  addEventListeners: () => {
 	    module.exports.setupOrbs();
 	    module.exports.setupUI();
+	    const aScene = document.querySelector('a-scene');
+	    aScene.addEventListener('enter-vr', module.exports._showOrbs);
+	    aScene.addEventListener('exit-vr', module.exports._hideOrbs);
 	  },
 	  setupUI: () => {
 	    // Fade transitions
@@ -196,9 +199,11 @@
 
 	    backOrb.setAttribute('opacity', 0);
 	    nextOrb.setAttribute('opacity', Number(storyLength > 1));
-	    nextOrbEntity.setAttribute('class','orb');
-	    nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
 	    aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+	    if (storyLength > 1) {
+	      nextOrbEntity.setAttribute('class','orb');
+	      nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
+	    }
 
 	    //Handler when 'back' orb is selected
 	    backOrb.addEventListener('click', () => {
@@ -248,6 +253,18 @@
 	      cursor.emit('rewind');
 	      cursor.emit('stop-loading');
 	    });
+	  },
+	  _showOrbs: () => {
+	    const backOrbEntity = document.getElementById('back-orb-entity');
+	    const nextOrbEntity = document.getElementById('next-orb-entity');
+	    backOrbEntity.setAttribute('visible', 'true');
+	    nextOrbEntity.setAttribute('visible', 'true');
+	  },
+	  _hideOrbs: () => {
+	    const backOrbEntity = document.getElementById('back-orb-entity');
+	    const nextOrbEntity = document.getElementById('next-orb-entity');
+	    backOrbEntity.setAttribute('visible', 'false');
+	    nextOrbEntity.setAttribute('visible', 'false');
 	  },
 	  _updateSkies: () => {
 	    const aSkyEl = document.getElementById('skybox');
@@ -317,12 +334,12 @@
 	            dur=500 from="0" to="360"></a-animation>
 	        </a-entity>
 	      </a-entity>
-	      <a-entity id="back-orb-entity" position="-0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable" opacity=0>
+	      <a-entity id="back-orb-entity" position="-0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable" opacity="0" visible="false">
 	        <a-sky id="back-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>  
 	          <a-animation begin="mouseenter" dur=4000 attribute="rotation" to="0 360 0"fill="none"></a-animation>
 	        </a-sky>
 	      </a-entity>
-	      <a-entity id="next-orb-entity" position="0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable">
+	      <a-entity id="next-orb-entity" position="0.5 -0.75 -0.5" rotation="0 0 0" class="not-selectable" visible="false">
 	        <a-sky id="next-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>
 	          <a-animation begin="mouseenter" dur=4000 attribute="rotation" to="0 360 0" fill="none"></a-animation>
 	          <a-animation id="fade-out-next" attribute="material.opacity" begin="fadeOutNext" to="0"></a-animation>
