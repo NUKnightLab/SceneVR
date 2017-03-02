@@ -72,7 +72,7 @@ module.exports = {
       assets.appendChild(skyEl);
 
       let thumbnailEl = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? 'selected-thumbnail' : ''}`]);
-      thumbnailEl.setAttribute('src', img.path);
+      thumbnailEl.setAttribute('src', img.thumbnailPath);
       thumbnails.appendChild(thumbnailEl);
 
       let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);

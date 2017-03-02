@@ -1,6 +1,7 @@
 const ui = require('ui.js');
 const gapiClient = require('gapiClient.js');
 const template = require('template.js');
+const flickrApi = require('flickrApi.js');
 
 module.exports = class Story {
   constructor(config) {
@@ -14,15 +15,22 @@ module.exports = class Story {
 
   buildScene() {
     return gapiClient.getSpreadsheetData(this.config.source).then(response => {
+      let promises = [];
       let templateData = { images: [] };
       response.entry.forEach(e => {
-        templateData.images.push({
-          path: e.gsx$sceneimageurl.$t,
-          text: e.gsx$bodytext.$t
-        });
+        promises.push(flickrApi.getImages(e.gsx$sceneimageurl.$t).then(o => {
+          templateData.images.push({
+            path: o.source,
+            thumbnailPath: o.thumbnail,
+            text: e.gsx$bodytext.$t
+          });
+        }));
       });
 
-      this.scene = template.buildTemplate(templateData);
+      // wait until all Flickr URLs are ready before building the template
+      return Promise.all(promises).then(() => {
+        this.scene = template.buildTemplate(templateData);
+      });
     }, response => {
       console.log(response.result.error.message);
     });
