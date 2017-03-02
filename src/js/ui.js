@@ -4,8 +4,14 @@ module.exports = {
     module.exports.setupOrbs();
     module.exports.setupUI();
     const aScene = document.querySelector('a-scene');
-    aScene.addEventListener('enter-vr', module.exports._showOrbs);
-    aScene.addEventListener('exit-vr', module.exports._hideOrbs);
+    aScene.addEventListener('enter-vr', () => {
+      module.exports._hideOrbs();
+      module.exports._hideText();
+    });
+    aScene.addEventListener('exit-vr', () => {
+      module.exports._showOrbs();
+      module.exports._showText();
+    });
   },
   setupUI: () => {
     // Fade transitions
@@ -35,7 +41,7 @@ module.exports = {
       let newText = document.getElementById(`text-${module.exports.skyIndex}`);
       newText.className += ' current-text';
       newText.setAttribute('visible', 'true');
-      
+
       // fade in the new a-sky
       aSkyEl.emit('fadeIn');
     });
@@ -140,6 +146,14 @@ module.exports = {
       cursor.emit('rewind');
       cursor.emit('stop-loading');
     });
+  },
+  _showText: () => {
+    let currentText = document.querySelector('.current-text');
+    currentText.setAttribute('visible', 'true');
+  },
+  _hideText: () => {
+    let currentText = document.querySelector('.current-text');
+    currentText.setAttribute('visible', 'false');
   },
   _showOrbs: () => {
     const backOrbEntity = document.getElementById('back-orb-entity');
