@@ -132,8 +132,8 @@
 	    // Fade transitions
 	    const storyLength = document.querySelectorAll('a-assets .sky').length;
 	    const aSkyEl = document.getElementById('skybox');
-	    const aSkyFadeOut = document.querySelector('a-sky #fade-out');
-	    const aSkyFadeIn = document.querySelector('a-sky #fade-in');
+	    const aSkyFadeOut = document.querySelector('#skybox #fade-out');
+	    const aSkyFadeIn = document.querySelector('#skybox #fade-in');
 	    const nextButton = document.getElementById('next');
 	    const fullscreenButton = document.getElementById('fullscreen');
 	    const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
