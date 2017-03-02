@@ -28,6 +28,14 @@ module.exports = {
       selectedThumbnail.className = selectedThumbnail.className.replace('selected-thumbnail','');
       document.querySelector(`#thumbnail-${module.exports.skyIndex}`).className += ' selected-thumbnail';
 
+      // update the text
+      let currentText = document.querySelector('.current-text');
+      currentText.className = currentText.className.replace('current-text', '');
+      currentText.setAttribute('visible', 'false');
+      let newText = document.getElementById(`text-${module.exports.skyIndex}`);
+      newText.className += ' current-text';
+      newText.setAttribute('visible', 'true');
+      
       // fade in the new a-sky
       aSkyEl.emit('fadeIn');
     });

@@ -65,14 +65,23 @@ module.exports = {
     scene.innerHTML = module.exports.template
     let assets = scene.querySelector('a-assets');
     let thumbnails = scene.querySelector('#thumbnails');
+    let aScene = scene.querySelector('a-scene');
     templateData.images.forEach((img, i) => {
       let skyEl = dom.createElement('img', `sky-${i}`, ['sky']);
       skyEl.setAttribute('src', img.path);
       assets.appendChild(skyEl);
 
-      let thumbnailEl = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? "selected-thumbnail" : ""}`]);
+      let thumbnailEl = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? 'selected-thumbnail' : ''}`]);
       thumbnailEl.setAttribute('src', img.path);
       thumbnails.appendChild(thumbnailEl);
+
+      let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
+      textEl.setAttribute('geometry', 'primitive: plane; height: auto; width: auto');
+      textEl.setAttribute('text', `value: ${img.text}`);
+      textEl.setAttribute('material', 'color: black');
+      textEl.setAttribute('position', '0 0 -1');
+      textEl.setAttribute('visible', `${i === 0}`);
+      aScene.appendChild(textEl);
     });
 
     return scene;
