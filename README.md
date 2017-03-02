@@ -21,5 +21,6 @@ npm run start
 ```
 
 View on localhost:8080. Connect to Google spreadsheet by adding a source in the URL.
-```http://localhost:8080/?source=(insert Google spreadsheet ID here)
+```
+http://localhost:8080/?source=(insert Google spreadsheet ID here)
 ```
