@@ -18,11 +18,11 @@ module.exports = class Story {
       let promises = [];
       let templateData = { images: [] };
       response.entry.forEach(e => {
-        promises.push(flickrApi.getImages(e.gsx$sceneimageurl.$t).then(o => {
+        promises.push(flickrApi.getImages(e.gsx$image.$t).then(o => {
           templateData.images.push({
             path: o.source,
             thumbnailPath: o.thumbnail,
-            text: e.gsx$bodytext.$t
+            text: e.gsx$text.$t
           });
         }));
       });

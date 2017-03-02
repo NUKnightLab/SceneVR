@@ -1,7 +1,7 @@
 const Story = require('story.js');
 const Aframe = require('aframe-v0.5.0.js');
 
-const exampleSpreadsheetId = '1tTyJECAoiLjHQh9_RWtVavhO_rLk133dt8-5c6lN-F0';
+const exampleSpreadsheetId = '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U';
 
 function initalize() {
   const qs = getQueryParams(window.location.search);
