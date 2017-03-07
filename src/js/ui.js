@@ -1,6 +1,7 @@
 module.exports = {
   skyIndex: 0,
   inVR: 0,
+  cameraEl: 0,
   addEventListeners: () => {
     module.exports.setupOrbs();
     module.exports.setupUI();
@@ -27,7 +28,7 @@ module.exports = {
     const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
 
     // Compass
-    const cameraEl = document.getElementById('camera');
+    cameraEl = document.getElementById('camera');
     let angle, angleInRadians = 0;
     const pointerEl = document.getElementById('pointer');
 
@@ -90,7 +91,7 @@ module.exports = {
 
     backOrb.setAttribute('opacity', 0);
     nextOrb.setAttribute('opacity', Number(storyLength > 1));
-    aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+    module.exports._updateSkybox();
     if (storyLength > 1) {
       nextOrbEntity.setAttribute('class','orb');
       nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
@@ -134,11 +135,12 @@ module.exports = {
     nextOrbEntity.setAttribute('visible', 'false');
   },
   _updateSkies: () => {
-    const aSkyEl = document.getElementById('skybox');
+    //const aSkyEl = document.getElementById('skybox');
     const backOrb = document.getElementById('back-orb');
     const nextOrb = document.getElementById('next-orb');
 
-    aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+    //aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+    module.exports._updateSkybox();
     backOrb.setAttribute('src', `#sky-${module.exports.skyIndex - 1}`);
     nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
   },
@@ -157,50 +159,71 @@ module.exports = {
     const backOrb = document.getElementById('back-orb');
     const nextOrb = document.getElementById('next-orb');
     
-    	//Make the back orb invisible
-       backOrb.setAttribute('opacity',0);
-       backOrb.setAttribute('src', '');
-       backOrbEntity.setAttribute('class','not-selectable');
+    //Make the back orb invisible
+    backOrb.setAttribute('opacity',0);
+    backOrb.setAttribute('src', '');
+    backOrbEntity.setAttribute('class','not-selectable');
        
-       //Make the next orb visible
-  	   nextOrb.setAttribute('opacity',1);
-  	   nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
-  	   nextOrbEntity.setAttribute('class','orb');
+    //Make the next orb visible
+  	nextOrb.setAttribute('opacity',1);
+  	nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
+  	nextOrbEntity.setAttribute('class','orb');
   	   
-  	   aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+  	//aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+  	module.exports._updateSkybox();
   }
   else if (index==storyLength-1){ //Last scene of story
-  //Make the next orb invisible
+    //Make the next orb invisible
     const aSkyEl = document.getElementById('skybox');
-    const backOrbEntity = document.getElementById('back-orb-entity');
+   	const backOrbEntity = document.getElementById('back-orb-entity');
     const nextOrbEntity = document.getElementById('next-orb-entity');
     const backOrb = document.getElementById('back-orb');
     const nextOrb = document.getElementById('next-orb');
-       nextOrb.setAttribute('opacity',0);
-       nextOrb.setAttribute('src', '');
-       nextOrbEntity.setAttribute('class','not-selectable');
+    nextOrb.setAttribute('opacity',0);
+    nextOrb.setAttribute('src', '');
+    nextOrbEntity.setAttribute('class','not-selectable');
        
-       //Make the back orb visible
-  	   backOrb.setAttribute('opacity',1);
-  	   backOrb.setAttribute('src', `#sky-${module.exports.skyIndex - 1}`);
-  	   backOrbEntity.setAttribute('class','orb');
+    //Make the back orb visible
+  	backOrb.setAttribute('opacity',1);
+  	backOrb.setAttribute('src', `#sky-${module.exports.skyIndex - 1}`);
+  	backOrbEntity.setAttribute('class','orb');
   	   
-  	   aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+  	module.exports._updateSkybox();
   }
   else {
-   const backOrb = document.getElementById('back-orb');
+    const backOrb = document.getElementById('back-orb');
     const nextOrb = document.getElementById('next-orb');
     const backOrbEntity = document.getElementById('back-orb-entity');
     const nextOrbEntity = document.getElementById('next-orb-entity');
-     //Make the back orb visible
-  	   backOrb.setAttribute('opacity',1);
-  	   backOrbEntity.setAttribute('class','orb');
+    //Make the back orb visible
+  	backOrb.setAttribute('opacity',1);
+  	backOrbEntity.setAttribute('class','orb');
   	   
-  	   //Make the next orb visible
-  	   nextOrb.setAttribute('opacity',1);
-  	   nextOrbEntity.setAttribute('class','orb');
+  	//Make the next orb visible
+  	nextOrb.setAttribute('opacity',1);
+  	nextOrbEntity.setAttribute('class','orb');
   	   
   	module.exports._updateSkies();
   }
-  }
+  },
+  
+_updateSkybox: () => {
+ const aSkyEl = document.getElementById('skybox');
+ const w=document.getElementById(`sky-${module.exports.skyIndex}`).naturalWidth;
+ const h=document.getElementById(`sky-${module.exports.skyIndex}`).naturalHeight;
+ if (h*2<w){ //Longer than an equilinear 
+ 	const multiplier=(w/h)*60.8;
+ 	aSkyEl.setAttribute('theta-start', 45);
+ 	aSkyEl.setAttribute('theta-length', 60.8);
+ 	console.log(multiplier)
+ 	aSkyEl.setAttribute('phi-length', multiplier);
+ 	aSkyEl.setAttribute('rotation', "0 180 0");
+ } else {
+ aSkyEl.setAttribute('theta-start', 0);
+ aSkyEl.setAttribute('theta-length', 180);
+ aSkyEl.setAttribute('phi-length', 360);
+ aSkyEl.setAttribute('rotation', "0 0 0");
+ }
+ aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+}
 }
