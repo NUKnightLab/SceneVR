@@ -21,7 +21,7 @@ Use this command to run the auto-compiler:
 npm run start
 ```
 
-View on localhost:8080. Connect to Google spreadsheet by adding a source in the URL.
+View on localhost:8080. Connect to Google spreadsheet by adding a source in the URL. Images can only be viewed if they are uploaded to Flickr.
 ```
 http://localhost:8080/?source=(insert Google spreadsheet ID here)
 ```
