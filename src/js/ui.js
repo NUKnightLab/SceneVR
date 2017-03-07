@@ -217,10 +217,10 @@ _updateSkybox: () => {
  	aSkyEl.setAttribute('phi-length', multiplier);
  	aSkyEl.setAttribute('rotation', "0 180 0");
  } else {
- aSkyEl.setAttribute('theta-start', 0);
- aSkyEl.setAttribute('theta-length', 180);
- aSkyEl.setAttribute('phi-length', 360);
- aSkyEl.setAttribute('rotation', "0 0 0");
+ 	aSkyEl.setAttribute('theta-start', 0);
+ 	aSkyEl.setAttribute('theta-length', 180);
+ 	aSkyEl.setAttribute('phi-length', 360);
+ 	aSkyEl.setAttribute('rotation', "0 0 0");
  }
  aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
 }
