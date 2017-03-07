@@ -66,6 +66,11 @@ module.exports = {
     let assets = scene.querySelector('a-assets');
     let thumbnails = scene.querySelector('#thumbnails');
     let aScene = scene.querySelector('a-scene');
+    let backgroundText = dom.createElement('a-entity', 'background-text', []);
+    backgroundText.setAttribute('geometry', 'primitive: plane; height: 0.6; width: 2.2');
+    backgroundText.setAttribute('material', 'color: black; opacity: 0.8');
+    backgroundText.setAttribute('position', '0 0 -2');
+    aScene.appendChild(backgroundText);
     templateData.images.forEach((img, i) => {
       let skyEl = dom.createElement('img', `sky-${i}`, ['sky']);
       skyEl.setAttribute('src', img.path);
@@ -76,12 +81,12 @@ module.exports = {
       thumbnails.appendChild(thumbnailEl);
 
       let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
-      textEl.setAttribute('geometry', 'primitive: plane; height: auto; width: auto');
-      textEl.setAttribute('text', `value: ${img.text}`);
-      textEl.setAttribute('material', 'color: black');
-      textEl.setAttribute('position', '0 0 -1');
+      textEl.setAttribute('geometry', 'primitive: plane; height: 0.3; width: 1');
+      textEl.setAttribute('text', `value: ${img.text}; align: left`);
+      textEl.setAttribute('material', 'color: black; opacity: 0.8');
+      textEl.setAttribute('position', '0 0 1');
       textEl.setAttribute('visible', `${i === 0}`);
-      aScene.appendChild(textEl);
+      backgroundText.appendChild(textEl);
     });
 
     return scene;
