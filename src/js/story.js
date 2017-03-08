@@ -17,18 +17,17 @@ module.exports = class Story {
     return gapiClient.getSpreadsheetData(this.config.source).then(response => {
       let promises = [];
       let templateData = { images: [] };
-      response.entry.forEach(e => {
-        promises.push(flickrApi.getImages(e.gsx$image.$t).then(o => {
+      response.entry.forEach(e => promises.push(flickrApi.getImages(e.gsx$image.$t)));
+
+      // wait until all Flickr URLs are ready before building the template
+      return Promise.all(promises).then(objects => {
+        objects.forEach((o, i) => {
           templateData.images.push({
             path: o.source,
             thumbnailPath: o.thumbnail,
-            text: e.gsx$text.$t
+            text: response.entry[i].gsx$text.$t
           });
-        }));
-      });
-
-      // wait until all Flickr URLs are ready before building the template
-      return Promise.all(promises).then(() => {
+        })
         this.scene = template.buildTemplate(templateData);
       });
     }, response => {
