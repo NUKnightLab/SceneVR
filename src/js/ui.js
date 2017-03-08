@@ -9,12 +9,10 @@ module.exports = {
     aScene.addEventListener('enter-vr', () => {
       module.exports.inVR=1;
       module.exports._showOrbs();
-      module.exports._hideText();
     });
     aScene.addEventListener('exit-vr', () => {
     module.exports.inVR=0;
       module.exports._hideOrbs();
-      module.exports._showText();
     });
   },
   setupUI: () => {
