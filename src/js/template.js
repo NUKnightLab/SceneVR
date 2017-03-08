@@ -50,10 +50,6 @@ module.exports = {
       </div>
       <div id="footer">
         <div id="footer-content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.</p>
         </div>
         <div id="thumbnails">
         </div>
@@ -66,11 +62,15 @@ module.exports = {
     let assets = scene.querySelector('a-assets');
     let thumbnails = scene.querySelector('#thumbnails');
     let aScene = scene.querySelector('a-scene');
+
     let backgroundText = dom.createElement('a-entity', 'background-text', []);
     backgroundText.setAttribute('geometry', 'primitive: plane; height: 0.6; width: 2.2');
     backgroundText.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
     backgroundText.setAttribute('position', '0 0 -2');
     aScene.appendChild(backgroundText);
+
+    let footerContentEl = scene.querySelector('#footer-content');
+
     templateData.images.forEach((img, i) => {
       let skyEl = dom.createElement('img', `sky-${i}`, ['sky']);
       skyEl.setAttribute('src', img.path);
@@ -87,6 +87,10 @@ module.exports = {
       textEl.setAttribute('position', '0 0 1');
       textEl.setAttribute('visible', `${i === 0}`);
       backgroundText.appendChild(textEl);
+
+      let footerText = dom.createElement('p', `footer-text-${i}`, ['footer-text', `${i === 0 ? 'current-footer-text' : ''}`]);
+      footerText.innerHTML = img.text;
+      footerContentEl.appendChild(footerText);
     });
 
     return scene;

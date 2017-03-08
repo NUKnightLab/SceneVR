@@ -94,8 +94,13 @@ body {
     width: 50%;
     overflow-y: auto;
 
-    p {
+    .footer-text {
       margin: 0 0 0 0;
+      display: none;
+    }
+
+    .footer-text.current-footer-text {
+      display: block;
     }
   }
 
