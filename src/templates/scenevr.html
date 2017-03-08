@@ -79,8 +79,13 @@
         </ul>
     </nav>
 </header>
-
     <article id="product-body">
+        <section id="demo" class="container-fluid">
+            <div class="product-demo">
+              <iframe src="http://scene.knightlab.com/?source=1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U&width=1150&height=650" width="1150" height="650" frameborder="0"></iframe>
+            </div>
+
+        </section>
         <section id="overview" class="container">
         	<div class="grid-size-2 grid-size-1-phone">
         		<div class="grid-item">
@@ -318,11 +323,11 @@
                                     </div>
                                     <div class="input-group-label column-3">
                                         <label class="input-group-addon" for="inlinelabel">Width</label>
-                                        <input type="text" value="100%" placeholder="100%" id="embed-width" class="input-mini">
+                                        <input type="number" value="100" placeholder="100" id="embed-width" class="input-mini">
                                     </div>
                                     <div class="input-group-label column-3">
                                         <label class="input-group-addon" for="inlinelabel">Height</label>
-                                        <input type="text" value="650" placeholder="650" id="embed-height" class="input-mini">
+                                        <input type="number" value="650" placeholder="650" id="embed-height" class="input-mini">
                                     </div>
                                 </div>
                             </form>
@@ -651,7 +656,7 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
       const queryParamsString = buildQueryParamsString(options);
 
       let shareLinkEl = document.getElementById('share-link');
-      const srcUrl = `https://scene.knightlab.com/?${queryParamsString}`;
+      const srcUrl = `http://scene.knightlab.com/?${queryParamsString}`;
       shareLinkEl.value = srcUrl;
 
       let iframe = `<iframe src="${srcUrl}" width="${options.width}" height="${options.height}" frameborder="0"></iframe>`;
