@@ -87,7 +87,9 @@ module.exports = {
 
     backOrb.setAttribute('opacity', 0);
     nextOrb.setAttribute('opacity', Number(storyLength > 1));
-    module.exports._updateSkybox();
+
+    const currentSky = document.getElementById('sky-0');
+    currentSky.onload = module.exports._updateSkybox;
 
     if (storyLength > 1) {
       nextOrbEntity.setAttribute('class','orb');
@@ -197,22 +199,20 @@ module.exports = {
   _updateSkybox: () => {
     const aSkyEl = document.getElementById('skybox');
     const currentSky = document.getElementById(`sky-${module.exports.skyIndex}`);
-    currentSky.onload = () => {
-      const w = currentSky.naturalWidth;
-      const h = currentSky.naturalHeight;
-      if (h*2 < w) { //Longer than an equilinear
-        const multiplier=(w/h)*60.8;
-        aSkyEl.setAttribute('theta-start', 45);
-        aSkyEl.setAttribute('theta-length', 60.8);
-        aSkyEl.setAttribute('phi-length', multiplier);
-        aSkyEl.setAttribute('rotation', "0 180 0");
-      } else {
-        aSkyEl.setAttribute('theta-start', 0);
-        aSkyEl.setAttribute('theta-length', 180);
-        aSkyEl.setAttribute('phi-length', 360);
-        aSkyEl.setAttribute('rotation', "0 0 0");
-      }
-      aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+    const w = currentSky.naturalWidth;
+    const h = currentSky.naturalHeight;
+    if (h*2 < w) { //Longer than an equilinear
+      const multiplier=(w/h)*60.8;
+      aSkyEl.setAttribute('theta-start', 45);
+      aSkyEl.setAttribute('theta-length', 60.8);
+      aSkyEl.setAttribute('phi-length', multiplier);
+      aSkyEl.setAttribute('rotation', "0 180 0");
+    } else {
+      aSkyEl.setAttribute('theta-start', 0);
+      aSkyEl.setAttribute('theta-length', 180);
+      aSkyEl.setAttribute('phi-length', 360);
+      aSkyEl.setAttribute('rotation', "0 0 0");
     }
+    aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
   }
 }
