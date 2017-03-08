@@ -198,7 +198,7 @@ module.exports = {
       nextOrb.setAttribute('opacity', 1);
       nextOrbEntity.setAttribute('class', 'orb');
     }
-    module.exports._updateSkybox();
+    module.exports._updateSkies();
   },
   _updateSkybox: () => {
     const aSkyEl = document.getElementById('skybox');
