@@ -7,11 +7,11 @@ module.exports = {
     module.exports.setupUI();
     const aScene = document.querySelector('a-scene');
     aScene.addEventListener('enter-vr', () => {
-      module.exports.inVR=1;
+      module.exports.inVR = 1;
       module.exports._showOrbs();
     });
     aScene.addEventListener('exit-vr', () => {
-    module.exports.inVR=0;
+      module.exports.inVR = 0;
       module.exports._hideOrbs();
     });
   },
@@ -43,9 +43,7 @@ module.exports = {
       let newText = document.getElementById(`text-${module.exports.skyIndex}`);
       newText.className += ' current-text';
       if (module.exports.inVR==0)
-      {
-      newText.setAttribute('visible', 'true');
-	  }
+        newText.setAttribute('visible', 'true');
       // fade in the new a-sky
       aSkyEl.emit('fadeIn');
     });
@@ -90,6 +88,7 @@ module.exports = {
     backOrb.setAttribute('opacity', 0);
     nextOrb.setAttribute('opacity', Number(storyLength > 1));
     module.exports._updateSkybox();
+
     if (storyLength > 1) {
       nextOrbEntity.setAttribute('class','orb');
       nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
@@ -97,14 +96,14 @@ module.exports = {
 
     //Handler when 'back' orb is selected
     backOrb.addEventListener('click', () => {
-    module.exports._transitionTo(module.exports.skyIndex-1);
-    cursor.components.raycaster.refreshObjects(); //Update cursor to only select active orbs
+      module.exports._transitionTo(module.exports.skyIndex-1);
+      cursor.components.raycaster.refreshObjects(); //Update cursor to only select active orbs
     });
 
     //Handler when 'next' orb is selected
     nextOrb.addEventListener('click', () => {
-    module.exports._transitionTo(module.exports.skyIndex+1);
-    cursor.components.raycaster.refreshObjects(); //Update cursor to only select active orbs
+      module.exports._transitionTo(module.exports.skyIndex+1);
+      cursor.components.raycaster.refreshObjects(); //Update cursor to only select active orbs
     });
 
     cursor.addEventListener('raycaster-intersection-cleared', () => {
@@ -133,95 +132,87 @@ module.exports = {
     nextOrbEntity.setAttribute('visible', 'false');
   },
   _updateSkies: () => {
-    //const aSkyEl = document.getElementById('skybox');
     const backOrb = document.getElementById('back-orb');
     const nextOrb = document.getElementById('next-orb');
 
-    //aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
     module.exports._updateSkybox();
     backOrb.setAttribute('src', `#sky-${module.exports.skyIndex - 1}`);
     nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
   },
   _transitionTo: (index) => {
-  const storyLength = document.querySelectorAll('a-assets .sky').length;
-  const aSkyFadeOut = document.querySelector('a-sky #fade-out');
-  if ((index>=storyLength) || (index<0)) //If index is out of range
-  	return;
-  console.log("Changing to index: "+index+" Story length is: "+storyLength);
-  module.exports.skyIndex=index;
-  aSkyFadeOut.emit('fadeOut');
-  if (index==0){ //First scene of story
-    const aSkyEl = document.getElementById('skybox');
-    const backOrbEntity = document.getElementById('back-orb-entity');
-    const nextOrbEntity = document.getElementById('next-orb-entity');
-    const backOrb = document.getElementById('back-orb');
-    const nextOrb = document.getElementById('next-orb');
-    
-    //Make the back orb invisible
-    backOrb.setAttribute('opacity',0);
-    backOrb.setAttribute('src', '');
-    backOrbEntity.setAttribute('class','not-selectable');
-       
-    //Make the next orb visible
-  	nextOrb.setAttribute('opacity',1);
-  	nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
-  	nextOrbEntity.setAttribute('class','orb');
-  	   
-  	//aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
-  	module.exports._updateSkybox();
-  }
-  else if (index==storyLength-1){ //Last scene of story
-    //Make the next orb invisible
-    const aSkyEl = document.getElementById('skybox');
-   	const backOrbEntity = document.getElementById('back-orb-entity');
-    const nextOrbEntity = document.getElementById('next-orb-entity');
-    const backOrb = document.getElementById('back-orb');
-    const nextOrb = document.getElementById('next-orb');
-    nextOrb.setAttribute('opacity',0);
-    nextOrb.setAttribute('src', '');
-    nextOrbEntity.setAttribute('class','not-selectable');
-       
-    //Make the back orb visible
-  	backOrb.setAttribute('opacity',1);
-  	backOrb.setAttribute('src', `#sky-${module.exports.skyIndex - 1}`);
-  	backOrbEntity.setAttribute('class','orb');
-  	   
-  	module.exports._updateSkybox();
-  }
-  else {
-    const backOrb = document.getElementById('back-orb');
-    const nextOrb = document.getElementById('next-orb');
-    const backOrbEntity = document.getElementById('back-orb-entity');
-    const nextOrbEntity = document.getElementById('next-orb-entity');
-    //Make the back orb visible
-  	backOrb.setAttribute('opacity',1);
-  	backOrbEntity.setAttribute('class','orb');
-  	   
-  	//Make the next orb visible
-  	nextOrb.setAttribute('opacity',1);
-  	nextOrbEntity.setAttribute('class','orb');
-  	   
-  	module.exports._updateSkies();
-  }
+    const storyLength = document.querySelectorAll('a-assets .sky').length;
+    const aSkyFadeOut = document.querySelector('a-sky #fade-out');
+    if ((index >= storyLength) || (index < 0)) //If index is out of range
+      return;
+
+    module.exports.skyIndex = index;
+    aSkyFadeOut.emit('fadeOut');
+
+    if (index === 0){ //First scene of story
+      const aSkyEl = document.getElementById('skybox');
+      const backOrbEntity = document.getElementById('back-orb-entity');
+      const nextOrbEntity = document.getElementById('next-orb-entity');
+      const backOrb = document.getElementById('back-orb');
+      const nextOrb = document.getElementById('next-orb');
+
+      //Make the back orb invisible
+      backOrb.setAttribute('opacity', 0);
+      backOrb.setAttribute('src', '');
+      backOrbEntity.setAttribute('class', 'not-selectable');
+ 
+      //Make the next orb visible
+      nextOrb.setAttribute('opacity', 1);
+      nextOrb.setAttribute('src', `#sky-${module.exports.skyIndex + 1}`);
+      nextOrbEntity.setAttribute('class', 'orb');
+    } else if (index === storyLength - 1){ //Last scene of story
+      //Make the next orb invisible
+      const aSkyEl = document.getElementById('skybox');
+      const backOrbEntity = document.getElementById('back-orb-entity');
+      const nextOrbEntity = document.getElementById('next-orb-entity');
+      const backOrb = document.getElementById('back-orb');
+      const nextOrb = document.getElementById('next-orb');
+      nextOrb.setAttribute('opacity', 0);
+      nextOrb.setAttribute('src', '');
+      nextOrbEntity.setAttribute('class', 'not-selectable');
+
+      //Make the back orb visible
+      backOrb.setAttribute('opacity', 1);
+      backOrb.setAttribute('src', `#sky-${module.exports.skyIndex - 1}`);
+      backOrbEntity.setAttribute('class', 'orb');
+    } else {
+      const backOrb = document.getElementById('back-orb');
+      const nextOrb = document.getElementById('next-orb');
+      const backOrbEntity = document.getElementById('back-orb-entity');
+      const nextOrbEntity = document.getElementById('next-orb-entity');
+      //Make the back orb visible
+      backOrb.setAttribute('opacity', 1);
+      backOrbEntity.setAttribute('class', 'orb');
+
+      //Make the next orb visible
+      nextOrb.setAttribute('opacity', 1);
+      nextOrbEntity.setAttribute('class', 'orb');
+    }
+    module.exports._updateSkybox();
   },
-  
-_updateSkybox: () => {
- const aSkyEl = document.getElementById('skybox');
- const w=document.getElementById(`sky-${module.exports.skyIndex}`).naturalWidth;
- const h=document.getElementById(`sky-${module.exports.skyIndex}`).naturalHeight;
- if (h*2<w){ //Longer than an equilinear 
- 	const multiplier=(w/h)*60.8;
- 	aSkyEl.setAttribute('theta-start', 45);
- 	aSkyEl.setAttribute('theta-length', 60.8);
- 	console.log(multiplier)
- 	aSkyEl.setAttribute('phi-length', multiplier);
- 	aSkyEl.setAttribute('rotation', "0 180 0");
- } else {
- 	aSkyEl.setAttribute('theta-start', 0);
- 	aSkyEl.setAttribute('theta-length', 180);
- 	aSkyEl.setAttribute('phi-length', 360);
- 	aSkyEl.setAttribute('rotation', "0 0 0");
- }
- aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
-}
+  _updateSkybox: () => {
+    const aSkyEl = document.getElementById('skybox');
+    const currentSky = document.getElementById(`sky-${module.exports.skyIndex}`);
+    currentSky.onload = () => {
+      const w = currentSky.naturalWidth;
+      const h = currentSky.naturalHeight;
+      if (h*2 < w) { //Longer than an equilinear
+        const multiplier=(w/h)*60.8;
+        aSkyEl.setAttribute('theta-start', 45);
+        aSkyEl.setAttribute('theta-length', 60.8);
+        aSkyEl.setAttribute('phi-length', multiplier);
+        aSkyEl.setAttribute('rotation', "0 180 0");
+      } else {
+        aSkyEl.setAttribute('theta-start', 0);
+        aSkyEl.setAttribute('theta-length', 180);
+        aSkyEl.setAttribute('phi-length', 360);
+        aSkyEl.setAttribute('rotation', "0 0 0");
+      }
+      aSkyEl.setAttribute('src', `#sky-${module.exports.skyIndex}`);
+    }
+  }
 }
