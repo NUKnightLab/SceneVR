@@ -82,8 +82,8 @@ module.exports = {
 
       let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
       textEl.setAttribute('geometry', 'primitive: plane; height: 0.3; width: 1');
-      textEl.setAttribute('text', `value: ${img.text}; align: left`);
-      textEl.setAttribute('material', 'color: black; opacity: 0.8');
+      //textEl.setAttribute('text', `value: ${img.text}; align: left`); //Currently not showing
+      textEl.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
       textEl.setAttribute('position', '0 0 1');
       textEl.setAttribute('visible', `${i === 0}`);
       backgroundText.appendChild(textEl);
