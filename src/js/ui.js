@@ -9,10 +9,12 @@ module.exports = {
     aScene.addEventListener('enter-vr', () => {
       module.exports.inVR = 1;
       module.exports._showOrbs();
+      module.exports._hideText(); //Current way to just hide text permanently
     });
     aScene.addEventListener('exit-vr', () => {
       module.exports.inVR = 0;
       module.exports._hideOrbs();
+      module.exports._hideText(); //Current way to just hide text permanently
     });
   },
   setupUI: () => {
@@ -24,6 +26,8 @@ module.exports = {
     const nextButton = document.getElementById('next');
     const fullscreenButton = document.getElementById('fullscreen');
     const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
+    
+    module.exports._hideText(); //Current way to just hide text permanently
 
     // Compass
     cameraEl = document.getElementById('camera');

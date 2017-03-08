@@ -68,7 +68,7 @@ module.exports = {
     let aScene = scene.querySelector('a-scene');
     let backgroundText = dom.createElement('a-entity', 'background-text', []);
     backgroundText.setAttribute('geometry', 'primitive: plane; height: 0.6; width: 2.2');
-    backgroundText.setAttribute('material', 'color: black; opacity: 0.8');
+    backgroundText.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
     backgroundText.setAttribute('position', '0 0 -2');
     aScene.appendChild(backgroundText);
     templateData.images.forEach((img, i) => {
