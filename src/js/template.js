@@ -18,12 +18,12 @@ module.exports = {
             dur=500 from="0" to="360"></a-animation>
         </a-entity>
       </a-entity>
-      <a-entity id="back-orb-entity" position="-0.5 -0.5 -0.5" rotation="0 0 0" class="not-selectable" opacity="0" visible="false">
+      <a-entity id="back-orb-entity" position="-0.5 -0.6 -0.5" rotation="0 0 0" class="not-selectable" opacity="0" visible="false">
         <a-sky id="back-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>  
           <a-animation begin="mouseenter" dur=4000 attribute="rotation" to="0 360 0"fill="none"></a-animation>
         </a-sky>
       </a-entity>
-      <a-entity id="next-orb-entity" position="0.5 -0.5 -0.5" rotation="0 0 0" class="not-selectable" visible="false">
+      <a-entity id="next-orb-entity" position="0.5 -0.6 -0.5" rotation="0 0 0" class="not-selectable" visible="false">
         <a-sky id="next-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>
           <a-animation begin="mouseenter" dur=4000 attribute="rotation" to="0 360 0" fill="none"></a-animation>
           <a-animation id="fade-out-next" attribute="material.opacity" begin="fadeOutNext" to="0"></a-animation>
