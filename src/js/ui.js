@@ -36,12 +36,20 @@ module.exports = {
       selectedThumbnail.className = selectedThumbnail.className.replace('selected-thumbnail','');
       document.querySelector(`#thumbnail-${module.exports.skyIndex}`).className += ' selected-thumbnail';
 
-      // update the text
+      // update the VR text
       let currentText = document.querySelector('.current-text');
       currentText.className = currentText.className.replace('current-text', '');
       currentText.setAttribute('visible', 'false');
       let newText = document.getElementById(`text-${module.exports.skyIndex}`);
       newText.className += ' current-text';
+
+      // update the footer text
+      let currentFooterText = document.querySelector('.current-footer-text');
+      currentFooterText.className = currentFooterText.className.replace('current-footer-text', '');
+      // currentFooterText.style.display = 'none';
+      let newFooterText = document.getElementById(`footer-text-${module.exports.skyIndex}`);
+      newFooterText.className += ' current-footer-text';
+
       if (module.exports.inVR==0)
         newText.setAttribute('visible', 'true');
       // fade in the new a-sky
