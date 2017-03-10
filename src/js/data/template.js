@@ -1,12 +1,12 @@
 const dom = require('utils/dom.js');
 
 module.exports = {
-  template: `<a-scene>
+    template: `<a-scene>
       <a-assets>
       </a-assets>
-      <a-entity id="camera" camera look-controls>
+      <a-entity id="camera" camera look-controls="reverse-mouse-drag:true">
         <a-entity id="cursor"
-          cursor="fuse: true; fuseTimeout:4500"
+          cursor="fuse: true; fuseTimeout:4500;"
           raycaster="objects: .orb"
           position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360"
           material="color: #D3D3D3">
@@ -19,7 +19,7 @@ module.exports = {
         </a-entity>
       </a-entity>
       <a-entity id="back-orb-entity" position="-0.5 -0.6 -0.5" rotation="0 0 0" class="not-selectable" opacity="0" visible="false">
-        <a-sky id="back-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>  
+        <a-sky id="back-orb" radius=0.25 phi-start=0 phi-length=360 opacity=1>
           <a-animation begin="mouseenter" dur=4000 attribute="rotation" to="0 360 0"fill="none"></a-animation>
         </a-sky>
       </a-entity>
@@ -55,44 +55,44 @@ module.exports = {
         </div>
       </div>
     </div>`,
-  buildTemplate: (templateData) => {
-    let scene = document.createElement('section');
-    scene.id = 'rendered-template';
-    scene.innerHTML = module.exports.template
-    let assets = scene.querySelector('a-assets');
-    let thumbnails = scene.querySelector('#thumbnails');
-    let aScene = scene.querySelector('a-scene');
+    buildTemplate: (templateData) => {
+        let scene = document.createElement('section');
+        scene.id = 'rendered-template';
+        scene.innerHTML = module.exports.template
+        let assets = scene.querySelector('a-assets');
+        let thumbnails = scene.querySelector('#thumbnails');
+        let aScene = scene.querySelector('a-scene');
 
-    let backgroundText = dom.createElement('a-entity', 'background-text', []);
-    backgroundText.setAttribute('geometry', 'primitive: plane; height: 0.6; width: 2.2');
-    backgroundText.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
-    backgroundText.setAttribute('position', '0 0 -2');
-    aScene.appendChild(backgroundText);
+        let backgroundText = dom.createElement('a-entity', 'background-text', []);
+        backgroundText.setAttribute('geometry', 'primitive: plane; height: 0.6; width: 2.2');
+        backgroundText.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
+        backgroundText.setAttribute('position', '0 0 -2');
+        aScene.appendChild(backgroundText);
 
-    let footerContentEl = scene.querySelector('#footer-content');
+        let footerContentEl = scene.querySelector('#footer-content');
 
-    templateData.images.forEach((img, i) => {
-      let skyEl = dom.createElement('img', `sky-${i}`, ['sky']);
-      skyEl.setAttribute('src', img.path);
-      assets.appendChild(skyEl);
+        templateData.images.forEach((img, i) => {
+            let skyEl = dom.createElement('img', `sky-${i}`, ['sky']);
+            skyEl.setAttribute('src', img.path);
+            assets.appendChild(skyEl);
 
-      let thumbnailEl = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? 'selected-thumbnail' : ''}`]);
-      thumbnailEl.setAttribute('src', img.thumbnailPath);
-      thumbnails.appendChild(thumbnailEl);
+            let thumbnailEl = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? 'selected-thumbnail' : ''}`]);
+            thumbnailEl.setAttribute('src', img.thumbnailPath);
+            thumbnails.appendChild(thumbnailEl);
 
-      let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
-      textEl.setAttribute('geometry', 'primitive: plane; height: 0.3; width: 1');
-      //textEl.setAttribute('text', `value: ${img.text}; align: left`); //Currently not showing
-      textEl.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
-      textEl.setAttribute('position', '0 0 1');
-      textEl.setAttribute('visible', `${i === 0}`);
-      backgroundText.appendChild(textEl);
+            let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
+            textEl.setAttribute('geometry', 'primitive: plane; height: 0.3; width: 1');
+            //textEl.setAttribute('text', `value: ${img.text}; align: left`); //Currently not showing
+            textEl.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
+            textEl.setAttribute('position', '0 0 1');
+            textEl.setAttribute('visible', `${i === 0}`);
+            backgroundText.appendChild(textEl);
 
-      let footerText = dom.createElement('p', `footer-text-${i}`, ['footer-text', `${i === 0 ? 'current-footer-text' : ''}`]);
-      footerText.innerHTML = img.text;
-      footerContentEl.appendChild(footerText);
-    });
+            let footerText = dom.createElement('p', `footer-text-${i}`, ['footer-text', `${i === 0 ? 'current-footer-text' : ''}`]);
+            footerText.innerHTML = img.text;
+            footerContentEl.appendChild(footerText);
+        });
 
-    return scene;
-  }
+        return scene;
+    }
 }

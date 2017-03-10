@@ -1,0 +1,17 @@
+<header class="header-product">
+	<h1 class="product-logo product-logo-large">{{{title}}} <span>{{#if title_suffix}}{{title_suffix}}{{else}}JS{{/if}}</span></h1>
+	<h2 class="product-tagline">{{{intro}}}</h2>
+	<a class="button button-secondary button-large button-small-phone" {{#if button_link}}href="{{button_link}}"{{else}}href="#make"{{/if}}>{{button}}</a>
+    <nav id="navbar-secondary" class="navbar navbar-subnav column-hide-phone">
+        <ul>
+            <li class="logo">
+                <h2 class="product-logo product-logo-smallest">{{title}} <span>{{#if title_suffix}}{{title_suffix}}{{else}}JS{{/if}}</span></h2>
+            </li>
+        </ul>
+        <ul>
+            {{#each subnav}}
+                <li><a class="button" href="{{this.link}}">{{this.title}}</a></li>
+            {{/each}}
+        </ul>
+    </nav>
+</header>
