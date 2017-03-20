@@ -1,6 +1,6 @@
 var cssmin = require('cssmin'),
     fs = require('fs-extra'),
-    css = fs.readFileSync("dist/css/orangeline.css", 'utf8'),
+    css = fs.readFileSync("dist/css/scene.css", 'utf8'),
     min = cssmin(css);
 
-fs.outputFileSync('dist/css/orangeline.min.css', min, 'utf8');
+fs.outputFileSync('dist/css/scene.min.css', min, 'utf8');
