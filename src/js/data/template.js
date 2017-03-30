@@ -31,8 +31,8 @@ module.exports = {
         </a-sky>
       </a-entity>
       <a-sky id="skybox" src="#sky-0">
-        <a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" to="0"></a-animation>
-        <a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" to="1"></a-animation>
+        <a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" from="1" to="0"></a-animation>
+        <a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" from="0" to="1"></a-animation>
       </a-sky>
     </a-scene>
     <div id="ui">
