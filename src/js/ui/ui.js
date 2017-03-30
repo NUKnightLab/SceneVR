@@ -56,6 +56,9 @@ module.exports = {
 
       if (module.exports.inVR==0)
         newText.setAttribute('visible', 'true');
+
+      // update orbs (and skybox projection if necessary)
+      module.exports._updateSkies();
       // fade in the new a-sky
       aSkyEl.emit('fadeIn');
     });
@@ -206,7 +209,6 @@ module.exports = {
       nextOrb.setAttribute('opacity', 1);
       nextOrbEntity.setAttribute('class', 'orb');
     }
-    module.exports._updateSkies();
   },
   _updateSkybox: () => {
     const aSkyEl = document.getElementById('skybox');
