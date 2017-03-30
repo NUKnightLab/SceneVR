@@ -8,7 +8,7 @@ module.exports = class Scenes {
         this.config = config;
 
         this.buildScenes().then(() => {
-            document.querySelector('body').appendChild(this.scene);
+            document.querySelector('body').prepend(this.scene);
             ui.addEventListeners();
         });
     }
