@@ -9,7 +9,7 @@ module.exports = {
           cursor="fuse: true; fuseTimeout:4500;"
           raycaster="objects: .orb"
           position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360"
-          material="color: #D3D3D3">
+          material="color: #D3D3D3" visible="false">
             <a-animation  begin="fusing" end="stop-loading" easing="ease-in" attribute="geometry.thetaLength"
             dur=4500 from="360" to="0"></a-animation>
             <a-animation  begin="rewind" easing="ease-in" attribute="geometry.thetaLength"
