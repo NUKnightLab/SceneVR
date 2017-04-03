@@ -21,7 +21,8 @@ module.exports = {
   },
   setupUI: () => {
     // Fade transitions
-    const storyLength = document.querySelectorAll('a-assets .sky').length;
+    const aAssetsEl = document.querySelector('a-assets');
+    const storyLength = aAssetsEl.querySelectorAll('.sky').length;
     const aSkyEl = document.getElementById('skybox');
     const aSkyFadeOut = document.querySelector('#skybox #fade-out');
     const aSkyFadeIn = document.querySelector('#skybox #fade-in');
@@ -31,10 +32,32 @@ module.exports = {
     
     module.exports._hideText(); //Current way to just hide text permanently
 
-    // Compass
-    cameraEl = document.getElementById('camera');
-    let angle, angleInRadians = 0;
-    const pointerEl = document.getElementById('pointer');
+    // show loading screen until assets are loaded
+    aAssetsEl.addEventListener('loaded', () => {
+      const loadingScreen = document.getElementById('loading');
+      let fadeOut = () => {
+        return loadingScreen.animate({ opacity: [1, 0] }, {
+          duration: 500,
+          easing: 'ease-in',
+          fill: 'forwards'
+        });
+      }
+
+      const scenes = document.getElementById('rendered-template');
+      let fadeIn = () => {
+        return scenes.animate({ opacity: [0, 1] }, {
+          duration: 500,
+          easing: 'ease-out',
+          fill: 'forwards'
+        });
+      }
+
+      // fade out the loading screen and then fade into the scenes
+      fadeOut().onfinish = () => {
+        loadingScreen.remove();
+        fadeIn();
+      }
+    })
 
     aSkyFadeOut.addEventListener('animationend', () => {
       // update the selected thumbnail in the footer
@@ -82,8 +105,13 @@ module.exports = {
       });
     });
 
+    module.exports.cameraEl = document.getElementById('camera');
+
     // update compass when camera is rotated
-    cameraEl.addEventListener('componentchanged', (event) => {
+    module.exports.cameraEl.addEventListener('componentchanged', (event) => {
+      let angle, angleInRadians = 0;
+      const pointerEl = document.getElementById('pointer');
+
       if (event.detail.name === 'rotation' && event.detail.newData.y !== angle) {
         angle = event.detail.newData.y;
         angleInRadians = angle * (Math.PI / 180);
