@@ -9,11 +9,13 @@ module.exports = {
     aScene.addEventListener('enter-vr', () => {
       module.exports.inVR = 1;
       module.exports._showOrbs();
+      module.exports._showCursor();
       module.exports._hideText(); //Current way to just hide text permanently
     });
     aScene.addEventListener('exit-vr', () => {
       module.exports.inVR = 0;
       module.exports._hideOrbs();
+      module.exports._hideCursor();
       module.exports._hideText(); //Current way to just hide text permanently
     });
   },
@@ -135,6 +137,14 @@ module.exports = {
   _hideText: () => {
     let currentText = document.querySelector('.current-text');
     currentText.setAttribute('visible', 'false');
+  },
+  _showCursor: () => {
+    let cursor = document.getElementById('cursor');
+    cursor.setAttribute('visible', 'true');
+  },
+  _hideCursor: () => {
+    let cursor = document.getElementById('cursor');
+    cursor.setAttribute('visible', 'false');
   },
   _showOrbs: () => {
     const backOrbEntity = document.getElementById('back-orb-entity');
