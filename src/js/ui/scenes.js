@@ -1,4 +1,4 @@
-const ui = require('ui/ui.js');
+const UI = require('ui/ui.js');
 const gapiClient = require('data/gapiClient.js');
 const template = require('data/template.js');
 const flickrApi = require('data/flickrApi.js');
@@ -9,7 +9,7 @@ module.exports = class Scenes {
 
         this.buildScenes().then(() => {
             document.querySelector('body').prepend(this.scene);
-            ui.addEventListeners();
+            this.ui = new UI({});
         });
     }
 
