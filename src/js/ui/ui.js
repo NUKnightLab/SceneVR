@@ -5,6 +5,7 @@ module.exports = class UI {
   }
 
   setupUI() {
+    const bodyEl = document.querySelector('body');
     const aScene = document.querySelector('a-scene');
     const aAssetsEl = aScene.querySelector('a-assets');
     const aSkyEl = aScene.querySelector('#skybox');
@@ -14,14 +15,18 @@ module.exports = class UI {
     const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
     const vrThumbnailElements = [...document.querySelectorAll('.vr-thumbnail')];
 
+    bodyEl.className += aScene.isMobile ? ' mobile' : ' desktop';
+
     aScene.addEventListener('enter-vr', () => {
       this._showVRUI();
       document.querySelector('#text-light').setAttribute('target', '#text-test');
       document.querySelector('#vr-thumbnails-light').setAttribute('target', '.current-vr-thumbnail');
+      bodyEl.className += ' vr';
     });
 
     aScene.addEventListener('exit-vr', () => {
       this._hideVRUI();
+      bodyEl.className = bodyEl.className.replace('vr', '');
     });
 
     // show loading screen until assets are loaded
