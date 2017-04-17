@@ -96,12 +96,6 @@ module.exports = {
             const zPosition = (Math.pow(((i / (scenesLength - 1) * 2.0) - 1), 2) - 1) / 3 - 0.25;
             vrThumbnailEl.setAttribute('position', `${xPosition} -0.6 ${zPosition}`);
 
-            // let vrThumbnailSky = dom.createElement('a-sky', `vr-thumbnail-sky-${i}`, ['vr-thumbnail-sky']);
-            // vrThumbnailSky.setAttribute('src', img.thumbnailPath);
-            // vrThumbnailSky.setAttribute('radius', 0.1);
-            // vrThumbnailSky.setAttribute('phi-start', 0);
-            // vrThumbnailSky.setAttribute('phi-length', 360);
-            // vrThumbnailEl.appendChild(vrThumbnailSky);
             vrThumbnails.appendChild(vrThumbnailEl);
 
             let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
