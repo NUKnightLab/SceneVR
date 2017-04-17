@@ -29,7 +29,7 @@ module.exports = class Scenes {
                         thumbnailPath: o.thumbnail,
                         text: response.entry[i].gsx$text.$t
                     });
-                })
+                });
                 this.scene = template.buildTemplate(templateData);
             });
         }, response => {

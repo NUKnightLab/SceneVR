@@ -7,10 +7,8 @@ module.exports = class UI {
   setupUI() {
     const aScene = document.querySelector('a-scene');
     const aAssetsEl = aScene.querySelector('a-assets');
-    const storyLength = aAssetsEl.querySelectorAll('.sky').length;
     const aSkyEl = aScene.querySelector('#skybox');
     const aSkyFadeOut = aSkyEl.querySelector('#fade-out');
-    const aSkyFadeIn = aSkyEl.querySelector('#fade-in');
     const nextButton = document.getElementById('next');
     const fullscreenButton = document.getElementById('fullscreen');
     const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
@@ -18,7 +16,10 @@ module.exports = class UI {
 
     aScene.addEventListener('enter-vr', () => {
       this._showVRUI();
+      document.querySelector('#text-light').setAttribute('target', '#text-test');
+      document.querySelector('#vr-thumbnails-light').setAttribute('target', '.current-vr-thumbnail');
     });
+
     aScene.addEventListener('exit-vr', () => {
       this._hideVRUI();
     });
@@ -59,6 +60,8 @@ module.exports = class UI {
       selectedThumbnail.className = selectedThumbnail.className.replace('selected-thumbnail','');
       document.querySelector(`#thumbnail-${this.skyIndex}`).className += ' selected-thumbnail';
 
+      // TODO: update selected VR thumbnail
+
       // update the VR text
       let currentText = document.querySelector('.current-text');
       currentText.className = currentText.className.replace('current-text', '');
@@ -69,12 +72,12 @@ module.exports = class UI {
       // update the footer text
       let currentFooterText = document.querySelector('.current-footer-text');
       currentFooterText.className = currentFooterText.className.replace('current-footer-text', '');
-      // currentFooterText.style.display = 'none';
       let newFooterText = document.getElementById(`footer-text-${this.skyIndex}`);
       newFooterText.className += ' current-footer-text';
 
       // update skybox (and projection if necessary)
       this._updateSkybox();
+
       // fade in the new a-sky
       aSkyEl.emit('fadeIn');
     });
@@ -84,7 +87,7 @@ module.exports = class UI {
       this._transition(this.skyIndex + 1);
     });
 
-    // full screen on click
+    // enter VR
     fullscreenButton.addEventListener('click', () => {
       document.querySelector('a-scene').enterVR();
     });
@@ -97,14 +100,12 @@ module.exports = class UI {
       });
     });
 
-    // change a-sky on click
+    // VR thumbnails
     let cursor = document.getElementById('cursor');
     vrThumbnailElements.forEach((t, i) => {
-      t.querySelector('.vr-thumbnail-sky').addEventListener('click', () => {
-        if (this.skyIndex !== i) {
+      t.addEventListener('click', () => {
+        if (this.skyIndex !== i)
           this._transition(i);
-          cursor.components.raycaster.refreshObjects();
-        }
       });
     });
 
@@ -117,12 +118,11 @@ module.exports = class UI {
 
     // update compass when camera is rotated
     cameraEl.addEventListener('componentchanged', (event) => {
-      let angle, angleInRadians = 0;
+      let angle = 0;
       const pointerEl = document.getElementById('pointer');
 
       if (event.detail.name === 'rotation' && event.detail.newData.y !== angle) {
         angle = event.detail.newData.y;
-        angleInRadians = angle * (Math.PI / 180);
         pointerEl.style.transform = `rotateZ(${-angle}deg)`
       }
     });
