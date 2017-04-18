@@ -6,7 +6,7 @@ module.exports = class UI {
 
   setupUI() {
     const bodyEl = document.querySelector('body');
-    const aScene = document.querySelector('a-scene');
+    const aScene = bodyEl.querySelector('a-scene');
     const aAssetsEl = aScene.querySelector('a-assets');
     const aSkyEl = aScene.querySelector('#skybox');
     const aSkyFadeOut = aSkyEl.querySelector('#fade-out');
@@ -14,19 +14,21 @@ module.exports = class UI {
     const fullscreenButton = document.getElementById('fullscreen');
     const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
     const vrThumbnailElements = [...document.querySelectorAll('.vr-thumbnail')];
+    const thumbnailsIcon = document.querySelector('#thumbnails-icon');
+    const thumbnailsContainer = document.querySelector('#thumbnails-container')
 
-    bodyEl.className += aScene.isMobile ? ' mobile' : ' desktop';
+    bodyEl.classList.add(aScene.isMobile ? 'mobile' : 'desktop');
 
     aScene.addEventListener('enter-vr', () => {
       this._showVRUI();
       document.querySelector('#text-light').setAttribute('target', '#text-test');
       document.querySelector('#vr-thumbnails-light').setAttribute('target', '.current-vr-thumbnail');
-      bodyEl.className += ' vr';
+      bodyEl.classList.add('vr');
     });
 
     aScene.addEventListener('exit-vr', () => {
       this._hideVRUI();
-      bodyEl.className = bodyEl.className.replace('vr', '');
+      bodyEl.classList.remove('vr');
     });
 
     // show loading screen until assets are loaded
@@ -62,23 +64,23 @@ module.exports = class UI {
     aSkyFadeOut.addEventListener('animationend', () => {
       // update the selected thumbnail in the footer
       let selectedThumbnail = document.querySelector('.selected-thumbnail');
-      selectedThumbnail.className = selectedThumbnail.className.replace('selected-thumbnail','');
-      document.querySelector(`#thumbnail-${this.skyIndex}`).className += ' selected-thumbnail';
+      selectedThumbnail.classList.remove('selected-thumbnail');
+      document.querySelector(`#thumbnail-${this.skyIndex}`).classList.add('selected-thumbnail');
 
       // TODO: update selected VR thumbnail
 
       // update the VR text
       let currentText = document.querySelector('.current-text');
-      currentText.className = currentText.className.replace('current-text', '');
+      currentText.classList.remove('current-text');
       currentText.setAttribute('visible', 'false');
       let newText = document.getElementById(`text-${this.skyIndex}`);
-      newText.className += ' current-text';
+      newText.classList.add('current-text');
 
       // update the footer text
       let currentFooterText = document.querySelector('.current-footer-text');
-      currentFooterText.className = currentFooterText.className.replace('current-footer-text', '');
+      currentFooterText.classList.remove('current-footer-text');
       let newFooterText = document.getElementById(`footer-text-${this.skyIndex}`);
-      newFooterText.className += ' current-footer-text';
+      newFooterText.classList.add('current-footer-text');
 
       // update skybox (and projection if necessary)
       this._updateSkybox();
@@ -97,11 +99,18 @@ module.exports = class UI {
       document.querySelector('a-scene').enterVR();
     });
 
+    // toggle thumbnails modal
+    thumbnailsIcon.addEventListener('click', () => {
+      this._toggleModal();
+    });
+
     // desktop and mobile thumbnails
     thumbnailElements.forEach((t, i) => {
       t.addEventListener('click', () => {
-        if (this.skyIndex !== i)
+        if (this.skyIndex !== i) {
           this._transition(i);
+          this._toggleModal();
+        }
       });
     });
 
@@ -136,6 +145,7 @@ module.exports = class UI {
   _showVRUI() {
     let cursor = document.getElementById('cursor');
     cursor.setAttribute('visible', 'true');
+    cursor.setAttribute('raycaster', 'objects: .vr-thumbnail');
 
     let vrThumbnails = document.getElementById('vr-thumbnails');
     vrThumbnails.setAttribute('visible', 'true');
@@ -147,12 +157,18 @@ module.exports = class UI {
   _hideVRUI() {
     let cursor = document.getElementById('cursor');
     cursor.setAttribute('visible', 'false');
+    cursor.setAttribute('raycaster', 'objects: none');
 
     let vrThumbnails = document.getElementById('vr-thumbnails');
     vrThumbnails.setAttribute('visible', 'false');
 
     let currentText = document.querySelector('.current-text');
     currentText.setAttribute('visible', 'false');
+  }
+
+  _toggleModal() {
+    const bodyEl = document.querySelector('body');
+    bodyEl.classList.toggle('modal');
   }
 
   _transition(index) {

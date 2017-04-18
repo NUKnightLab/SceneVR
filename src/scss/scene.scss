@@ -6,8 +6,41 @@ body {
     line-height: $font-line-height;
 }
 
+body.desktop {
+    #thumbnails-container {
+        .thumbnail {
+            max-width: 20vw;
+            margin   : 0 1vw 3vh 0;
+        }
+    }
+}
+
+body.mobile {
+    #thumbnails-container {
+        .thumbnail {
+            max-width: 40vw;
+            margin   : 0 3vw 5vh 0;
+        }
+    }
+}
+
+body.modal {
+    a-scene {
+        opacity: 0.25;
+    }
+    #thumbnails-container #thumbnails {
+        opacity       : 1;
+        pointer-events: auto;
+    }
+}
+
 #rendered-template {
     opacity: 0;
+
+    a-scene {
+        transition: opacity 0.5s;
+    }
+
     #ui {
         width : 100vw;
         height: 100vh;
@@ -99,18 +132,28 @@ body {
         }
     }
 
+    #thumbnails-container {
+        position: fixed;
+        top     : 5vh;
+        left    : 3vw;
+    }
+
+    #thumbnails-icon {
+        cursor    : pointer;
+        transition: opacity 0.5s;
+        height    : 10vh;
+    }
+
     #thumbnails {
-        width      : 50%;
-        padding    : 10px;
-        display    : flex;
-        align-items: center;
+        padding       : 10px;
+        opacity       : 0;
+        pointer-events: none;
+        transition    : opacity 0.5s;
     }
 
     .thumbnail {
-        max-height  : 7.5vh;
-        max-width   : 150px;
-        margin      : 0 1vw 0 0;
-        cursor      : pointer;
+        cursor : pointer;
+        display: inline-block;
     }
 
     .selected-thumbnail {

@@ -6,7 +6,7 @@ module.exports = {
     let mediaId = module.exports.establishMediaUrl(url);
     const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=6531cce726b38855846e85ddab1e2d1e&photo_id=${mediaId}&format=json&nojsoncallback=1`;
     return xhr.request('GET', apiUrl).then(response => {
-      let arr = response.sizes.size.filter(r => r.label === 'Square' || r === response.sizes.size.slice(-1)[0]);
+      let arr = response.sizes.size.filter(r => r.label === 'Small' || r === response.sizes.size.slice(-1)[0]);
       return {
         thumbnail: arr[0].source,
         source: arr[1].source
