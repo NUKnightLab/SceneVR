@@ -7,7 +7,7 @@ module.exports = {
       <a-entity id="camera" camera look-controls="reverse-mouse-drag:true">
         <a-entity id="cursor"
           cursor="fuse: true; fuseTimeout:1000;"
-          raycaster="objects: .vr-thumbnail"
+          raycaster="objects: none"
           position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360"
           material="color: #D3D3D3" visible="false">
             <a-animation  begin="fusing" end="stop-loading" easing="ease-in" attribute="geometry.thetaLength"
@@ -38,6 +38,10 @@ module.exports = {
       <img id="next" src="/assets/chevron-right.svg">
       <img id="cardboard" src="/assets/google-cardboard.svg">
       <img id="fullscreen" src="/assets/fullscreen.svg">
+      <div id="thumbnails-container">
+        <img id="thumbnails-icon" src="/assets/thumbnails.svg">
+        <div id="thumbnails"></div>
+      </div>
       <div id="compass-container">
         <svg id="compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 334.47 334.47">
           <title>Compass</title>
@@ -48,8 +52,6 @@ module.exports = {
       </div>
       <div id="footer">
         <div id="footer-content">
-        </div>
-        <div id="thumbnails">
         </div>
       </div>
     </div>`,
