@@ -8,6 +8,10 @@ body {
 
 body.desktop {
     #thumbnails-container {
+        #thumbnails {
+            position: absolute;
+            left: -100vw;
+        }
         .thumbnail {
             max-width: 20vw;
             margin   : 0 1vw 3vh 0;
@@ -17,6 +21,10 @@ body.desktop {
 
 body.mobile {
     #thumbnails-container {
+        #thumbnails {
+            position: absolute;
+            left: -100vw;
+        }
         .thumbnail {
             max-width: 40vw;
             margin   : 0 3vw 5vh 0;
@@ -29,6 +37,7 @@ body.modal {
         opacity: 0.25;
     }
     #thumbnails-container #thumbnails {
+        position: static;
         opacity       : 1;
         pointer-events: auto;
     }
