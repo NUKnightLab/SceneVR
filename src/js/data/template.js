@@ -19,12 +19,7 @@ module.exports = {
         </a-entity>
       </a-entity>
       <a-light type="ambient" color="#BBB"></a-light>
-      <a-light id="text-light" type="directional" color="white" intensity="0.5">
-        <a-text id="text-test" position="0 0 -5" value="hello world" anchor="center" align="center"
-        geometry="primitive: plane; height: 1; width: 3"
-        material="color: black;">
-        </a-text>
-      </a-light>
+      
       <a-light id="vr-thumbnails-light" type="directional" color="#fff" intensity="0.5">
         <a-entity id="vr-thumbnails" visible="true" shader="standard"></a-entity>
       </a-light>
