@@ -8,6 +8,11 @@ body {
 
 body.desktop {
     #thumbnails-container {
+        #thumbnails {
+            position: absolute;
+            left    : -100vw;
+        }
+
         .thumbnail {
             max-width: 20vw;
             margin   : 0 1vw 3vh 0;
@@ -16,10 +21,47 @@ body.desktop {
 }
 
 body.mobile {
-    #thumbnails-container {
-        .thumbnail {
-            max-width: 40vw;
-            margin   : 0 3vw 5vh 0;
+    #ui {
+        #footer {
+            height: 20%;
+        }
+
+        #next {
+            top: 35vh;
+        }
+
+        #fullscreen {
+            bottom: 15vh;
+            height: 7vh;
+            width: 7vh;
+        }
+
+        #compass-container {
+            top: 3vh;
+            #compass {
+                height: 6vh;
+                width: 6vh;
+            }
+        }
+
+        #thumbnails-container {
+            top: 3vh;
+    
+            #thumbnails-icon {
+                height: 6vh;
+                width: 6vh;
+            }
+
+            #thumbnails {
+                position: absolute;
+                left    : -200vw;
+                height  : 60vh;
+            }
+
+            .thumbnail {
+                max-width: 40vw;
+                margin   : 0 3vw 5vh 0;
+            }
         }
     }
 }
@@ -28,9 +70,19 @@ body.modal {
     a-scene {
         opacity: 0.25;
     }
-    #thumbnails-container #thumbnails {
-        opacity       : 1;
-        pointer-events: auto;
+
+    #ui {
+        #next, #fullscreen, #compass {
+            opacity: 0;
+        }
+
+        #thumbnails-container {
+            #thumbnails {
+                position      : static;
+                opacity       : 1;
+                pointer-events: auto;
+            }
+        }
     }
 }
 
@@ -42,8 +94,9 @@ body.modal {
     }
 
     #ui {
-        width : 100vw;
-        height: 100vh;
+        opacity: 1;
+        width  : 100vw;
+        height : 100vh;
     }
 
     #black-background {
@@ -63,7 +116,7 @@ body.modal {
     }
     #fullscreen {
         position: fixed;
-        top     : 75vh;
+        bottom     : 10vh;
         right   : 2vw;
         cursor  : pointer;
         height  : 10%;
@@ -117,7 +170,7 @@ body.modal {
 
     #footer-content {
         color     : $color-grey--lightest;
-        width     : 50%;
+        width     : 100%;
         overflow-y: auto;
         font-size: 14px;
         line-height:18px;
@@ -141,7 +194,8 @@ body.modal {
     #thumbnails-icon {
         cursor    : pointer;
         transition: opacity 0.5s;
-        height    : 10vh;
+        height    : 8vh;
+        width     : 8vh;
     }
 
     #thumbnails {
@@ -149,6 +203,7 @@ body.modal {
         opacity       : 0;
         pointer-events: none;
         transition    : opacity 0.5s;
+        overflow-y    : auto;
     }
 
     .thumbnail {
