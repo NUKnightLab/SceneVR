@@ -85,12 +85,11 @@ module.exports = {
             vrThumbnailEl.setAttribute('look-at', '[camera]');
             vrThumbnailEl.setAttribute('shader', 'standard');
 
-            // TODO: get better at math :(
-            // a from 0 to 1, -1 + 2a, x ranges from -1 to 1
-            const xPosition = -1 + (i / (scenesLength - 1)) * 2;
-            // a from 0 to 2, (a - 1)^2 - 1
-            // divide by 4 and subtract 0.25 to smooth values, z ranges from -0.25 to -0.25
-            const zPosition = (Math.pow(((i / (scenesLength - 1) * 2.0) - 1), 2) - 1) / 3 - 0.25;
+            // a from 0 to 1, -1.5 + 3a, x ranges from -1.5 to 1.5
+            const xPosition = -1.5 + (i / (scenesLength - 1)) * 3;
+            // a from 0 to 1, (0.5^2 - (a - 0.5)^2)^0.5
+            const z = (i / (scenesLength - 1));
+            let zPosition = -Math.sqrt(Math.pow(0.5, 2) - Math.pow(z - 0.5, 2));
             vrThumbnailEl.setAttribute('position', `${xPosition} -0.6 ${zPosition}`);
 
             vrThumbnails.appendChild(vrThumbnailEl);
