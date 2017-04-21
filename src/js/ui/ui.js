@@ -21,8 +21,6 @@ module.exports = class UI {
 
     aScene.addEventListener('enter-vr', () => {
       this._showVRUI();
-      document.querySelector('#text-light').setAttribute('target', '#text-test');
-      document.querySelector('#vr-thumbnails-light').setAttribute('target', '.current-vr-thumbnail');
       bodyEl.classList.add('vr');
     });
 
