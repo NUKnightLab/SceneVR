@@ -18,11 +18,7 @@ module.exports = {
             dur=500 from="0" to="360"></a-animation>
         </a-entity>
       </a-entity>
-      <a-light type="ambient" color="#BBB"></a-light>
-
-      <a-light id="vr-thumbnails-light" type="directional" color="#fff" intensity="0.5">
-        <a-entity id="vr-thumbnails" visible="false" shader="standard"></a-entity>
-      </a-light>
+      <a-entity id="vr-thumbnails" visible="false"></a-entity>
       <a-sky id="skybox" src="#sky-0">
         <a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" from="1" to="0"></a-animation>
         <a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" from="0" to="1"></a-animation>
@@ -83,7 +79,7 @@ module.exports = {
             vrThumbnailEl.setAttribute('width', 0.25);
             vrThumbnailEl.setAttribute('height', 0.25);
             vrThumbnailEl.setAttribute('look-at', '[camera]');
-            vrThumbnailEl.setAttribute('shader', 'standard');
+            // vrThumbnailEl.setAttribute('shader', 'standard');
 
             // a from 0 to 1, -1.5 + 3a, x ranges from -1.5 to 1.5
             const xPosition = -1.5 + (i / (scenesLength - 1)) * 3;

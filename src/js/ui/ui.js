@@ -112,6 +112,12 @@ module.exports = class UI {
       });
     });
 
+    // click or drag anywhere to exit modal
+    aScene.addEventListener('mousedown', () => {
+      if (document.querySelector('body').classList.contains('modal'))
+        this._toggleModal();
+    });
+
     // VR thumbnails
     let cursor = document.getElementById('cursor');
     vrThumbnailElements.forEach((t, i) => {
@@ -172,8 +178,16 @@ module.exports = class UI {
   _transition(index) {
     const storyLength = document.querySelectorAll('a-assets .sky').length;
     const aSkyFadeOut = document.querySelector('a-sky #fade-out');
+    const nextButton = document.getElementById('next');
+
     if (index >= storyLength || index < 0)
       return;
+
+    // hide the next button on the last scene
+    if (index == storyLength - 1)
+      nextButton.style.display = 'none';
+    else
+      nextButton.style.display = 'initial';
 
     this.skyIndex = index;
 
