@@ -77,6 +77,12 @@ body.modal {
         }
 
         #thumbnails-container {
+            pointer-events: none;
+
+            #thumbnails-icon {
+                pointer-events: auto;
+            }
+
             #thumbnails {
                 position      : static;
                 opacity       : 1;
