@@ -92,9 +92,21 @@ module.exports = class UI {
       this._transition(this.skyIndex + 1);
     });
 
-    // enter VR
+    // enter VR or fullscreen
     fullscreenButton.addEventListener('click', () => {
-      document.querySelector('a-scene').enterVR();
+      if (aScene.isMobile) {
+        document.querySelector('a-scene').enterVR();
+      } else {
+        // this checks if the window is fullscreen
+        if (!window.screenTop && !window.screenY) {
+          const efs = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen;
+          efs.call(document);
+        } else {
+          const docEl = document.documentElement
+          let rfs = docEl.requestFullScreen || docEl.webkitRequestFullScreen || docEl.mozRequestFullScreen;
+          rfs.call(docEl);
+        }
+      }
     });
 
     // toggle thumbnails modal
