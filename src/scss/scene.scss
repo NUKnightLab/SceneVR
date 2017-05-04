@@ -9,8 +9,7 @@ body {
 body.desktop {
     #thumbnails-container {
         #thumbnails {
-            position: absolute;
-            left    : -100vw;
+            display: none;
         }
 
         .thumbnail {
@@ -26,14 +25,15 @@ body.mobile {
             height: 20%;
         }
 
-        #next {
-            top: 35vh;
-        }
-
         #fullscreen {
             bottom: 15vh;
             height: 7vh;
             width: 7vh;
+        }
+
+        #thumbnails-icon {
+            height: 6vh;
+            width: 6vh;
         }
 
         #compass-container {
@@ -46,20 +46,13 @@ body.mobile {
 
         #thumbnails-container {
             top: 3vh;
-    
-            #thumbnails-icon {
-                height: 6vh;
-                width: 6vh;
-            }
 
             #thumbnails {
-                position: absolute;
-                left    : -200vw;
-                height  : 60vh;
+                display: none;
             }
 
             .thumbnail {
-                max-width: 40vw;
+                max-width: 60vw;
                 margin   : 0 3vw 5vh 0;
             }
         }
@@ -72,21 +65,31 @@ body.modal {
     }
 
     #ui {
-        #next, #fullscreen, #compass {
+        #fullscreen, #compass {
             opacity: 0;
+        }
+
+        #thumbnail-icons {
+            // TODO: positioning of close button isn't right
+            right: 4vw;
+
+            #thumbnail-icons-close {
+                display: block;
+            }
+
+            #thumbnail-icons-stack {
+                display: none;
+            }
         }
 
         #thumbnails-container {
             pointer-events: none;
 
-            #thumbnails-icon {
-                pointer-events: auto;
-            }
-
             #thumbnails {
                 position      : static;
                 opacity       : 1;
                 pointer-events: auto;
+                display       : block;
             }
         }
     }
@@ -111,18 +114,9 @@ body.modal {
         background-color: $color-dark;
     }
 
-    #next {
-        position: fixed;
-        top     : 39vh;
-        right   : 1vw;
-        height  : 11%;
-        cursor  : pointer;
-        -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-        filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-    }
     #fullscreen {
         position: fixed;
-        bottom     : 10vh;
+        bottom  : 10vh;
         right   : 2vw;
         cursor  : pointer;
         height  : 10%;
@@ -195,13 +189,50 @@ body.modal {
         position: fixed;
         top     : 5vh;
         left    : 3vw;
+        width   : 80vw;
     }
 
-    #thumbnails-icon {
+    #thumbnail-icons {
+        display: inline-block;
+        position: fixed;
+        top     : 40vh;
+        right   : 10vh;
         cursor    : pointer;
         transition: opacity 0.5s;
-        height    : 8vh;
-        width     : 8vh;
+
+        #thumbnail-icons-close {
+            display: none;
+            height : 8vh;
+            width  : 8vh;
+        }
+
+        #thumbnail-icons-stack {
+            position: relative;
+
+            .thumbnail-icon {
+                position  : absolute;
+                border    : 4px solid #fff;
+                height    : 8vh;
+                width     : 8vh;
+                object-fit: cover;
+                max-width : initial;
+            }
+
+            .thumbnail-icon:nth-of-type(1) {
+                top: 20px;
+                left: -20px;
+            }
+
+            .thumbnail-icon:nth-of-type(2) {
+                top: 10px;
+                left: -10px;
+            }
+
+            .thumbnail-icon:nth-of-type(3) {
+                top: 0;
+                left: 0;
+            }
+        }
     }
 
     #thumbnails {
@@ -231,5 +262,38 @@ body.modal {
     display         : flex;
     justify-content : center;
     align-items     : center;
-    background-color: $color-grey;
+}
+
+.fade-in {
+    animation: 0.5s 1 forwards fadeIn;
+    -webkit-animation: 0.5s 1 forwards fadeIn;
+}
+
+.fade-out {
+    animation: 0.5s 1 forwards fadeOut;
+    -webkit-animation: 0.5s 1 forwards fadeOut;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+
+    to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+
+    to { opacity: 0; }
 }

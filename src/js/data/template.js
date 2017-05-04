@@ -26,11 +26,13 @@ module.exports = {
     </a-scene>
     <div id="ui">
       <div id="black-background"></div>
-      <img id="next" src="/assets/chevron-right.svg">
       <img id="cardboard" src="/assets/google-cardboard.svg">
       <img id="fullscreen" src="/assets/fullscreen.svg">
+      <div id="thumbnail-icons">
+        <img id="thumbnail-icons-close" src="/assets/close.svg"/>
+        <div id="thumbnail-icons-stack"></div>
+      </div>
       <div id="thumbnails-container">
-        <img id="thumbnails-icon" src="/assets/thumbnails.svg">
         <div id="thumbnails"></div>
       </div>
       <div id="compass-container">
@@ -51,6 +53,7 @@ module.exports = {
         scene.id = 'rendered-template';
         scene.innerHTML = module.exports.template
         let assets = scene.querySelector('a-assets');
+        let thumbnailsIconStack = scene.querySelector('#thumbnail-icons #thumbnail-icons-stack');
         let thumbnails = scene.querySelector('#thumbnails');
         let vrThumbnails = scene.querySelector('#vr-thumbnails');
         let aScene = scene.querySelector('a-scene');
@@ -73,6 +76,13 @@ module.exports = {
             let thumbnailEl = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? 'selected-thumbnail' : ''}`]);
             thumbnailEl.setAttribute('src', img.thumbnailPath);
             thumbnails.appendChild(thumbnailEl);
+
+            // only need three thumbnails for stack
+            if (i < 3) {
+              let thumbnailIcon = dom.createElement('img', '', ['thumbnail-icon']);
+              thumbnailIcon.setAttribute('src', img.thumbnailPath);
+              thumbnailsIconStack.prepend(thumbnailIcon);
+            }
 
             let vrThumbnailEl = dom.createElement('a-image', `vr-thumbnail-${i}`, ['vr-thumbnail', `${i === 0 ? 'current-vr-thumbnail' : ''}`]);
             vrThumbnailEl.setAttribute('src', img.thumbnailPath);
