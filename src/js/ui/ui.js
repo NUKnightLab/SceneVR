@@ -32,28 +32,10 @@ module.exports = class UI {
     // show loading screen until assets are loaded
     aAssetsEl.addEventListener('loaded', () => {
       const loadingScreen = document.getElementById('loading');
-      let fadeOut = () => {
-        return loadingScreen.animate({ opacity: [1, 0] }, {
-          duration: 500,
-          easing: 'ease-in',
-          fill: 'forwards'
-        });
-      }
-
       const scenes = document.getElementById('rendered-template');
-      let fadeIn = () => {
-        return scenes.animate({ opacity: [0, 1] }, {
-          duration: 500,
-          easing: 'ease-out',
-          fill: 'forwards'
-        });
-      }
 
-      // fade out the loading screen and then fade into the scenes
-      fadeOut().onfinish = () => {
-        loadingScreen.remove();
-        fadeIn();
-      }
+      loadingScreen.classList.add('fade-out');
+      setTimeout(() => scenes.classList.add('fade-in'), 500);
 
       // update skybox in case the projection needs to be fixed
       this._updateSkybox();

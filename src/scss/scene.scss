@@ -232,3 +232,37 @@ body.modal {
     justify-content : center;
     align-items     : center;
 }
+
+.fade-in {
+    animation: 0.5s 1 forwards fadeIn;
+    -webkit-animation: 0.5s 1 forwards fadeIn;
+}
+
+.fade-out {
+    animation: 0.5s 1 forwards fadeOut;
+    -webkit-animation: 0.5s 1 forwards fadeOut;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+
+    to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+
+    to { opacity: 0; }
+}
