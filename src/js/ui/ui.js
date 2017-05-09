@@ -35,7 +35,10 @@ module.exports = class UI {
       const scenes = document.getElementById('rendered-template');
 
       loadingScreen.classList.add('fade-out');
-      setTimeout(() => scenes.classList.add('fade-in'), 500);
+      setTimeout(() => {
+        scenes.classList.add('fade-in');
+        loadingScreen.remove();
+      }, 500);
 
       // update skybox in case the projection needs to be fixed
       this._updateSkybox();
