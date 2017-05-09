@@ -10,12 +10,12 @@ module.exports = class UI {
     const aAssetsEl = aScene.querySelector('a-assets');
     const aSkyEl = aScene.querySelector('#skybox');
     const aSkyFadeOut = aSkyEl.querySelector('#fade-out');
-    const nextButton = document.getElementById('next');
     const fullscreenButton = document.getElementById('fullscreen');
     const thumbnailElements = [...document.querySelectorAll('.thumbnail')];
     const vrThumbnailElements = [...document.querySelectorAll('.vr-thumbnail')];
-    const thumbnailsIcon = document.querySelector('#thumbnails-icon');
-    const thumbnailsContainer = document.querySelector('#thumbnails-container')
+    const thumbnailIcons = [...document.querySelectorAll('.thumbnail-icon')];
+    const closeThumbnailIcons = document.querySelector('#thumbnail-icons-close');
+    const thumbnailsContainer = document.querySelector('#thumbnails-container');
 
     bodyEl.classList.add(aScene.isMobile ? 'mobile' : 'desktop');
 
@@ -72,11 +72,6 @@ module.exports = class UI {
       aSkyEl.emit('fadeIn');
     });
 
-    // change a-sky to next image 
-    nextButton.addEventListener('click', () => {
-      this._transition(this.skyIndex + 1);
-    });
-
     // enter VR or fullscreen
     fullscreenButton.addEventListener('click', () => {
       if (aScene.isMobile) {
@@ -95,7 +90,14 @@ module.exports = class UI {
     });
 
     // toggle thumbnails modal
-    thumbnailsIcon.addEventListener('click', () => {
+    thumbnailIcons.forEach((t) => {
+      t.addEventListener('click', () => {
+        this._toggleModal();
+      });
+    });
+
+    // close thumbnails modal
+    closeThumbnailIcons.addEventListener('click', () => {
       this._toggleModal();
     });
 
@@ -175,16 +177,9 @@ module.exports = class UI {
   _transition(index) {
     const storyLength = document.querySelectorAll('a-assets .sky').length;
     const aSkyFadeOut = document.querySelector('a-sky #fade-out');
-    const nextButton = document.getElementById('next');
 
     if (index >= storyLength || index < 0)
       return;
-
-    // hide the next button on the last scene
-    if (index == storyLength - 1)
-      nextButton.style.display = 'none';
-    else
-      nextButton.style.display = 'initial';
 
     this.skyIndex = index;
 
