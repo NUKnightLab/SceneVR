@@ -133,21 +133,29 @@ module.exports = class UI {
 
     let cameraEl = document.getElementById('camera');
 
-    // update compass when camera is rotated
+    // UI updates dependent on camera rotation
     cameraEl.addEventListener('componentchanged', (event) => {
-      let angle = 0;
-      const pointerEl = document.getElementById('pointer');
+      let xAngle, yAngle = 0;
+      let cursorEl = document.getElementById('cursor');
+      let pointerEl = document.getElementById('pointer');
 
-      if (event.detail.name === 'rotation' && event.detail.newData.y !== angle) {
-        angle = event.detail.newData.y;
-        pointerEl.style.transform = `rotateZ(${-angle}deg)`
+      if (event.detail.name === 'rotation' && event.detail.newData.x !== xAngle && event.detail.newData.y !== yAngle) {
+        // only show cursor when looking down
+        xAngle = event.detail.newData.x;
+        if (bodyEl.classList.contains('vr') && xAngle < -25)
+          cursorEl.setAttribute('visible', 'true');
+        else
+          cursorEl.setAttribute('visible', 'false');
+
+        // update compass
+        yAngle = event.detail.newData.y;
+        pointerEl.style.transform = `rotateZ(${-yAngle}deg)`
       }
     });
   }
 
   _showVRUI() {
     let cursor = document.getElementById('cursor');
-    cursor.setAttribute('visible', 'true');
     cursor.setAttribute('raycaster', 'objects: .vr-thumbnail');
 
     let vrThumbnails = document.getElementById('vr-thumbnails');
@@ -159,7 +167,6 @@ module.exports = class UI {
 
   _hideVRUI() {
     let cursor = document.getElementById('cursor');
-    cursor.setAttribute('visible', 'false');
     cursor.setAttribute('raycaster', 'objects: none');
 
     let vrThumbnails = document.getElementById('vr-thumbnails');

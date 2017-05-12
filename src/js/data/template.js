@@ -1,7 +1,7 @@
 const dom = require('utils/dom.js');
 
 module.exports = {
-    template: `<a-scene>
+    template: `<a-scene reverse-look-controls>
       <a-assets>
       </a-assets>
       <a-entity id="camera" camera look-controls="reverse-mouse-drag:true">
@@ -91,11 +91,21 @@ module.exports = {
             vrThumbnailEl.setAttribute('look-at', '[camera]');
             // vrThumbnailEl.setAttribute('shader', 'standard');
 
-            // a from 0 to 1, -1.5 + 3a, x ranges from -1.5 to 1.5
-            const xPosition = -1.5 + (i / (scenesLength - 1)) * 3;
-            // a from 0 to 1, (0.5^2 - (a - 0.5)^2)^0.5
-            const z = (i / (scenesLength - 1));
-            let zPosition = -Math.sqrt(Math.pow(0.5, 2) - Math.pow(z - 0.5, 2));
+            // x from 0 to 1, -0.7 + x, x ranges from -1.4 to 1.4
+            const xPosition = -0.7 + (i / (scenesLength - 1)) * 1.4;
+            let z = (i / (scenesLength - 1));
+
+            // since the half circle is asymptotic at 0 and 1, we need to adjust the position
+            if (z === 0)
+              z = ((i + 1) / (scenesLength - 1)) / 2;
+            else if (z === 1)
+              z = (((i - 1) / (scenesLength - 1)) + 1) / 2;
+
+            // scale z position to fit the circle
+            z *= 1.4;
+
+            // half circle with radius 0.7, centered in the middle of the half circle
+            let zPosition = -Math.sqrt(Math.pow(0.7, 2) - Math.pow(z - 0.7, 2)) + 0.35;
             vrThumbnailEl.setAttribute('position', `${xPosition} -0.6 ${zPosition}`);
 
             vrThumbnails.appendChild(vrThumbnailEl);
