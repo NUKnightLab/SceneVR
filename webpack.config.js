@@ -4,9 +4,9 @@ var webpack = require('webpack'),
     componentPath = path.resolve('./src/js');
 
 module.exports = {
-  context: path.join(__dirname), 
+  context: path.join(__dirname),
   entry: [
-    "./src/js/app.js"
+    "./src/js/scene.js"
   ],
   output: {
     path: path.join(__dirname, "./dist/js"),

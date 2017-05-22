@@ -1,2 +1,14 @@
-that: 'head'
-thing: 'foot'
+views:
+  atoms:
+    - 'button'
+  components:
+    - 'featured-content'
+    - 'content-single'
+  recipes:
+    - 'content-group'
+
+  templates:
+    - 'footer'
+    - 'header'
+    - 'article'
+    - 'nav-product'

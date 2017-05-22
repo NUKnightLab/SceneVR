@@ -1,0 +1,17 @@
+<div class="grid" id="faq">
+    <div class="grid-item">
+        <h3>Frequently asked questions</h3>
+        <ul class="accordion">
+            {{#each faq}}
+                <li>
+                    <input type="checkbox" checked>
+                    <i></i>
+                    <h3>{{this.question}}</h3>
+                    <div class="accordion-content">
+                        {{{this.answer}}}
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>

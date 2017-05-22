@@ -1,0 +1,5 @@
+templates:
+  partials:
+    - 'examples'
+  pages:
+    - 'openlab'
