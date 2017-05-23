@@ -22,7 +22,7 @@ body.desktop #scene-vr {
 body.mobile #scene-vr {
     #ui {
         #fullscreen {
-            bottom: 22vh;
+            bottom: 17vh;
             height: 55px;
             width: 55px;
         }
@@ -34,6 +34,7 @@ body.mobile #scene-vr {
         }
 
         #thumbnail-icons {
+            top: 42.5vh;
             right: 40px;
 
             #thumbnail-icons-stack {
@@ -82,7 +83,12 @@ body.mobile #scene-vr {
         }
 
         #footer {
-            height: 19vh;
+            height: 14vh;
+
+            #footer-content {
+                padding-left: 5%;
+                width: 95%;
+            }
         }
     }
 }
@@ -255,7 +261,7 @@ body.modal #scene-vr {
         #footer {
             height          : 9vh;
             width           : 100%;
-            padding         : 1vh;
+            padding-top     : 1vh;
             position        : fixed;
             left            : 0;
             bottom          : 0;
