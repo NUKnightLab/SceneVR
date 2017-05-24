@@ -32,7 +32,7 @@ module.exports = class UI {
     // show loading screen until assets are loaded
     aAssetsEl.addEventListener('loaded', () => {
       const loadingScreen = document.getElementById('loading');
-      const scenes = document.getElementById('rendered-template');
+      const scenes = document.getElementById('scene-vr');
 
       loadingScreen.classList.add('fade-out');
       setTimeout(() => {

@@ -50,7 +50,7 @@ module.exports = {
     </div>`,
     buildTemplate: (templateData) => {
         let scene = document.createElement('section');
-        scene.id = 'rendered-template';
+        scene.id = 'scene-vr';
         scene.innerHTML = module.exports.template
         let assets = scene.querySelector('a-assets');
         let thumbnailsIconStack = scene.querySelector('#thumbnail-icons #thumbnail-icons-stack');
