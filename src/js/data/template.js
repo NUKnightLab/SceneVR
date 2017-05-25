@@ -92,8 +92,13 @@ module.exports = {
             // vrThumbnailEl.setAttribute('shader', 'standard');
 
             // x from 0 to 1, -0.7 + x, x ranges from -1.4 to 1.4
-            const xPosition = -0.7 + (i / (scenesLength - 1)) * 1.4;
+            let xPosition = -0.7 + (i / (scenesLength - 1)) * 1.4;
             let z = (i / (scenesLength - 1));
+
+            // these adjustments make the thumbnails appear more circular around the user
+            let zCorrection = 0.5 * Math.abs(0.5 - z);
+            let xCorrection = 0.25 * (0.5 - z);
+            xPosition += xCorrection;
 
             // since the half circle is asymptotic at 0 and 1, we need to adjust the position
             if (z === 0)
@@ -106,6 +111,7 @@ module.exports = {
 
             // half circle with radius 0.7, centered in the middle of the half circle
             let zPosition = -Math.sqrt(Math.pow(0.7, 2) - Math.pow(z - 0.7, 2)) + 0.35;
+            zPosition += zCorrection;
             vrThumbnailEl.setAttribute('position', `${xPosition} -0.6 ${zPosition}`);
 
             vrThumbnails.appendChild(vrThumbnailEl);
