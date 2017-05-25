@@ -82,7 +82,7 @@
     <article id="product-body">
         <section id="demo" class="container-fluid">
             <div class="product-demo">
-              <iframe src="http://scene.knightlab.com/?source=1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U&width=1150&height=650" width="1150" height="650" frameborder="0"></iframe>
+              <iframe src="http://scene.knightlab.com/templates/pages/scene.html?source=1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U&width=100%&height=650" width="100%" height="650" frameborder="0"></iframe>
             </div>
 
         </section>
@@ -166,11 +166,11 @@
                                 <div class="grid grid-left ">
                                     <div class="input-group-label column-12">
                                         <label class="input-group-addon" for="inlinelabel">Google Spreadsheet URL</label>
-                                        <input id="spreadsheet-input" type="text" placeholder="1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U" name="inlinelabel">
+                                        <input id="spreadsheet-input" type="text" placeholder="https://docs.google.com/spreadsheets/d/1pBuV46K52elXMC5XUHBK7aPlKc7-w_hdPEf_P2PceCk/edit#gid=0" name="inlinelabel">
                                     </div>
                                     <div class="input-group-label column-3">
                                         <label class="input-group-addon" for="inlinelabel">Width</label>
-                                        <input type="number" value="100" placeholder="100" id="embed-width" class="input-mini">
+                                        <input type="number" value="800" placeholder="800" id="embed-width" class="input-mini">
                                     </div>
                                     <div class="input-group-label column-3">
                                         <label class="input-group-addon" for="inlinelabel">Height</label>
@@ -190,7 +190,6 @@
                             <h6>Share Link</h6>
                             <form>
                                 <textarea id="share-link" rows="3" type="text" "readonly" name="textplaceholder" value="" style="height:4rem;">
-https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI&font=Bevan-PotanoSans&maptype=toner&width=600&height=600
                                 </textarea>
                             </form>
 
@@ -198,10 +197,9 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
                             <p class="small">Grab the embed code and paste it on your site where you want your story to appear (just like a YouTube video). <em>If you're embedding on Medium.com just paste the link from the right where you want it to appear.</em></p>
                             <form>
                                 <textarea id="embed" rows="3" readonly="readonly" type="text" name="textplaceholder" value="" style="height:5rem;">
-&lt;iframe src=&apos;https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI&amp;font=Bevan-PotanoSans&amp;maptype=toner&amp;width=600&amp;height=600&apos; width=&apos;600&apos; height=&apos;600&apos; frameborder=&apos;0&apos;&gt;&lt;/iframe&gt;
                                 </textarea>
                             </form>
-                            <a class="button button-complement" href="#" target="_blank">Preview</a>&nbsp;
+                            <a class="button button-complement" href="#preview-embed" target="_blank">Preview</a>&nbsp;
                             <a class="button button-light" href="#" target="_blank">Open Preview in a new window  &nbsp;<span class="icon-new-tab"></span></a>
 
 
@@ -210,13 +208,13 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
                 </ol>
             </div>
             <!-- PREVIEW  -->
-            <div id="preview-embed">
+            <div id="preview-embed" style= "display: none">
                 <div class="container">
                     <h3>Preview Embed</h3>
                 </div>
                 <section id="demo" class="container-fluid">
                     <div id="preview-embed-iframe" class="product-demo">
-                        <iframe src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI&amp;font=Default&amp;lang=en&amp;initial_zoom=2&amp;height=650" width="100%" height="650" frameborder="0"></iframe>
+                        <iframe src="http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&width=900&height=650" width="100%" height="650" frameborder="0"></iframe>
                     </div>
 
                 </section>
@@ -268,109 +266,6 @@ https://cdn.knightlab.com/libs/timeline/latest/embed/?source=1cWqQBZCkX9GpzFtxCW
                         Our primary development and testing browser is Google Chrome. We adhere closely to web standards, so we believe that SceneVR should work effectively in all modern web browsers. SceneVR is known to not work with Internet Explorer versions before IE10.
                     </div>
                 </li>
-                <!-- <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>What are my options for changing how my SceneVR looks?</h3>
-                    <div class="accordion-content">
-                    </div>
-                </li> -->
-                <!-- <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>There aren&#x27;t enough options. I want more control over the [font size/color/etc]. Can I change things using CSS?</h3>
-                    <div class="accordion-content">
-                        Because there are so many details to the styling, this is not exactly simple, but, if you have some technical capacity, you can override TimelineJS's <abbr title='Cascading Style Sheets'>CSS</abbr> rules and have complete control over the look of the timeline. For details, see <a href='/docs/overriding-styles.html'>Using the TimelineJS CSS selectors</a>. You will need to be able to <a href='/docs/instantiate-a-timeline.html'>instantiate the Timeline</a> in javascript on your own page. (There is no way to override the CSS using the <code>iframe</code> embed.) Then, either in <code>&lt;style&gt;</code> tags in that page, or in an external stylesheet, you can specify CSS rules changing some or all of TimelineJS's default presentation. The basis of TimelineJS's styles are in <a href='https://github.com/NUKnightLab/TimelineJS3/tree/master/source/less'>these files</a>, which use the <a href='http://lesscss.org/'>Less CSS preprocessor</a>.
-                    </div>
-                </li> -->
-                <!-- <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How can I categorize or group my events?</h3>
-                    <div class="accordion-content">
-                        Every event in a timeline can have a group property. Events with the same group are shown in the same row or adjacent rows, and the common value of their group property is used as a label at the left edge of the timeline. Groups can be set using the 'group' column in the Google Spreadsheet or the 'group' property of a JSON slide object. TimelineJS does not support any other special styling for events in the same group.
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>The first slide in my timeline isn&#x27;t the first chronologically. Why did this happen?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Can I make media images clickable?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How can I format text (add line breaks, bold, italics)?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How do I enter BCE dates?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>How do I create very ancient dates?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Who can access the data in my Google spreadsheet?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Privacy is very important to me. How should I use TimelineJS?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Will my spreadsheet get picked up by search engines?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Can I use TimelineJS with Wordpress? </h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li>
-                <li>
-                    <input type="checkbox" checked>
-                    <i></i>
-                    <h3>Is TimelineJS free for commercial use?</h3>
-                    <div class="accordion-content">
-
-                    </div>
-                </li> -->
         </ul>
     </div>
 </div>
