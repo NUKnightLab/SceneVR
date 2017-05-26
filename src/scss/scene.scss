@@ -266,11 +266,13 @@ body.modal #scene-vr {
             left            : 0;
             bottom          : 0;
             background-color: $color-dark;
+            background-color: $color-bg-default;
             display         : flex;
         }
 
         #footer-content {
             color      : $color-grey--lightest;
+            color: $color-text-default;
             width      : 100%;
             overflow-y : auto;
             font-size  : 14px;
@@ -298,7 +300,7 @@ body.modal #scene-vr {
     justify-content : center;
     align-items     : center;
 
-    .icon-loading { 
+    .icon-loading {
         width            : 30px;
         height           : 30px;
         background-color : #666;
