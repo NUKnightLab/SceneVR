@@ -190,11 +190,11 @@
                                     </div>
                                     <div class="input-group-label column-3">
                                         <label class="input-group-addon" for="inlinelabel">Width</label>
-                                        <input type="number" value="100%" placeholder="100%" id="embed-width" class="input-mini">
+                                        <input type="text" value="100%" placeholder="100%" id="embed-width" class="input-mini">
                                     </div>
                                     <div class="input-group-label column-3">
                                         <label class="input-group-addon" for="inlinelabel">Height</label>
-                                        <input type="number" value="" placeholder="650" id="embed-height" class="input-mini">
+                                        <input type="text" value="650" placeholder="650" id="embed-height" class="input-mini">
                                     </div>
                                 </div>
                             </form>
@@ -428,7 +428,7 @@ http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&
 
       if (preview.style.display ==='none') {
         preview.style.display = 'block';
-        document.querySelector('#preview-embed-iframe iframe').setAttribute('src', srcUrl) 
+        document.querySelector('#preview-embed-iframe iframe').setAttribute('src', srcUrl)
       } else {
         preview.style.display = 'none';
       }
