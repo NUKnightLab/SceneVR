@@ -71,11 +71,10 @@ function build() {
   _.forEach(hbsviews, function(file, i) {
     var filePattern = path.dirname(file).split('src/templates/')[1],
         fileName = path.basename(file, '.hbs');
-
     if(filePattern === undefined) {
-    var patternData = yml.load('src/data/oldData.yml'),
-        renderIndex = renderTemplate('src/templates/index.hbs', patternData),
-        page = renderPage(renderIndex, 'src/templates/layouts/default.hbs');
+      var patternData = yml.load('src/data/oldData.yml'),
+          renderIndex = renderTemplate(file, patternData),
+          page = renderPage(renderIndex, 'src/templates/layouts/default.hbs');
 
       fs.outputFileSync(`dist/${fileName}.html`, page, 'utf8');
     } else if(filePattern === 'layouts') {
