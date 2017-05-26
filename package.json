@@ -40,7 +40,8 @@
     "copy": "ncp src/assets/ dist/assets --stopOnErr",
     "sass": "node-sass -o dist/css -q --output-style compact src/scss/",
     "templates": "node tasks/compile-hbs.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run clean && npm run dist && npm run templates"
   },
   "author": "",
   "license": "ISC"
