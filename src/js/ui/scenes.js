@@ -9,7 +9,7 @@ module.exports = class Scenes {
 
         this.buildScenes().then(() => {
             document.querySelector('body').prepend(this.scene);
-            this.ui = new UI({});
+            this.ui = new UI(config);
         });
     }
 

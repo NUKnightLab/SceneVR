@@ -1,6 +1,7 @@
 module.exports = class UI {
   constructor(config) {
     this.skyIndex = 0;
+    this.isMobile = config.isMobile;
     this.setupUI();
   }
 
@@ -17,7 +18,7 @@ module.exports = class UI {
     const closeThumbnailIcons = document.querySelector('#thumbnail-icons-close');
     const thumbnailsContainer = document.querySelector('#thumbnails-container');
 
-    bodyEl.classList.add(aScene.isMobile ? 'mobile' : 'desktop');
+    bodyEl.classList.add(this.isMobile ? 'mobile' : 'desktop');
 
     aScene.addEventListener('enter-vr', () => {
       this._showVRUI();
@@ -74,7 +75,7 @@ module.exports = class UI {
 
     // enter VR or fullscreen
     fullscreenButton.addEventListener('click', () => {
-      if (aScene.isMobile) {
+      if (this.isMobile) {
         document.querySelector('a-scene').enterVR();
       } else {
         // this checks if the window is fullscreen
@@ -155,6 +156,9 @@ module.exports = class UI {
   }
 
   _showVRUI() {
+    // hide non-VR UI
+    document.querySelector('#ui').style.display = 'none';
+
     let cursor = document.getElementById('cursor');
     cursor.setAttribute('raycaster', 'objects: .vr-thumbnail');
 
@@ -166,6 +170,9 @@ module.exports = class UI {
   }
 
   _hideVRUI() {
+    // show non-VR UI
+    document.querySelector('#ui').style.display = 'initial';
+
     let cursor = document.getElementById('cursor');
     cursor.setAttribute('raycaster', 'objects: none');
 

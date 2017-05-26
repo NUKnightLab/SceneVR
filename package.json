@@ -11,9 +11,12 @@
     "ncp": "^2.0.0",
     "node-sass": "^3.8.0",
     "parallelshell": "^2.0.0",
-    "webpack": "^1.13.1"
+    "webpack": "^1.15.0"
   },
   "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
     "chokidar": "^1.6.0",
     "cssmin": "^0.4.3",
     "exit-hook": "^1.1.1",
