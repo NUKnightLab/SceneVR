@@ -59,12 +59,7 @@ module.exports = {
         let aScene = scene.querySelector('a-scene');
         const scenesLength = templateData.images.length;
 
-        let backgroundText = dom.createElement('a-entity', 'background-text', []);
-        backgroundText.setAttribute('geometry', 'primitive: plane; height: 0.6; width: 2.2');
-        backgroundText.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
-        backgroundText.setAttribute('position', '0 0 -2');
-        aScene.appendChild(backgroundText);
-
+        let cameraEl = scene.querySelector('#camera');
         let footerContentEl = scene.querySelector('#footer-content');
 
         templateData.images.forEach((img, i) => {
@@ -116,13 +111,28 @@ module.exports = {
 
             vrThumbnails.appendChild(vrThumbnailEl);
 
-            let textEl = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
-            textEl.setAttribute('geometry', 'primitive: plane; height: 0.3; width: 1');
-            //textEl.setAttribute('text', `value: ${img.text}; align: left`); //Currently not showing
-            textEl.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
-            textEl.setAttribute('position', '0 0 1');
-            textEl.setAttribute('visible', `${i === 0}`);
-            backgroundText.appendChild(textEl);
+            let textEl = dom.createElement('a-text', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
+            textEl.setAttribute('value', img.text); //Currently not showing
+            textEl.setAttribute('color', 'white'); //Currently not showing
+            textEl.setAttribute('position', '0 0 -4');
+            textEl.setAttribute('opacity', 0);
+            textEl.setAttribute('align', 'center');
+
+            let fadeOutEl = dom.createElement('a-animation', 'fade-out', []);
+            fadeOutEl.setAttribute('attribute', 'opacity');
+            fadeOutEl.setAttribute('begin', 'fadeOut');
+            fadeOutEl.setAttribute('from', '1');
+            fadeOutEl.setAttribute('to', '0');
+            textEl.appendChild(fadeOutEl);
+
+            let fadeInEl = dom.createElement('a-animation', 'fade-in', []);
+            fadeInEl.setAttribute('attribute', 'opacity');
+            fadeInEl.setAttribute('begin', 'fadeIn');
+            fadeInEl.setAttribute('from', '0');
+            fadeInEl.setAttribute('to', '1');
+            textEl.appendChild(fadeInEl);
+
+            aScene.appendChild(textEl);
 
             let footerText = dom.createElement('p', `footer-text-${i}`, ['footer-text', `${i === 0 ? 'current-footer-text' : ''}`]);
             footerText.innerHTML = img.text;

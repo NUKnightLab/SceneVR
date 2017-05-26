@@ -54,11 +54,17 @@ module.exports = class UI {
       // TODO: update selected VR thumbnail
 
       // update the VR text
-      let currentText = document.querySelector('.current-text');
-      currentText.classList.remove('current-text');
-      currentText.setAttribute('visible', 'false');
-      let newText = document.getElementById(`text-${this.skyIndex}`);
-      newText.classList.add('current-text');
+      if (bodyEl.classList.contains('vr')) {
+        let currentText = document.querySelector('.current-text');
+        currentText.classList.remove('current-text');
+
+        let newText = document.getElementById(`text-${this.skyIndex}`);
+        newText.classList.add('current-text');
+        newText.emit('fadeIn');
+        setTimeout(() => {
+          newText.emit('fadeOut')
+        }, 6000);
+      }
 
       // update the footer text
       let currentFooterText = document.querySelector('.current-footer-text');
@@ -166,7 +172,10 @@ module.exports = class UI {
     vrThumbnails.setAttribute('visible', 'true');
 
     let currentText = document.querySelector('.current-text');
-    currentText.setAttribute('visible', 'true');
+    currentText.emit('fadeIn');
+    setTimeout(() => {
+      currentText.emit('fadeOut');
+    }, 6000);
   }
 
   _hideVRUI() {
@@ -180,7 +189,7 @@ module.exports = class UI {
     vrThumbnails.setAttribute('visible', 'false');
 
     let currentText = document.querySelector('.current-text');
-    currentText.setAttribute('visible', 'false');
+    currentText.emit('fadeOut');
   }
 
   _toggleModal() {
