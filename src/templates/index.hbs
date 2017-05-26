@@ -220,8 +220,8 @@ http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&
                                 <textarea id="embed" rows="3" readonly="readonly" type="text" name="textplaceholder" value="" style="height:5rem;">&lt;iframe src=&apos;http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&amp;width=100&amp;height=650&apos;width=&apos;100%&apos;height=&apos;600&apos;frameborder=&apos;0&apos;&gt;&lt;/iframe&gt;
                                 </textarea>
                             </form>
-                            <a class="button button-complement" onclick="showDiv()" href="#preview-embed" target="_blank">Preview</a>&nbsp;
-                            <a class="button button-light" href="#" target="_blank">Open Preview in a new window  &nbsp;<span class="icon-new-tab"></span></a>
+                            <a id="show-preview" class="button button-complement" href="#preview-embed" target="_blank">Preview</a>&nbsp;
+                            <a id="new-window-preview" class="button button-light" href="#" target="_blank">Open Preview in a new window  &nbsp;<span class="icon-new-tab"></span></a>
 
 
                         </div>
@@ -234,7 +234,7 @@ http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&
                 </div>
                 <section id="demo" class="container-fluid">
                     <div id="preview-embed-iframe" class="product-demo">
-                        <iframe src="https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1cWqQBZCkX9GpzFtxCWHoqFXCHg-ylTVUWlnrdYMzKUI&amp;font=Default&amp;lang=en&amp;initial_zoom=2&amp;height=650" width="100%" height="650" frameborder="0"></iframe>
+                        <iframe src="" height="650" width="100%" height="650" frameborder="0"></iframe>
                     </div>
 
                 </section>
@@ -394,6 +394,12 @@ http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&
     const spreadsheetInputEl = document.getElementById('step-3-form');
     spreadsheetInputEl.addEventListener('input', (e) => updateEmbed(e));
 
+    const openInNewTabEl = document.getElementById('new-window-preview');
+    openInNewTabEl.addEventListener('click', (e) => openEmbedInNewTab());
+
+    const showPreviewEl = document.getElementById('show-preview');
+    showPreviewEl.addEventListener('click', (e) => showPreview());
+
     function updateEmbed(e) {
       const spreadsheetInputEl = document.getElementById('spreadsheet-input');
       const source = spreadsheetInputEl.value ? parseGoogleSpreadsheetURL(spreadsheetInputEl.value).key : '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U';
@@ -415,16 +421,23 @@ http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&
       document.getElementById('embed').value = iframe;
     }
 
-    function showDiv() {
+    function showPreview() {
+      const srcUrl = generateSrcUrl();
+
       var preview = document.getElementById('preview-embed');
 
       if (preview.style.display ==='none') {
         preview.style.display = 'block';
-        document.getElementById('preview-embed-iframe').src = 'srcUrl'; }
-        else {
-          preview.style.display = 'none';
-        }
+        document.querySelector('#preview-embed-iframe iframe').setAttribute('src', srcUrl) 
+      } else {
+        preview.style.display = 'none';
       }
+    }
+
+    function openEmbedInNewTab() {
+      const srcUrl = generateSrcUrl();
+      openInNewTabEl.setAttribute('href', srcUrl);
+    }
 
     function buildQueryParamsString(params) {
       let queryParams = [];
@@ -464,6 +477,14 @@ http://scene.knightlab.com/?source=1bKTDlDbITPvydDr1uHLTHGwszqt-lqsLSc7fpbP7LlE&
       } else {
         return null;
       }
+    }
+
+    function generateSrcUrl() {
+      const spreadsheetInputEl = document.getElementById('spreadsheet-input');
+      const source = spreadsheetInputEl.value ? parseGoogleSpreadsheetURL(spreadsheetInputEl.value).key : '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U';
+      const options = { source };
+      const queryParamsString = buildQueryParamsString(options);
+      return `http://scene.knightlab.com/?${queryParamsString}`;
     }
 </script>
 </body>
