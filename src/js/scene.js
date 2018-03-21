@@ -1,6 +1,6 @@
 const Scenes = require('ui/scenes.js');
-const Aframe = require('lib/aframe-v0.5.0.js');
-const AframeLookAtComponent = require('lib/aframe-look-at-component.min.js');
+const Aframe = require('aframe');
+const AframeLookAtComponent = require('aframe-look-at-component');
 
 const exampleSpreadsheetId = '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U';
 

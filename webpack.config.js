@@ -1,29 +1,28 @@
 var webpack = require('webpack'),
-    path = require('path'),
+    path = require('path');
 
-    componentPath = path.resolve('./src/js');
 
 module.exports = {
   context: path.join(__dirname),
-  entry: [
-    "./src/js/scene.js"
-  ],
+  entry: {
+    scene: "./src/js/scene.js"
+  },
   output: {
     path: path.join(__dirname, "./dist/js"),
     filename: "[name].js"
   },
   resolve: {
-    root: componentPath
-  },
-  resolveLoader: {
-    root: path.join(__dirname, "node_modules")
+    modules: [ path.resolve('./src/js'), "node_modules" ]
   },
   module: {
-    loaders: [
+    rules: [
       {
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['babel-preset-env']
+          }
         }
       }
     ]
