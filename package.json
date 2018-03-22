@@ -1,7 +1,7 @@
 {
-  "name": "frontend-buildkit",
-  "version": "1.0.0",
-  "description": "Knight Lab FrontEnd BuildKit",
+  "name": "scenevr",
+  "version": "0.0.5",
+  "description": "Knight Lab SceneVR",
   "private": true,
   "main": "app.js",
   "dependencies": {
@@ -20,7 +20,7 @@
     "globby": "^5.0.0",
     "handlebars": "^4.0.5",
     "handlebars-loader": "^1.3.0",
-    "http-server": "^0.9.0",
+    "http-server": "^0.11.1",
     "lodash": "^4.13.1",
     "ncp": "^2.0.0",
     "node-sass": "^3.8.0",
