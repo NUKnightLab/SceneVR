@@ -2,19 +2,42 @@ const UI = require('ui/ui.js');
 const gapiClient = require('data/gapiClient.js');
 const template = require('data/template.js');
 const flickrApi = require('data/flickrApi.js');
+const jsonClient = require('data/jsonClient.js');
 
 module.exports = class Scenes {
     constructor(config) {
         this.config = config;
 
-        this.buildScenes().then(() => {
-            document.querySelector('body').prepend(this.scene);
-            this.ui = new UI(config);
-        });
+        if (config.sourceType == 'spreadsheet'){
+          this.buildScenesFromSpreadsheet().then(() => {
+              document.querySelector('body').prepend(this.scene);
+              this.ui = new UI(config);
+          });
+        }
+        else if (config.sourceType == 'json'){
+          this.buildScenesFromJSON().then(() => {
+              document.querySelector('body').prepend(this.scene);
+              this.ui = new UI(config);
+          });
+        }
+
     }
 
-    buildScenes() {
-        return gapiClient.getSpreadsheetData(this.config.source).then(response => {
+    buildScenesFromJSON() {
+      return jsonClient.getJSONData(this.config.source).then(response => {
+        let templateData = {
+          images: response.scenes
+        };
+
+        this.scene = template.buildTemplate(templateData);
+
+      }, response => {
+          console.log(response.result.error.message);
+      });
+    }
+
+    buildScenesFromSpreadsheet(){
+      return gapiClient.getSpreadsheetData(this.config.source).then(response => {
             let promises = [];
             let templateData = {
                 images: []
@@ -35,5 +58,6 @@ module.exports = class Scenes {
         }, response => {
             console.log(response.result.error.message);
         });
+
     }
 }

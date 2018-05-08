@@ -1,6 +1,6 @@
 module.exports = class UI {
 	constructor(config) {
-		this.skyIndex = 2;
+		this.skyIndex = 0;
 		this.isMobile = config.isMobile;
 		this.setupUI();
 	}
@@ -231,7 +231,7 @@ module.exports = class UI {
 
 	_updateSkybox() {
         const a = {
-            sky: document.getElementById(`sky-${this.skyIndex}`)
+            sky: document.getElementById('skybox')
         }
 
 

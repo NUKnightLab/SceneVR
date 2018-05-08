@@ -4,11 +4,22 @@ const AframeLookAtComponent = require('aframe-look-at-component');
 
 const exampleSpreadsheetId = '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U';
 
+
 function initalize() {
     console.log('Scene VR Version: 0.0.1 (Date 29-09-2017)');
     const qs = getQueryParams(window.location.search);
-    let config = {}
-    config.source = qs.hasOwnProperty('source') ? qs.source : exampleSpreadsheetId;
+    let config = {};
+    config.sourceType = 'spreadsheet';
+    if (qs.hasOwnProperty('source')){
+      config.source = qs.source;
+    }
+    else if (window.jsonURL){
+      config.sourceType = 'json';
+      config.source = window.jsonURL;
+    }
+    else{
+      config.source = exampleSpreadsheetId;
+    }
     config.isMobile = isMobile.any();
     let scenes = new Scenes(config);
 }
