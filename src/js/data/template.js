@@ -1,53 +1,46 @@
 const dom = require('utils/dom.js');
 
 module.exports = {
-    template: `<a-scene reverse-look-controls>
-      <a-assets>
-      </a-assets>
-      <a-entity id="camera" camera look-controls="reverse-mouse-drag:true">
-        <a-entity id="cursor"
-          cursor="fuse: true; fuseTimeout:1000;"
-          raycaster="objects: none"
-          position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360"
-          material="color: #D3D3D3" visible="false">
-            <a-animation  begin="fusing" end="stop-loading" easing="ease-in" attribute="geometry.thetaLength"
-            dur=1000 from="360" to="0"></a-animation>
-            <a-animation  begin="rewind" easing="ease-in" attribute="geometry.thetaLength"
-            to="360"></a-animation>
-            <a-animation  begin="click" easing="ease-in" attribute="geometry.thetaLength"
-            dur=500 from="0" to="360"></a-animation>
+    template: `
+    <a-scene reverse-look-controls="reverse-look-controls">
+        <a-assets></a-assets>
+        <a-entity id="camera" camera="camera" look-controls="reverse-mouse-drag:true">
+            <a-entity id="cursor" cursor="fuse: true; fuseTimeout:1000;" raycaster="objects: none" position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360" material="color: #D3D3D3" visible="false">
+                <a-animation begin="fusing" end="stop-loading" easing="ease-in" attribute="geometry.thetaLength" dur="1000" from="360" to="0"></a-animation>
+                <a-animation begin="rewind" easing="ease-in" attribute="geometry.thetaLength" to="360"></a-animation>
+                <a-animation begin="click" easing="ease-in" attribute="geometry.thetaLength" dur="500" from="0" to="360"></a-animation>
+            </a-entity>
         </a-entity>
-      </a-entity>
-      <a-entity id="vr-thumbnails" visible="false"></a-entity>
-      <a-sky id="skybox" src="#sky-0">
-        <a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" from="1" to="0"></a-animation>
-        <a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" from="0" to="1"></a-animation>
-      </a-sky>
+        <a-entity id="vr-thumbnails" visible="false"></a-entity>
+        <a-sky id="skybox" src="#sky-0">
+            <a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" from="1" to="0"></a-animation>
+            <a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" from="0" to="1"></a-animation>
+        </a-sky>
     </a-scene>
     <div id="ui">
-      <div id="black-background"></div>
-      <img id="cardboard" src="/assets/google-cardboard.svg">
-      <img id="fullscreen" src="/assets/fullscreen.svg">
-      <img id="thumbnail-icons-close" src="/assets/close.svg"/>
-      <div id="thumbnail-icons">
-        <div id="thumbnail-icons-stack"></div>
-      </div>
-      <div id="thumbnails-container">
-        <div id="thumbnails"></div>
-      </div>
-      <div id="compass-container">
-        <svg id="compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 334.47 334.47">
-          <title>Compass</title>
-          <circle class="a" cx="167.24" cy="167.24" r="155.24"/>
-          <circle class="b" cx="167.24" cy="167.24" r="30.1"/>
-          <path id="pointer" d="M79,81.61l52.85,52.86c2.18-2.22,16.12-15.92,37.67-14.92,18.71,0.87,30.42,12.24,33,14.92l52.85-52.85c-6.94-6.89-36.09-34.28-82.18-36.49C119.69,42.55,84.73,76,79,81.61Z"/>
-        </svg>
-      </div>
-      <div id="footer">
-        <div id="footer-content">
+        <div id="black-background"></div>
+        <img id="cardboard" src="/assets/google-cardboard.svg">
+        <img id="fullscreen" src="/assets/fullscreen.svg">
+        <img id="thumbnail-icons-close" src="/assets/close.svg"/>
+        <div id="thumbnail-icons">
+            <div id="thumbnail-icons-stack"></div>
         </div>
-      </div>
-    </div>`,
+        <div id="thumbnails-container">
+            <div id="thumbnails"></div>
+        </div>
+        <div id="compass-container">
+            <svg id="compass" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 334.47 334.47">
+                <title>Compass</title>
+                <circle class="a" cx="167.24" cy="167.24" r="155.24"/>
+                <circle class="b" cx="167.24" cy="167.24" r="30.1"/>
+                <path id="pointer" d="M79,81.61l52.85,52.86c2.18-2.22,16.12-15.92,37.67-14.92,18.71,0.87,30.42,12.24,33,14.92l52.85-52.85c-6.94-6.89-36.09-34.28-82.18-36.49C119.69,42.55,84.73,76,79,81.61Z"/>
+            </svg>
+        </div>
+        <div id="footer">
+            <div id="footer-content"></div>
+        </div>
+    </div>
+    `,
     buildTemplate: (templateData) => {
         let scene = document.createElement('section');
         scene.id = 'scene-vr';
