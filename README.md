@@ -23,3 +23,26 @@ Connect to Google spreadsheet ([in this format](https://docs.google.com/spreadsh
 ```
 http://localhost:8080/?source=(insert Google spreadsheet ID here)
 ```
+## Data Model
+```
+project: {
+    title: "Title",
+    desc: "Description",
+    scenes: [
+        {
+            caption: "Caption info",
+            image_url: "url_to_image"
+        },
+        {
+            caption: "Caption info",
+            image_url: "url_to_image"
+        }
+    ]
+}
+```
+
+## Image sizes
+* thumbnail = 540h
+* s = 1080h
+* m = 2160h
+* l = 4096h
