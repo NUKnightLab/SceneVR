@@ -1,7 +1,6 @@
-const UI = require('ui/ui.js');
-const gapiClient = require('data/gapiClient.js');
-const template = require('data/template.js');
-const flickrApi = require('data/flickrApi.js');
+const UI = require('../ui/ui.js');
+const data = require('../data/data.js');
+const template = require('../data/template.js');
 
 module.exports = class Scenes {
     constructor(config) {
@@ -14,26 +13,45 @@ module.exports = class Scenes {
     }
 
     buildScenes() {
-        return gapiClient.getSpreadsheetData(this.config.source).then(response => {
-            let promises = [];
-            let templateData = {
-                images: []
-            };
-            response.entry.forEach(e => promises.push(flickrApi.getImages(e.gsx$image.$t)));
+        return data.getJSON(this.config.source).then(
+            response => {
+                let promises = [];
+                let template_data = {
+                    scenes: response.scenes
+                };
 
-            // wait until all Flickr URLs are ready before building the template
-            return Promise.all(promises).then(objects => {
-                objects.forEach((o, i) => {
-                    templateData.images.push({
-                        path: o.source,
-                        thumbnailPath: o.thumbnail,
-                        text: response.entry[i].gsx$text.$t
-                    });
-                });
-                this.scene = template.buildTemplate(templateData);
-            });
-        }, response => {
-            console.log(response.result.error.message);
-        });
+                console.log(template_data);
+                this.scene = template.buildTemplate(template_data);
+
+            },
+
+            response => {
+                console.log(response.scenes);
+            }
+
+        );
+
+        // return gapiClient.getSpreadsheetData(this.config.source).then(response => {
+        //     let promises = [];
+        //     let templateData = {
+        //         images: []
+        //     };
+        //     response.entry.forEach(e => promises.push(flickrApi.getImages(e.gsx$image.$t)));
+        //
+        //     // wait until all Flickr URLs are ready before building the template
+        //     return Promise.all(promises).then(objects => {
+        //         objects.forEach((o, i) => {
+        //             templateData.images.push({
+        //                 path: o.source,
+        //                 thumbnailPath: o.thumbnail,
+        //                 text: response.entry[i].gsx$text.$t
+        //             });
+        //         });
+        //         console.log(templateData);
+        //         this.scene = template.buildTemplate(templateData);
+        //     });
+        // }, response => {
+        //     console.log(response.result.error.message);
+        // });
     }
 }

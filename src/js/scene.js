@@ -1,49 +1,54 @@
-const Scenes = require('ui/scenes.js');
+const Scenes = require('./ui/scenes.js');
+const isMobile = require('./utils/isMobile.js');
+const data_url = "/assets/test_panos/data.json";
 
-const exampleSpreadsheetId = '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U';
+// config data model
+// config {
+//     source: '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U',
+//     isMobile: isMobile.any(),
+//
+// }
+
+// DATA MODEL
+// project: {
+//     title: "Title",
+//     desc: "Description",
+//     scenes: [
+//         {
+//             caption: "Caption info",
+//             image_url: "url_to_image"
+//         },
+//         {
+//             caption: "Caption info",
+//             image_url: "url_to_image"
+//         }
+//     ]
+// }
 
 function initalize() {
     console.log('Scene VR Version: 0.0.5 (20180611)');
-    const qs = getQueryParams(window.location.search);
+    const query_params = getQueryParams(window.location.search);
     let config = {}
-    config.source = qs.hasOwnProperty('source') ? qs.source : exampleSpreadsheetId;
-    config.isMobile = isMobile.any();
+    config.source = query_params.hasOwnProperty('source') ? query_params.source : data_url;
+    config.isMobile = isMobile.any;
     let scenes = new Scenes(config);
+
 }
 
-function getQueryParams(qs) {
-    qs = qs.split("+").join(" ");
+// Get information from URL
+function getQueryParams(query_params) {
+    query_params = query_params.split("+").join(" ");
 
     var params = {},
         tokens,
         re = /[?&]?([^=]+)=([^&]*)/g;
 
-    while (tokens = re.exec(qs)) {
+    while (tokens = re.exec(query_params)) {
         params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
     }
 
     return params;
 }
 
-var isMobile = {
-    Android: function() {
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-        return navigator.userAgent.match(/iPhone|iPod/i);
-    },
-    Opera: function() {
-        return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-        return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
-    },
-    any: function() {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
-};
 
 window.onload = initalize;
