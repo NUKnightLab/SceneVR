@@ -1,11 +1,9 @@
 const Scenes = require('ui/scenes.js');
-const Aframe = require('aframe');
-const AframeLookAtComponent = require('aframe-look-at-component');
 
 const exampleSpreadsheetId = '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U';
 
 function initalize() {
-    console.log('Scene VR Version: 0.0.1 (Date 29-09-2017)');
+    console.log('Scene VR Version: 0.0.5 (20180611)');
     const qs = getQueryParams(window.location.search);
     let config = {}
     config.source = qs.hasOwnProperty('source') ? qs.source : exampleSpreadsheetId;
