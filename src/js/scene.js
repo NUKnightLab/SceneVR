@@ -1,4 +1,4 @@
-const Scenes = require('./ui/scenes.js');
+const Scenes = require('./ui/Scenes.js');
 const isMobile = require('./utils/isMobile.js');
 const data_url = "/assets/test_panos/data.json";
 

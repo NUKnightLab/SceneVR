@@ -1,9 +1,10 @@
 const dom = require('../utils/dom.js');
 
 module.exports = {
-    template: `
-    <a-scene reverse-look-controls="reverse-look-controls">
-        <a-assets></a-assets>
+    template_scene: `
+        <a-assets>
+
+        </a-assets>
         <a-entity id="camera" camera="camera" look-controls="reverse-mouse-drag:true">
             <a-entity id="cursor" cursor="fuse: true; fuseTimeout:1000;" raycaster="objects: none" position="0.0 0.0 -0.45" geometry="primitive: ring; radius-inner: 0.005; radius-outer: 0.01; thetaLength: 360" material="color: #D3D3D3" visible="false">
                 <a-animation begin="fusing" end="stop-loading" easing="ease-in" attribute="geometry.thetaLength" dur="1000" from="360" to="0"></a-animation>
@@ -11,52 +12,54 @@ module.exports = {
                 <a-animation begin="click" easing="ease-in" attribute="geometry.thetaLength" dur="500" from="0" to="360"></a-animation>
             </a-entity>
         </a-entity>
-        <a-entity id="vr-thumbnails" visible="false"></a-entity>
-        <a-sky id="skybox" src="#sky-0">
+        <a-entity id="svr-vr-thumbnails" visible="false"></a-entity>
+        <a-sky id="skybox" src="" radius="10">
             <a-animation id="fade-out" attribute="material.opacity" begin="fadeOut" from="1" to="0"></a-animation>
             <a-animation id="fade-in" attribute="material.opacity" begin="fadeIn" from="0" to="1"></a-animation>
         </a-sky>
-    </a-scene>
-    <div id="ui">
-        <div id="black-background"></div>
-        <img id="cardboard" src="/assets/google-cardboard.svg">
-        <img id="fullscreen" src="/assets/fullscreen.svg">
-        <img id="thumbnail-icons-close" src="/assets/close.svg"/>
-        <div id="thumbnail-icons">
-            <div id="thumbnail-icons-stack"></div>
-        </div>
-        <div id="thumbnails-container">
-            <div id="thumbnails"></div>
-        </div>
-        <div id="compass-container">
-            <svg id="compass" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 334.47 334.47">
-                <title>Compass</title>
-                <circle class="a" cx="167.24" cy="167.24" r="155.24"/>
-                <circle class="b" cx="167.24" cy="167.24" r="30.1"/>
-                <path id="pointer" d="M79,81.61l52.85,52.86c2.18-2.22,16.12-15.92,37.67-14.92,18.71,0.87,30.42,12.24,33,14.92l52.85-52.85c-6.94-6.89-36.09-34.28-82.18-36.49C119.69,42.55,84.73,76,79,81.61Z"/>
-            </svg>
-        </div>
-        <div id="footer">
-            <div id="footer-content"></div>
-        </div>
+    `,
+    template_ui: `
+    <div id="svr-black-background"></div>
+    <img id="svr-cardboard" src="/assets/google-cardboard.svg">
+    <img id="svr-fullscreen" src="/assets/fullscreen.svg">
+    <img id="svr-thumbnail-icons-close" src="/assets/close.svg"/>
+    <div id="svr-thumbnail-icons">
+        <div id="svr-thumbnail-icons-stack"></div>
+    </div>
+    <div id="svr-thumbnails-container">
+        <div id="svr-thumbnails"></div>
+    </div>
+    <div id="svr-compass-container">
+        <svg id="svr-compass" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 334.47 334.47">
+            <title>Compass</title>
+            <circle class="a" cx="167.24" cy="167.24" r="155.24"/>
+            <circle class="b" cx="167.24" cy="167.24" r="30.1"/>
+            <path id="pointer" d="M79,81.61l52.85,52.86c2.18-2.22,16.12-15.92,37.67-14.92,18.71,0.87,30.42,12.24,33,14.92l52.85-52.85c-6.94-6.89-36.09-34.28-82.18-36.49C119.69,42.55,84.73,76,79,81.61Z"/>
+        </svg>
+    </div>
+    <div id="svr-footer">
+        <div id="svr-footer-content"></div>
     </div>
     `,
     buildTemplate: (templateData) => {
-        
+
         const scenes_length = templateData.scenes.length;
 
         let el = {
-            scene: document.createElement('section'),
+            scene: dom.createElement('section', '#scene-vr'),
             assets: {},
             thumb_icon_stack: {},
             thumbs: {},
             thumbs_vr: {},
             a_scene: {},
             background_text: {},
-            footer: {}
+            footer: {},
+            ui: dom.createElement('div', '#ui')
         }
 
-        el.scene.innerHTML = module.exports.template;
+        el.scene.innerHTML = module.exports.template_scene;
+        el.ui.innerHTML = module.exports.template_ui;
+
         el.assets = el.scene.querySelector('a-assets');
         el.thumb_icon_stack = el.scene.querySelector('#thumbnail-icons-stack');
         el.thumbs = el.scene.querySelector('#thumbnails');
@@ -81,35 +84,35 @@ module.exports = {
             el.assets.appendChild(el_sky);
 
             // THUMBNAIL
-            let el_thumb = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? 'selected-thumbnail' : ''}`]);
-            el_thumb.setAttribute('src', thumbnail_path);
-            el.thumbs.appendChild(el_thumb);
+            // let el_thumb = dom.createElement('img', `thumbnail-${i}`, ['thumbnail', `${i === 0 ? 'selected-thumbnail' : ''}`]);
+            // el_thumb.setAttribute('src', thumbnail_path);
+            // el.thumbs.appendChild(el_thumb);
 
             // THUMBNAIL STACK
-            let el_thumb_icon = dom.createElement('img', '', ['thumbnail-icon']);
-            el_thumb_icon.setAttribute('src', thumbnail_path);
-            el.thumb_icon_stack.prepend(el_thumb_icon);
+            // let el_thumb_icon = dom.createElement('img', '', ['thumbnail-icon']);
+            // el_thumb_icon.setAttribute('src', thumbnail_path);
+            // el.thumb_icon_stack.prepend(el_thumb_icon);
 
             // VR THUMBNAIL
-            let el_thumb_vr = dom.createElement('a-image', `vr-thumbnail-${i}`, ['vr-thumbnail', `${i === 0 ? 'current-vr-thumbnail' : ''}`]);
-            el_thumb_vr.setAttribute('src', thumbnail_path);
-            el_thumb_vr.setAttribute('width', 0.25);
-            el_thumb_vr.setAttribute('height', 0.25);
-            el_thumb_vr.setAttribute('look-at', '[camera]');
-            el.thumbs_vr.appendChild(el_thumb_vr);
+            // let el_thumb_vr = dom.createElement('a-image', `vr-thumbnail-${i}`, ['vr-thumbnail', `${i === 0 ? 'current-vr-thumbnail' : ''}`]);
+            // el_thumb_vr.setAttribute('src', thumbnail_path);
+            // el_thumb_vr.setAttribute('width', 0.25);
+            // el_thumb_vr.setAttribute('height', 0.25);
+            // el_thumb_vr.setAttribute('look-at', '[camera]');
+            // el.thumbs_vr.appendChild(el_thumb_vr);
 
             // TEXT
-            let el_text = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
-            el_text.setAttribute('geometry', 'primitive: plane; height: 0.3; width: 1');
-            el_text.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
-            el_text.setAttribute('position', '0 0 1');
-            el_text.setAttribute('visible', `${i === 0}`);
-            el.background_text.appendChild(el_text);
+            // let el_text = dom.createElement('a-entity', `text-${i}`, ['text', `${i === 0 ? 'current-text' : ''}`]);
+            // el_text.setAttribute('geometry', 'primitive: plane; height: 0.3; width: 1');
+            // el_text.setAttribute('material', 'color: black; opacity: 0.0'); //Currently not showing
+            // el_text.setAttribute('position', '0 0 1');
+            // el_text.setAttribute('visible', `${i === 0}`);
+            // el.background_text.appendChild(el_text);
 
             // FOOTER TEXT
-            let el_footer_text = dom.createElement('p', `footer-text-${i}`, ['footer-text', `${i === 0 ? 'current-footer-text' : ''}`]);
-            el_footer_text.innerHTML = s.caption;
-            el.footer.appendChild(el_footer_text);
+            // let el_footer_text = dom.createElement('p', `footer-text-${i}`, ['footer-text', `${i === 0 ? 'current-footer-text' : ''}`]);
+            // el_footer_text.innerHTML = s.caption;
+            // el.footer.appendChild(el_footer_text);
 
         });
 
