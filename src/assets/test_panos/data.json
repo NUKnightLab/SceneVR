@@ -1,0 +1,26 @@
+{
+    "title": "Test VR",
+    "desc": "Description",
+    "scenes": [
+        {
+            "caption": "Hong Kong",
+            "image_url": "/assets/test_panos/hong-kong/"
+        },
+        {
+            "caption": "Knight Lab Studio Class",
+            "image_url": "/assets/test_panos/class-pano-2/"
+        },
+        {
+            "caption": "Hong Kong iPhone Panorama",
+            "image_url": "/assets/test_panos/iphone_pano/"
+        },
+        {
+            "caption": "South Korea",
+            "image_url": "/assets/test_panos/korea/"
+        },
+        {
+            "caption": "Epcot Disney World",
+            "image_url": "/assets/test_panos/disney/"
+        }
+    ]
+}

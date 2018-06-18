@@ -4,293 +4,15 @@ body {
     font-size  : $font-size-base;
     font-family: $fontFamily-sansSerif;
     line-height: $font-line-height;
+    margin: 0;
+    padding: 0;
 }
-
-body.desktop #scene-vr {
-    #thumbnails-container {
-        #thumbnails {
-            display: none;
-        }
-
-        .thumbnail {
-            max-width: 20vw;
-            margin   : 0 1vw 3vh 0;
-        }
-    }
-}
-
-body.mobile #scene-vr {
-    #ui {
-        #fullscreen {
-            bottom: 17vh;
-            height: 55px;
-            width: 55px;
-        }
-
-        #thumbnail-icons-close {
-            right: 10px;
-            width: 30px;
-            height: 30px;
-        }
-
-        #thumbnail-icons {
-            top: 37.5vh;
-            right: 40px;
-
-            #thumbnail-icons-stack {
-                .thumbnail-icon {
-                    width: 30px;
-                    height: 30px;
-                    border: 2px solid #fff;
-                }
-
-                .thumbnail-icon:nth-of-type(1) {
-                    top: 10px;
-                    left: -10px;
-                }
-
-                .thumbnail-icon:nth-of-type(2) {
-                    top: 5px;
-                    left: -5px;
-                }
-
-                .thumbnail-icon:nth-of-type(3) {
-                    top: 0;
-                    left: 0;
-                }
-            }
-        }
-
-        #thumbnails-container {
-            top: 3vh;
-
-            #thumbnails {
-                display: none;
-            }
-
-            .thumbnail {
-                max-width: 60vw;
-                margin   : 0 3vw 5vh 0;
-            }
-        }
-
-        #compass-container {
-            top: 2vh;
-            #compass {
-                height: 40px;
-                width: 40px;
-            }
-        }
-
-        #footer {
-            height: 14vh;
-
-            #footer-content {
-                padding-left: 3%;
-                width: 95%;
-            }
-        }
-    }
-}
-
-body.modal #scene-vr {
-    a-scene {
-        opacity: 0.25;
-    }
-
-    #ui {
-        #fullscreen, #compass {
-            pointer-events: none;
-            opacity       : 0;
-        }
-
-        #thumbnail-icons-close {
-            display: block;
-        }
-
-        #thumbnail-icons {
-            #thumbnail-icons-stack {
-                display: none;
-            }
-        }
-
-        #thumbnails-container {
-            pointer-events: none;
-
-            #thumbnails {
-                position      : static;
-                opacity       : 1;
-                pointer-events: auto;
-                display       : block;
-            }
-        }
-    }
-}
-
 #scene-vr {
-    opacity: 0;
-
-    a-scene {
-        transition: opacity 0.5s;
-    }
-
-    #ui {
-        opacity: 1;
-        width  : 100vw;
-        height : 100vh;
-
-        #black-background {
-            width           : 100%;
-            height          : 100%;
-            background-color: $color-dark;
-        }
-
-        #fullscreen {
-            position: fixed;
-            bottom  : 11vh;
-            right   : 2vw;
-            cursor  : pointer;
-            height  : 75px;
-            width   : 75px;
-            -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-            filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-        }
-
-        #thumbnails-container {
-            position: fixed;
-            top     : 5vh;
-            left    : 3vw;
-            width   : 80vw;
-        }
-
-        #thumbnail-icons-close {
-            display : none;
-            position: fixed;
-            top     : 40vh;
-            right   : 30px;
-            height  : 50px;
-            width   : 50px;
-            cursor  : pointer;
-        }
-
-        #thumbnail-icons {
-            display   : inline-block;
-            position  : fixed;
-            top       : 40vh;
-            right     : 70px;
-            cursor    : pointer;
-            transition: opacity 0.5s;
-
-            #thumbnail-icons-stack {
-                .thumbnail-icon {
-                    position  : absolute;
-                    border    : 4px solid #fff;
-                    height    : 50px;
-                    width     : 50px;
-                    object-fit: cover;
-                    max-width : initial;
-                }
-
-                .thumbnail-icon:nth-of-type(1) {
-                    top : 20px;
-                    left: -20px;
-                }
-
-                .thumbnail-icon:nth-of-type(2) {
-                    top : 10px;
-                    left: -10px;
-                }
-
-                .thumbnail-icon:nth-of-type(3) {
-                    top : 0;
-                    left: 0;
-                }
-            }
-        }
-
-        #thumbnails {
-            height        : 74vh;
-            opacity       : 0;
-            pointer-events: none;
-            transition    : opacity 0.5s;
-            overflow-y    : auto;
-        }
-
-        .thumbnail {
-            cursor : pointer;
-            display: inline-block;
-        }
-
-        .selected-thumbnail {
-            border: 1px solid $color-grey--lightest;
-        }
-
-        #compass-container {
-            position: fixed;
-            top     : 3vh;
-            right   : 3vw;
-        }
-
-        #compass {
-            width   : 50px;
-            height  : 50px;
-            position: fixed;
-            right   : 3vw;
-            -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-            filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-
-            .a {
-                fill             : none;
-                stroke           : $color-grey--lightest;
-                stroke-miterlimit: 10;
-                stroke-width     : 24px;
-            }
-
-            .b {
-                fill: $color-grey--lightest;
-            }
-
-            #pointer {
-                fill            : $color-grey--lightest;
-                transform-origin: 50% 130%;
-                -webkit-filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-                filter: drop-shadow(2px 1px 2px rgba(0,0,0,0.4));
-            }
-        }
-
-        #footer {
-            height          : 9vh;
-            width           : 100%;
-            padding-top     : 1vh;
-            position        : fixed;
-            left            : 0;
-            bottom          : 0;
-            background-color: $color-dark;
-            background-color: $color-bg-default;
-            display         : flex;
-        }
-
-        #footer-content {
-            color      : $color-grey--lightest;
-            color: $color-text-default;
-            width      : 100%;
-            overflow-y : auto;
-            font-size  : 14px;
-            line-height:18px;
-
-            .footer-text {
-                margin : 0;
-                display: none;
-            }
-
-            .footer-text.current-footer-text {
-                display: block;
-            }
-        }
-    }
+    height: 100vh;
+    overflow:hidden;
 }
 
-#loading {
+#svr-loading {
     width           : 100vw;
     height          : 100vh;
     position        : fixed;
@@ -299,8 +21,9 @@ body.modal #scene-vr {
     display         : flex;
     justify-content : center;
     align-items     : center;
+    opacity         :1;
 
-    .icon-loading {
+    .svr-icon-loading {
         width            : 30px;
         height           : 30px;
         background-color : #666;
@@ -308,48 +31,48 @@ body.modal #scene-vr {
         margin-left      : auto;
         margin-right     : auto;
         text-align       : center;
-        animation        : rotateplane 1.2s infinite ease-in-out;
-        -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+        animation        : svr-rotateplane 1.2s infinite ease-in-out;
+        -webkit-animation: svr-rotateplane 1.2s infinite ease-in-out;
     }
 
-    @keyframes rotateplane { 0% { transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
+    @keyframes svr-rotateplane { 0% { transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
       50% { transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg); }
       100% { transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg); } }
 
-    @-webkit-keyframes rotateplane { 0% { -webkit-transform: perspective(120px); }
+    @-webkit-keyframes svr-rotateplane { 0% { -webkit-transform: perspective(120px); }
       50% { -webkit-transform: perspective(120px) rotateY(180deg); }
       100% { -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg); } }
 }
 
-.fade-in {
-    animation: 0.5s 1 forwards fadeIn;
-    -webkit-animation: 0.5s 1 forwards fadeIn;
+.svr-fade-in {
+    animation: 0.5s 1 forwards svr-fadeIn;
+    -webkit-animation: 0.5s 1 forwards svr-fadeIn;
 }
 
-.fade-out {
-    animation: 0.5s 1 forwards fadeOut;
-    -webkit-animation: 0.5s 1 forwards fadeOut;
+.svr-fade-out {
+    animation: 0.5s 1 forwards svr-fadeOut;
+    -webkit-animation: 0.5s 1 forwards svr-fadeOut;
 }
 
-@keyframes fadeIn {
+@keyframes svr-fadeIn {
     from { opacity: 0; }
 
     to { opacity: 1; }
 }
 
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes svr-fadeIn {
     from { opacity: 0; }
 
     to { opacity: 1; }
 }
 
-@keyframes fadeOut {
+@keyframes svr-fadeOut {
     from { opacity: 1; }
 
     to { opacity: 0; }
 }
 
-@-webkit-keyframes fadeOut {
+@-webkit-keyframes svr-fadeOut {
     from { opacity: 1; }
 
     to { opacity: 0; }

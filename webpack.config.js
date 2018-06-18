@@ -5,7 +5,7 @@ var webpack = require('webpack'),
 module.exports = {
   context: path.join(__dirname),
   entry: {
-    scene: "./src/js/scene.js"
+    scene: "./src/js/scenevr.js"
   },
   output: {
     path: path.join(__dirname, "./dist/js"),

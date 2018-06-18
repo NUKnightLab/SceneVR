@@ -1,12 +1,13 @@
 {
   "name": "scenevr",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Knight Lab SceneVR",
   "private": true,
   "main": "app.js",
   "dependencies": {
-    "aframe": "^0.8.1",
-    "aframe-look-at-component": "^0.6.0"
+    "gsap": "^2.0.1",
+    "three": "^0.93.0",
+    "three-orbitcontrols": "^2.1.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -23,7 +24,7 @@
     "http-server": "^0.11.1",
     "lodash": "^4.13.1",
     "ncp": "^2.0.0",
-    "node-sass": "^3.8.0",
+    "node-sass": "^4.9.0",
     "parallelshell": "^3.0.2",
     "rimraf": "^2.5.3",
     "shelljs": "^0.7.0",
