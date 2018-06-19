@@ -11,6 +11,10 @@ module.exports = class Stage {
         this.el = dom.createElement('div', 'svr-main');
         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
         this.scene = new THREE.Scene();
+        this.camera_direction = new THREE.Vector3();
+        this.camera_angle = 0;
+        window.scene = this.scene;
+        window.THREE = THREE;
         this.controls = new THREE.DeviceOrientationControls( this.camera );
         this.pos = {
             lat: 0,
@@ -58,10 +62,6 @@ module.exports = class Stage {
         pano.addToScene(this.scene);
     }
 
-
-
-
-
     render() {
         this.pos.lat = Math.max( - 85, Math.min( 85, this.pos.lat ) );
         this.pos.phi = THREE.Math.degToRad( 90 - this.pos.lat );
@@ -74,6 +74,8 @@ module.exports = class Stage {
 
         this.controls.update();
         this.renderer.render( this.scene, this.camera );
+        this.camera.getWorldDirection(this.camera_direction);
+        this.camera_angle = THREE.Math.radToDeg(Math.atan2(this.camera_direction.x,this.camera_direction.z) );
     }
 
     updateSize() {

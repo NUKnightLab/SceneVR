@@ -1,0 +1,61 @@
+#svr-chrome {
+    width:100%;
+
+    .svr-btn {
+        margin-right:$ui-spacing;
+        cursor: pointer;
+        svg {
+            width:36px;
+            height:36px;
+            -webkit-filter: drop-shadow( 1px 1px 2px #000 );
+                    filter: drop-shadow( 1px 1px 2px #000 );
+            &:hover {
+                fill: #DDD;
+            }
+        }
+    }
+}
+
+#svr-chrome-header, #svr-chrome-footer {
+    position:absolute;
+    left:0;
+    width:100%;
+    display:flex;
+    flex-direction: row-reverse;
+    z-index:10;
+}
+
+#svr-chrome-header {
+    top:0;
+}
+
+#svr-chrome-footer {
+    bottom:0;
+}
+
+#svr-btn-fullscreen {
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+}
+
+#svr-compass {
+    margin-right:$ui-spacing;
+    margin-top:$ui-spacing;
+    svg {
+        width:48px;
+        height:48px;
+        .svr-compass-1{
+            opacity:.54
+        };
+        .svr-compass-2 {
+            fill:#eaeaea;
+        }
+    }
+}
+
+#svr-compass-pointer {
+    fill:#fff;
+    @include prefix(transform-origin, center, webkit ms);
+}

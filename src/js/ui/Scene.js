@@ -3,6 +3,7 @@ const data = require('../data/data.js');
 const dom = require('../utils/dom.js');
 const Stage = require('../ui/Stage.js');
 const Pano = require('../ui/Pano.js');
+const Chrome = require('../ui/Chrome.js');
 import {TweenLite, CSSPlugin} from "gsap/all";
 
 module.exports = class Scene {
@@ -48,6 +49,7 @@ module.exports = class Scene {
 
     buildTemplate() {
         this.el.container = dom.createElement('section', 'scene-vr');
+
         document.body.appendChild(this.el.container);
 
         // TweenLite.to(that.el.loading, 1, {opacity:"0", onComplete:function() {
@@ -56,7 +58,7 @@ module.exports = class Scene {
 
 
         this.stage = new Stage(this.config, this.el.container);
-
+        this.chrome = new Chrome(this.data, this.el.container);
 
     }
 
@@ -67,48 +69,70 @@ module.exports = class Scene {
         // this.el.container.addEventListener('touchstart', (e) => {this.onTouchStart(e)});
         // this.el.container.addEventListener('touchmove', (e) => {this.onTouchMove(e)});
         this.el.container.addEventListener('dblclick', (e) => {this.onMouseDoubleClick(e)});
+        this.chrome.events.addListener("fullscreen", (e) => {
+            this.fullScreenToggle(e);
+
+        })
+
     }
 
-    onMouseDoubleClick(e) {
-        console.log("DOUBLE CLICK")
-        let new_pano = this.current_pano + 1;
-        this.goTo(new_pano);
-    }
-
-    onMouseDown(e) {
-        e.preventDefault();
-        this.user_interacting = true;
-        console.log(e);
-        console.log(this.pointer)
-        this.pointer.down_x = e.clientX;
-        this.pointer.down_y = e.clientY;
-
-        this.pointer.lon = this.stage.pos.lon;
-        this.pointer.lat = this.stage.pos.lat;
-
-        console.log("onMouseDown")
-    }
-
-    onMouseUp(e) {
-        this.user_interacting = false;
-        console.log("onMouseUp")
-    }
-
-    onMouseMove(e) {
-        if (this.user_interacting) {
-
-            this.stage.pos.lon = ( this.pointer.down_x - e.clientX ) * 0.1 + this.pointer.lon;
-			this.stage.pos.lat = ( e.clientY - this.pointer.down_y ) * 0.1 + this.pointer.lat;
+    fullScreenToggle(e) {
+        console.log("FULLSCREEN")
+        // if (this.el.container.requestFullscreen) {
+        //     this.el.container.requestFullscreen();
+        // }
+        // this.el.container.requestFullscreen();
+        if (this.el.container.requestFullscreen) {
+            this.el.container.requestFullscreen();
+        } else if (this.el.container.webkitRequestFullscreen) {
+            this.el.container.webkitRequestFullscreen();
+        } else if (this.el.container.mozRequestFullScreen) {
+            this.el.container.mozRequestFullScreen();
+        } else if (this.el.container.msRequestFullscreen) {
+            this.el.container.msRequestFullscreen();
         }
+        this.updateSize();
     }
-
-    onTouchStart(e) {
-
-    }
-
-    onTouchMove(e) {
-
-    }
+    // onMouseDoubleClick(e) {
+    //     console.log("DOUBLE CLICK")
+    //     let new_pano = this.current_pano + 1;
+    //     this.goTo(new_pano);
+    // }
+    //
+    // onMouseDown(e) {
+    //     e.preventDefault();
+    //     this.user_interacting = true;
+    //     console.log(e);
+    //     console.log(this.pointer)
+    //     this.pointer.down_x = e.clientX;
+    //     this.pointer.down_y = e.clientY;
+    //
+    //     this.pointer.lon = this.stage.pos.lon;
+    //     this.pointer.lat = this.stage.pos.lat;
+    //
+    //     console.log("onMouseDown")
+    // }
+    //
+    // onMouseUp(e) {
+    //     this.user_interacting = false;
+    //     console.log("onMouseUp")
+    // }
+    //
+    // onMouseMove(e) {
+    //     if (this.user_interacting) {
+    //
+    //         this.stage.pos.lon = ( this.pointer.down_x - e.clientX ) * 0.1 + this.pointer.lon;
+	// 		this.stage.pos.lat = ( e.clientY - this.pointer.down_y ) * 0.1 + this.pointer.lat;
+    //     }
+    // }
+    //
+    // onTouchStart(e) {
+    //
+    // }
+    //
+    // onTouchMove(e) {
+    //
+    // }
 
     buildPanos() {
         for (let i = 0; i < this.data.scenes.length; i++) {
@@ -138,6 +162,7 @@ module.exports = class Scene {
     render() {
         if(this.stage){
             this.stage.render();
+            this.chrome.updateCompass(Math.round(-this.stage.camera_angle-180));
         }
 
     }

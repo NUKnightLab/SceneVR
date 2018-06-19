@@ -21,7 +21,7 @@ module.exports = class Pano {
         this.mesh = new THREE.Mesh( this.geometry, this.material );
         this.mesh.material.opacity = 0;
         this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0});
-
+        this.mesh.visible = false;
         this.loadTexture(`${this.data.image_url}image-thumbnail.jpg`).then(
             response => {
                 this.mesh.material = response;
@@ -37,6 +37,7 @@ module.exports = class Pano {
     }
 
     makeActive() {
+        this.mesh.visible = true;
         this.active = true;
         this.tween.kill();
         this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
@@ -59,12 +60,16 @@ module.exports = class Pano {
     }
 
     makeInActive() {
-        TweenLite.to(this.mesh.material, 1, {opacity: 0});
+        TweenLite.to(this.mesh.material, 1, {opacity: 0, onComplete: () => {
+            this.mesh.visible = false;
+        }});
     }
 
     loadTexture(url) {
         return new Promise((resolve, reject) => {
             this.texture_loader.load(url, function(texture) {
+                console.log(`${texture.image.width} Width and ${texture.image.height} Height`);
+                console.log(texture.image.height/texture.image.width)
                 resolve(new THREE.MeshBasicMaterial( {
                     map: texture
                 }));
