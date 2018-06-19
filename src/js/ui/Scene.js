@@ -93,11 +93,11 @@ module.exports = class Scene {
         }
         this.updateSize();
     }
-    // onMouseDoubleClick(e) {
-    //     console.log("DOUBLE CLICK")
-    //     let new_pano = this.current_pano + 1;
-    //     this.goTo(new_pano);
-    // }
+    onMouseDoubleClick(e) {
+        console.log("DOUBLE CLICK")
+        let new_pano = this.current_pano + 1;
+        this.goTo(new_pano);
+    }
     //
     // onMouseDown(e) {
     //     e.preventDefault();
