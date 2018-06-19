@@ -49,9 +49,7 @@ module.exports = class Scene {
     buildTemplate() {
         this.el.container = dom.createElement('section', 'scene-vr');
         document.body.appendChild(this.el.container);
-        this.el.loading.style.opacity = "0.8";
-        let that = this;
-        that.el.loading.style.display = "none";
+
         // TweenLite.to(that.el.loading, 1, {opacity:"0", onComplete:function() {
         //     that.el.loading.style.display = "none";
         // }});
@@ -63,32 +61,12 @@ module.exports = class Scene {
     }
 
     startListening() {
-        let self = this;
-
-        this.el.container.addEventListener('mousedown', function(e) {
-            self.onMouseDown(e)
-        }, false);
-
-        this.el.container.addEventListener('mousemove', function(e) {
-            self.onMouseMove(e)
-        }, false);
-
-        this.el.container.addEventListener('mouseup', function(e) {
-            self.onMouseUp(e)
-        }, false);
-
-        this.el.container.addEventListener('touchstart', function(e) {
-            self.onTouchStart(e)
-        }, false);
-
-        this.el.container.addEventListener('touchmove', function(e) {
-            self.onTouchMove(e)
-        }, false);
-
-        this.el.container.addEventListener('dblclick', function(e) {
-            self.onMouseDoubleClick(e)
-        }, false);
-
+        // this.el.container.addEventListener('mousedown', (e) => {this.onMouseDown(e)});
+        // this.el.container.addEventListener('mousemove', (e) => {this.onMouseMove(e)});
+        // this.el.container.addEventListener('mouseup', (e) => {this.onMouseUp(e)});
+        // this.el.container.addEventListener('touchstart', (e) => {this.onTouchStart(e)});
+        // this.el.container.addEventListener('touchmove', (e) => {this.onTouchMove(e)});
+        this.el.container.addEventListener('dblclick', (e) => {this.onMouseDoubleClick(e)});
     }
 
     onMouseDoubleClick(e) {
@@ -135,10 +113,20 @@ module.exports = class Scene {
     buildPanos() {
         for (let i = 0; i < this.data.scenes.length; i++) {
             let pano = new Pano(this.data.scenes[i]);
+            pano.events.addListener("thumbnail_loaded", (e) => {
+                this.onThumbnailLoaded(e, i)
+            })
             this.panos.push(pano);
             this.stage.addPano(pano);
         }
         this.panos[this.current_pano].makeActive();
+    }
+
+    onThumbnailLoaded(e, i) {
+        console.log(`${i} loaded`)
+        if (i === 0) {
+            this.el.loading.style.display = "none";
+        }
     }
 
     goTo(n) {

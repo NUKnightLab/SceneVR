@@ -1,4 +1,5 @@
 const THREE = require("three");
+const EventEmitter = require("../utils/EventEmitter.js");
 import {TweenLite} from "gsap/TweenLite";
 
 module.exports = class Pano {
@@ -11,7 +12,9 @@ module.exports = class Pano {
         this.high_resolution = false;
         this.tween = {};
         this.active = false;
-        this.animation_time = 2;
+        this.animation_time = 1;
+        this.events = new EventEmitter();
+
 
         this.geometry.scale( - 1, 1, 1 );
 
@@ -27,7 +30,7 @@ module.exports = class Pano {
                 if (this.active) {
                     this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1});
                 }
-                console.log(response);
+                this.events.emit("thumbnail_loaded", {test:"testing"});
             }
         )
 
@@ -36,24 +39,23 @@ module.exports = class Pano {
     makeActive() {
         this.active = true;
         this.tween.kill();
-        this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1});
-        console.log(this.mesh.material)
-        if (!this.high_resolution) {
-            this.loadTexture(`${this.data.image_url}image-l.jpg`).then(
-                response => {
-                    let opac = this.mesh.material.opacity;
-                    this.tween.kill();
-                    this.high_resolution = true;
-                    this.mesh.material = response;
-                    this.mesh.material.transparent = true;
-                    this.mesh.material.opacity = opac;
-                    this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1});
+        this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
+            console.log("LOADED HIGH REZ")
+            if (!this.high_resolution) {
+                this.loadTexture(`${this.data.image_url}image-l.jpg`).then(
+                    response => {
+                        let opac = this.mesh.material.opacity;
+                        this.tween.kill();
+                        this.high_resolution = true;
+                        this.mesh.material = response;
+                        this.mesh.material.transparent = true;
+                        this.mesh.material.opacity = opac;
+                        this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1});
+                    }
+                )
+            }
+        }});
 
-                    // this.mesh.material.opacity = 0.5;
-                    console.log(response);
-                }
-            )
-        }
     }
 
     makeInActive() {
