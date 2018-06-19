@@ -6,8 +6,7 @@
   "main": "app.js",
   "dependencies": {
     "gsap": "^2.0.1",
-    "three": "^0.93.0",
-    "three-orbitcontrols": "^2.1.2"
+    "three": "^0.93.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
