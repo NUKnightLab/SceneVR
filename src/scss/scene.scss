@@ -8,8 +8,25 @@ body {
     padding: 0;
 }
 #scene-vr {
-    height: 100vh;
+    // height: 100vh;
     overflow:hidden;
+    #svr-main {
+        overflow:hidden;
+        canvas:hover {
+            cursor: grab;
+            cursor: -webkit-grab;
+        }
+        canvas:focus {
+            cursor: grabbing;
+            cursor: -webkit-grabbing;
+        }
+        // &:hover {
+        //     cursor: grab;
+        // }
+        // &:active, &:focus {
+        //     cursor: grabbing;
+        // }
+    }
 }
 
 #svr-loading {
