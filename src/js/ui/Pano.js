@@ -62,7 +62,8 @@ module.exports = class Pano {
     }
 
     makeInActive() {
-        TweenLite.to(this.mesh.material, 1, {opacity: 0, onComplete: () => {
+        this.tween.kill();
+        this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0, onComplete: () => {
             this.mesh.visible = false;
         }});
     }
@@ -76,13 +77,13 @@ module.exports = class Pano {
             console.log(`image_multiplier ${image_multiplier}`)
             console.log(THREE.Math.degToRad(image_multiplier) )
             let g = {
-                radius: 1000,
-                widthSegments: 60,
-                heightSegments: 40,
-                phiStart: Math.PI*2,
-                phiLength: Math.PI*(image_multiplier/2),
-                thetaStart: 45,
-                thetaLength: Math.PI/2
+                radius: 1100, //1
+                widthSegments: 60, //8
+                heightSegments: 1000, //6
+                phiStart: 0, //0
+                phiLength: Math.PI*(image_multiplier/2), //Math.PI * 2
+                thetaStart: 45, //0
+                thetaLength: Math.PI/2 //Math.PI
             }
             this.geometry = new THREE.SphereBufferGeometry( g.radius, g.widthSegments, g.heightSegments, g.phiStart, g.phiLength, g.thetaStart, g.thetaLength);
             this.geometry.scale( - 1, 1, 1 );
