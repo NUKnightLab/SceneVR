@@ -3,16 +3,16 @@
     "desc": "Description goes here. Sometimes it can be long.",
     "scenes": [
         {
+            "caption": "Hong Kong iPhone Panorama",
+            "image_url": "/assets/test_panos/iphone_pano/"
+        },
+        {
             "caption": "Hong Kong",
             "image_url": "/assets/test_panos/hong-kong/"
         },
         {
             "caption": "Knight Lab Studio Class",
             "image_url": "/assets/test_panos/class-pano-2/"
-        },
-        {
-            "caption": "Hong Kong iPhone Panorama",
-            "image_url": "/assets/test_panos/iphone_pano/"
         },
         {
             "caption": "South Korea",
