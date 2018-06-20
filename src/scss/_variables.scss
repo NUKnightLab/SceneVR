@@ -55,6 +55,9 @@ $color-tertiary--dark:		darken($color-tertiary, $color-amount--darkest);
 // Dark
 $color-dark:			#1d1f21 !default;
 
+// Light
+$color-light:		#FFFFFF !default;
+
 // Grey
 $color-grey:			#9C9C9C !default;
 $color-grey--light:		lighten($color-grey, $color-amount--light);
@@ -67,6 +70,8 @@ $color-grey--darkest:	darken($color-grey, $color-amount--darkest);
 // Defaults
 $color-text-default:	#222222 !default;
 $color-bg-default:		#FFFFFF !default;
+
+$color-bg: $color-grey--lighter; 
 
 // Code Color
 $color-code: 			#c7254e !default;

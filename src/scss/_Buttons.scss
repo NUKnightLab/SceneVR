@@ -1,0 +1,27 @@
+.svr-btn {
+    margin-right:$ui-spacing;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        width:32px;
+        height:32px;
+        -webkit-filter: drop-shadow( 1px 1px 2px #000 );
+                filter: drop-shadow( 1px 1px 2px #000 );
+        &:hover {
+            fill: #DDD;
+        }
+    }
+}
+
+#svr-button-container {
+    display:flex;
+    flex-direction: row-reverse;
+    #svr-btn-fullscreen {
+        cursor: pointer;
+        &:hover {
+            color: #333;
+        }
+    }
+}

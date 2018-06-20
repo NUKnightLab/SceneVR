@@ -10,13 +10,14 @@ module.exports = class Thumbnail {
 
         this.el = {
             container: dom.createElement('div', `svr-thumb-${this.number}`, ["svr-thumbnail"]),
-            image: dom.createElement('img')
+            image: dom.createElement('div', '', ["svr-thumbnail-bg"])
         }
 
         this.el.container.addEventListener('click', (e) => {this.onClick(e)});
 
         this.el.container.appendChild(this.el.image);
-        this.el.image.setAttribute("src", `${this.data.image_url}image-thumbnail.jpg`)
+        // this.el.image.setAttribute("src", `${this.data.image_url}image-thumbnail.jpg`)
+        this.el.image.style.backgroundImage = `url(${this.data.image_url}image-thumbnail.jpg)`
 
         if (add_to_container) {
             add_to_container.appendChild(this.el.container);
@@ -28,8 +29,10 @@ module.exports = class Thumbnail {
 
         if(this.active) {
             console.log(`THUMB ${this.number} ACTIVE`)
+            this.el.container.classList.add("svr-active");
         } else {
             console.log(`THUMB ${this.number} NOT ACTIVE`)
+            this.el.container.classList.remove("svr-active");
         }
     }
 

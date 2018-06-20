@@ -4,6 +4,7 @@ const dom = require('../utils/dom.js');
 const Stage = require('../ui/Stage.js');
 const Pano = require('../ui/Pano.js');
 const Chrome = require('../ui/Chrome.js');
+const isMobile = require('../utils/isMobile.js');
 import {TweenLite, CSSPlugin} from "gsap/all";
 
 module.exports = class Scene {
@@ -46,6 +47,9 @@ module.exports = class Scene {
     buildTemplate() {
         this.el.container = dom.createElement('section', 'scene-vr');
 
+        if (isMobile.any) {
+            this.el.container.classList.add("svr-mobile");
+        }
         document.body.appendChild(this.el.container);
 
         // TweenLite.to(that.el.loading, 1, {opacity:"0", onComplete:function() {

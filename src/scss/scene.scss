@@ -1,7 +1,11 @@
-@import "mixin";
-@import "variables";
-@import "loading";
+@import "Mixin";
+@import "Variables";
+@import "Loading";
 @import "Chrome";
+@import "Compass";
+@import "Buttons";
+@import "Thumbnail";
+@import "Caption";
 
 body {
     font-size  : $font-size-base;
@@ -9,29 +13,35 @@ body {
     line-height: $font-line-height;
     margin: 0;
     padding: 0;
+    height:100%;
+    overflow:hidden;
+    background-color: $color-bg;
 }
 #scene-vr {
-    height: 100vh;
+    height: 100%;
     overflow:hidden;
-    #svr-main {
-        height: 100vh;
-        position:absolute;
-        top:0;
-        left:0;
-        overflow:hidden;
-        canvas:hover {
-            cursor: grab;
-            cursor: -webkit-grab;
-        }
-        canvas:focus {
-            cursor: grabbing;
-            cursor: -webkit-grabbing;
-        }
-        // &:hover {
-        //     cursor: grab;
-        // }
-        // &:active, &:focus {
-        //     cursor: grabbing;
-        // }
+    background-color: $color-bg;
+}
+
+#svr-main {
+    height: 100%;
+    position:fixed;
+    top:0;
+    left:0;
+    overflow:hidden;
+    background-color: $color-bg;
+    canvas:hover {
+        cursor: grab;
+        cursor: -webkit-grab;
     }
+    canvas:focus {
+        cursor: grabbing;
+        cursor: -webkit-grabbing;
+    }
+    // &:hover {
+    //     cursor: grab;
+    // }
+    // &:active, &:focus {
+    //     cursor: grabbing;
+    // }
 }

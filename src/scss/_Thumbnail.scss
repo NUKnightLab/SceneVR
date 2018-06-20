@@ -1,0 +1,52 @@
+// Thumbnails // --------------------------------------------------
+#svr-thumbnail-container {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    padding-left: $ui-spacing;
+    padding-bottom: $ui-spacing;
+    overflow:hidden;
+    padding-top: $ui-spacing;
+    @include linear-gradient(rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+    .svr-thumbnail {
+        cursor: pointer;
+        margin-right: $ui-spacing;
+        width:152px;
+        height:76px;
+        // width: 96px;
+        // height: 48px;
+        background-color: $color-grey--darkest;
+        box-sizing: border-box;
+        box-shadow: 2px 2px 3px $color-dark;
+        border: 1px solid $color-grey--dark;
+        .svr-thumbnail-bg {
+            opacity: 0.4;
+            width:100%;
+            height:100%;
+            background-repeat: none;
+            background-size: cover;
+            background-position: center center;
+            z-index: 2;
+            -webkit-filter: grayscale(75%);
+            filter: grayscale(75%);
+        }
+        &.svr-active {
+            border: 1px solid $color-light;
+            .svr-thumbnail-bg {
+                opacity: 1;
+                -webkit-filter: grayscale(0%);
+                filter: grayscale(0%);
+            }
+        }
+    }
+}
+
+.svr-mobile {
+    #svr-thumbnail-container {
+        .svr-thumbnail {
+            width: 96px;
+            height: 48px;
+        }
+    }
+}
