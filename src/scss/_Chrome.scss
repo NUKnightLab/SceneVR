@@ -33,13 +33,33 @@
     bottom:0;
 }
 
-#svr-btn-fullscreen {
-    cursor: pointer;
-    &:hover {
-        color: #333;
+
+#svr-button-container {
+    display:flex;
+
+    #svr-btn-fullscreen {
+        cursor: pointer;
+        &:hover {
+            color: #333;
+        }
+    }
+}
+#svr-thumbnail-container {
+    display:flex;
+    width:100%;
+    margin-left: $ui-spacing;
+    .svr-thumbnail {
+        cursor: pointer;
+        margin-right: $ui-spacing;
+
+        img {
+            height:48px;
+            box-shadow: 1px 1px 2px #000;
+        }
     }
 }
 
+// COMPASS
 #svr-compass {
     margin-right:$ui-spacing;
     margin-top:$ui-spacing;
