@@ -11,38 +11,42 @@ module.exports = class Chrome {
         this.data = data;
         this.events = new EventEmitter();
         this.thumbnails = [];
-        this.active = true;
+        this._active = true;
         this.el = {
             container: dom.createElement('div', 'svr-chrome'),
             header: dom.createElement('div', 'svr-chrome-header'),
             thumbnail_container: dom.createElement('div', 'svr-thumbnail-container'),
-            text_container: dom.createElement('div', 'svr-text-container'),
-            button_container: dom.createElement('div', 'svr-button-container'),
-            footer: dom.createElement('div', 'svr-chrome-footer')
+            footer_button_container: dom.createElement('div', '', ["svr-button-container"]),
+            header_button_container: dom.createElement('div', '', ["svr-button-container"]),
+            footer: dom.createElement('div', 'svr-chrome-footer'),
+            compass: {},
+            compass_pointer: {}
         }
 
         this.buttons = {
-            fullscreen: dom.createElement('div', 'svr-btn-fullscreen', ["svr-btn"], this.el.button_container),
-            cardboard: dom.createElement('div', 'svr-btn-cardboard', ["svr-btn"], this.el.button_container)
+            fullscreen: dom.createElement('div', 'svr-btn-fullscreen', ["svr-btn"], this.el.footer_button_container),
+            cardboard: dom.createElement('div', 'svr-btn-cardboard', ["svr-btn"], this.el.footer_button_container)
         }
 
-        this.compass = dom.createElement('div', 'svr-compass', [" "], this.el.header);
-        this.compass_pointer = {};
-        this.compass.innerHTML = icons.compass;
-        this.compass_pointer = this.compass.querySelector('#svr-compass-pointer');
+        this.title = new Caption(this.el.header);
+        this.title.text = `<h2>${this.data.title}</h2><p>${this.data.desc}</p>`;
+
+        this.el.compass = dom.createElement('div', 'svr-compass', [" "], this.el.header_button_container);
+        this.el.compass_pointer = {};
+        this.el.compass.innerHTML = icons.compass;
+        this.el.compass_pointer = this.el.compass.querySelector('#svr-compass-pointer');
 
         this.buttons.fullscreen.innerHTML = icons.fullscreen;
         this.buttons.cardboard.innerHTML = icons.cardboard;
         this.buttons.fullscreen.addEventListener('click', (e) => {this.onFullScreenButton(e)});
 
-        this.el.text_container.innerHTML = "<h2>Test</h2><p>Something</p>";
-
         // HEADER
         this.el.container.appendChild(this.el.header);
+        this.el.header.appendChild(this.el.header_button_container);
 
         // FOOTER
         this.el.container.appendChild(this.el.footer);
-        this.el.footer.appendChild(this.el.button_container);
+        this.el.footer.appendChild(this.el.footer_button_container);
         this.caption = new Caption(this.el.footer);
         this.caption.text = this.data.scenes[0].caption;
         this.el.footer.appendChild(this.el.thumbnail_container);
@@ -62,6 +66,24 @@ module.exports = class Chrome {
         };
     }
 
+    get compass() {
+        let c = this.el.compass_pointer.getAttribute("transform");
+        return c;
+    }
+
+    set compass(deg) {
+        this.el.compass_pointer.setAttribute("transform", `rotate(${deg})`);
+        this.el.compass_pointer.style.webkitTransform = `rotate(${deg}deg)`;
+    }
+
+    get active() {
+        return this._active;
+    }
+
+    set active(a) {
+        this._active = a;
+    }
+
     makeThumbnails() {
         for (let i = 0; i < this.data.scenes.length; i++) {
             let thumb = new Thumbnail(this.data.scenes[i], i, this.el.thumbnail_container);
@@ -70,19 +92,34 @@ module.exports = class Chrome {
             })
             this.thumbnails.push(thumb);
         }
-        this.thumbnails[0].setActive(true);
+        this.thumbnails[0].active = true;
     }
 
     toggleUI() {
         console.log("Toggle UI");
-        if (this.active) {
-            this.active = false;
+        if (this._active) {
+            this._active = false;
+            let header_height = this.el.header.offsetHeight;
+            this.el.header.classList.remove("svr-active");
+            this.el.header.classList.add("svr-inactive");
+            this.el.header.style.top = `-${header_height - 65}px`;
+
+            let footer_height = this.el.footer.offsetHeight;
             this.el.footer.classList.remove("svr-active");
             this.el.footer.classList.add("svr-inactive");
+            this.el.footer.style.bottom = `-${footer_height - 32}px`;
+
+
         } else {
-            this.active = true;
+            this._active = true;
+
+            this.el.header.classList.remove("svr-inactive");
+            this.el.header.classList.add("svr-active");
+            this.el.header.style.top = "0px";
+
             this.el.footer.classList.remove("svr-inactive");
             this.el.footer.classList.add("svr-active");
+            this.el.footer.style.bottom = "0px";
         }
     }
 
@@ -90,10 +127,10 @@ module.exports = class Chrome {
         // set state of thumbnails
         for (let i = 0; i < this.thumbnails.length; i++) {
             if(e.number === i) {
-                this.thumbnails[i].setActive(true);
-                this.caption.text = this.data.scenes[i].caption;
+                this.thumbnails[i].active = true;
+                this.caption.text = `${this.thumbnails[i].data.caption}`;
             } else {
-                this.thumbnails[i].setActive(false);
+                this.thumbnails[i].active = false;
             }
         }
         this.events.emit("goto", {number:e.number});
@@ -103,10 +140,4 @@ module.exports = class Chrome {
         this.events.emit("fullscreen", {test:"testing"});
     }
 
-    updateCompass(deg) {
-        this.compass_pointer.setAttribute("transform", `rotate(${deg})`);
-        // this.compass_pointer.setAttribute("-webkit-transform", `rotate(${deg})`);
-        // this.compass_pointer.style.transform = `rotate(${deg})`;
-        this.compass_pointer.style.webkitTransform = `rotate(${deg}deg)`;
-    }
 }

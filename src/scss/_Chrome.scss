@@ -21,19 +21,12 @@
 }
 
 #svr-chrome-header {
-    display:flex;
-    flex-direction: row-reverse;
     top:0;
+    .svr-caption {
+        @include linear-gradient(rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    }
 }
 
 #svr-chrome-footer {
-
-
     bottom:0;
-    &.svr-active {
-        bottom:0;
-    }
-    &.svr-inactive {
-        bottom:-100px;
-    }
 }

@@ -5,7 +5,7 @@ module.exports = class Caption {
         this._text = "";
 
         this.el = {
-            container: dom.createElement("div", "svr-caption"),
+            container: dom.createElement("div", "", ["svr-caption"]),
             text_container: dom.createElement('div', '', ["svr-text"])
         }
 

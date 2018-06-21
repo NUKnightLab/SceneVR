@@ -1,15 +1,21 @@
 
-#svr-caption {
+.svr-caption {
     color: $color-light;
     text-shadow: 2px 2px $color-dark;
-    @include linear-gradient(rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+    // @include linear-gradient(rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
     padding: $ui-spacing;
+    background-color: rgba($color-dark, 0.6);
     .svr-text {
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
+        h2 {
+            margin:0;
+        }
+        p {
+            margin-top:0;
+        }
     }
-    p {
-        margin:0;
-    }
+
+
 }
