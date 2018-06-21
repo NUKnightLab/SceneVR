@@ -48,7 +48,7 @@ module.exports = class Pano {
             this._active = true;
             this.tween.kill();
             this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
-                console.log("LOADED HIGH REZ")
+                console.debug("LOADED HIGH REZ");
                 if (!this.high_resolution) {
                     this.loadTexture(`${this.data.image_url}image-m.jpg`).then(
                         response => {
@@ -76,9 +76,7 @@ module.exports = class Pano {
             let image_multiplier = (w / h) * 60.8;
             image_multiplier = THREE.Math.degToRad(image_multiplier)
             // let image_multiplier = ( ( (texture.image.width / texture.image.height) * 60.8) * Math.PI)/180;
-            let thetaLength = (60.8 * Math.PI)/180
-            console.log(`image_multiplier ${image_multiplier}`)
-            console.log(THREE.Math.degToRad(image_multiplier) )
+            let thetaLength = (60.8 * Math.PI)/180;
             let g = {
                 radius: 1100, //1
                 widthSegments: 60, //8
@@ -102,7 +100,7 @@ module.exports = class Pano {
             this.texture_loader.load(url, (texture) => {
                 // check if equilinear
                 if ((texture.image.height/texture.image.width) < 0.45) {
-                    console.log("is not equilinear")
+                    console.debug("is not equilinear");
                     this.fixGeometry(texture.image.width, texture.image.height);
                 }
                 resolve(new THREE.MeshBasicMaterial( {

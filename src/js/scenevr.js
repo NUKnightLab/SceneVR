@@ -6,31 +6,8 @@ const isMobile = require('./utils/isMobile.js');
 const data_url = "/assets/test_panos/data.json";
 
 
-// config data model
-// config {
-//     source: '1fWdaOBE62qfr3OWZGsPqbF4X-bh_VQJ5U3fbbZbd61U',
-//     isMobile: isMobile.any(),
-//
-// }
-
-// DATA MODEL
-// project: {
-//     title: "Title",
-//     desc: "Description",
-//     scenes: [
-//         {
-//             caption: "Caption info",
-//             image_url: "url_to_image"
-//         },
-//         {
-//             caption: "Caption info",
-//             image_url: "url_to_image"
-//         }
-//     ]
-// }
-
 function initalize() {
-    console.log('Scene VR Version: 0.0.6 (20180615)');
+    console.info('Scene VR Version: 0.0.7 (2018-06-21)');
     const query_params = getQueryParams(window.location.search);
     let config = {}
     config.source = query_params.hasOwnProperty('source') ? query_params.source : data_url;
@@ -43,7 +20,7 @@ function initalize() {
     }
 
     function onResize() {
-        console.log("Window Resize");
+        console.debug("Window Resize");
         scene.updateSize();
     };
 

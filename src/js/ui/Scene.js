@@ -137,7 +137,6 @@ module.exports = class Scene {
     }
 
     onThumbnailLoaded(e, i) {
-        console.log(`${i} loaded`)
         if (i === 0) {
             this.el.loading.style.display = "none";
         }
@@ -168,8 +167,6 @@ module.exports = class Scene {
     appendStage() {
         this.el.loading.style.visibility = "hidden";
         this.el.container.appendChild(this.el.ui);
-        console.log("ATTACH STAGE");
-
     }
 
 
