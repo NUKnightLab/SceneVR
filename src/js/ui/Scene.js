@@ -81,16 +81,31 @@ module.exports = class Scene {
     }
 
     fullScreenToggle(e) {
-        console.log("FULLSCREEN")
-        if (this.el.container.requestFullscreen) {
-            this.el.container.requestFullscreen();
-        } else if (this.el.container.webkitRequestFullscreen) {
-            this.el.container.webkitRequestFullscreen();
-        } else if (this.el.container.mozRequestFullScreen) {
-            this.el.container.mozRequestFullScreen();
-        } else if (this.el.container.msRequestFullscreen) {
-            this.el.container.msRequestFullscreen();
+        let fullscreenElement = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+
+        if (!fullscreenElement) {
+            this.chrome.fullscreen = true;
+            if (this.el.container.requestFullscreen) {
+                this.el.container.requestFullscreen();
+            } else if (this.el.container.webkitRequestFullscreen) {
+                this.el.container.webkitRequestFullscreen();
+            } else if (this.el.container.mozRequestFullScreen) {
+                this.el.container.mozRequestFullScreen();
+            } else if (this.el.container.msRequestFullscreen) {
+                this.el.container.msRequestFullscreen();
+            }
+        } else {
+            this.chrome.fullscreen = false;
+            if(document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if(document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if(document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+
         }
+
         this.updateSize();
     }
 

@@ -12,6 +12,7 @@ module.exports = class Chrome {
         this.events = new EventEmitter();
         this.thumbnails = [];
         this._active = true;
+        this._fullscreen = false;
         this.el = {
             container: dom.createElement('div', 'svr-chrome'),
             header: dom.createElement('div', 'svr-chrome-header'),
@@ -84,6 +85,19 @@ module.exports = class Chrome {
         this._active = a;
     }
 
+    get fullscreen() {
+        return this._fullscreen;
+    }
+
+    set fullscreen(f) {
+        this._fullscreen = f;
+        if (f) {
+            this.buttons.fullscreen.innerHTML = icons.fullscreen_exit;
+        } else {
+            this.buttons.fullscreen.innerHTML = icons.fullscreen;
+        }
+    }
+
     makeThumbnails() {
         for (let i = 0; i < this.data.scenes.length; i++) {
             let thumb = new Thumbnail(this.data.scenes[i], i, this.el.thumbnail_container);
@@ -102,12 +116,12 @@ module.exports = class Chrome {
             let header_height = this.el.header.offsetHeight;
             this.el.header.classList.remove("svr-active");
             this.el.header.classList.add("svr-inactive");
-            this.el.header.style.top = `-${header_height - 65}px`;
+            this.el.header.style.top = `-${header_height - 75}px`;
 
             let footer_height = this.el.footer.offsetHeight;
             this.el.footer.classList.remove("svr-active");
             this.el.footer.classList.add("svr-inactive");
-            this.el.footer.style.bottom = `-${footer_height - 32}px`;
+            this.el.footer.style.bottom = `-${footer_height - 42}px`;
 
 
         } else {
@@ -122,6 +136,8 @@ module.exports = class Chrome {
             this.el.footer.style.bottom = "0px";
         }
     }
+
+
 
     onThumbnailClick(e) {
         // set state of thumbnails
