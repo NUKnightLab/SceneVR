@@ -6,6 +6,7 @@ const EventEmitter = require("../utils/EventEmitter.js");
 const isMobile = require("../utils/isMobile.js");
 import {TweenLite, CSSPlugin} from "gsap/all";
 
+// TO DO SCROLLABLE THUMBNAIL PANEL
 module.exports = class Chrome {
     constructor(data, add_to_container) {
         this.data = data;
@@ -140,7 +141,6 @@ module.exports = class Chrome {
 
 
     onThumbnailClick(e) {
-        // set state of thumbnails
         for (let i = 0; i < this.thumbnails.length; i++) {
             if(e.number === i) {
                 this.thumbnails[i].active = true;

@@ -13,9 +13,8 @@ module.exports = class Stage {
         this.scene = new THREE.Scene();
         this.camera_direction = new THREE.Vector3();
         this.camera_angle = 0;
-        window.scene = this.scene;
-        window.THREE = THREE;
-        this.controls = new THREE.DeviceOrientationControls( this.camera );
+
+        this.controls = {};
         this.pos = {
             lat: 0,
             lon: 0,
@@ -34,6 +33,10 @@ module.exports = class Stage {
         this.renderer.setSize( window.innerWidth, window.innerHeight );
         this.el.appendChild( this.renderer.domElement );
 
+        // USED FOR THREEJS CHROME INSPECTOR
+        // REMOVE BEFORE DEPLOY
+        // window.scene = this.scene;
+        // window.THREE = THREE;
 
 
 
@@ -62,16 +65,27 @@ module.exports = class Stage {
         pano.addToScene(this.scene);
     }
 
+    updateCameraTarget(lon, lat) {
+        this.pos.lon = lon;
+
+        this.pos.lon +=  0.1;
+		this.pos.lat = Math.max( - 85, Math.min( 85, lat ) );
+
+		this.pos.phi = THREE.Math.degToRad( 90 - this.pos.lat );
+		this.pos.theta = THREE.Math.degToRad( this.pos.lon );
+
+        if (isMobile.any) {
+            this.controls.updateAlphaOffsetAngle( -(this.pos.theta * 2) );
+            this.controls.updateBetaOffsetAngle(THREE.Math.degToRad( this.pos.lat ));
+        } else {
+            this.controls.target.x = Math.sin( this.pos.phi ) * Math.cos( this.pos.theta );
+    		this.controls.target.y = Math.cos( this.pos.phi );
+    		this.controls.target.z = Math.sin( this.pos.phi ) * Math.sin( this.pos.theta );
+        }
+
+    }
+
     render() {
-        this.pos.lat = Math.max( - 85, Math.min( 85, this.pos.lat ) );
-        this.pos.phi = THREE.Math.degToRad( 90 - this.pos.lat );
-        this.pos.theta = THREE.Math.degToRad( this.pos.lon );
-		this.camera_target.x = 500 * Math.sin( this.pos.phi ) * Math.cos( this.pos.theta );
-		this.camera_target.y = 500 * Math.cos( this.pos.phi );
-		this.camera_target.z = 500 * Math.sin( this.pos.phi ) * Math.sin( this.pos.theta );
-
-
-
         this.controls.update();
         this.renderer.render( this.scene, this.camera );
         this.camera.getWorldDirection(this.camera_direction);

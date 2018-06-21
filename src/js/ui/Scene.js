@@ -10,6 +10,7 @@ import {TweenLite, CSSPlugin} from "gsap/all";
 module.exports = class Scene {
     constructor(config) {
         this.config = config;
+        this.allow_mouse_hover_movement = true;
         this.el = {
             container: {},
             ui: {},
@@ -22,7 +23,9 @@ module.exports = class Scene {
             down_x: 0,
             down_y: 0,
             move_x: 0,
-            move_y: 0
+            move_y: 0,
+            lat: 0,
+            lon: 0
         };
         this.loaded = [];
 
@@ -50,12 +53,8 @@ module.exports = class Scene {
         if (isMobile.any) {
             this.el.container.classList.add("svr-mobile");
         }
+
         document.body.appendChild(this.el.container);
-
-        // TweenLite.to(that.el.loading, 1, {opacity:"0", onComplete:function() {
-        //     that.el.loading.style.display = "none";
-        // }});
-
 
         this.stage = new Stage(this.config, this.el.container);
         this.chrome = new Chrome(this.data, this.el.container);
@@ -65,9 +64,13 @@ module.exports = class Scene {
     startListening() {
         this.stage.el.addEventListener('mousedown', (e) => {this.onMouseDown(e)});
         this.stage.el.addEventListener('mouseup', (e) => {this.onMouseUp(e)});
-        // this.el.container.addEventListener('mousemove', (e) => {this.onMouseMove(e)});
-        // this.el.container.addEventListener('touchstart', (e) => {this.onTouchStart(e)});
-        // this.el.container.addEventListener('touchmove', (e) => {this.onTouchMove(e)});
+
+        if (!isMobile.any && this.allow_mouse_hover_movement) {
+            this.el.container.addEventListener('mousemove', (e) => {this.onMouseMove(e)});
+        }
+
+        this.stage.el.addEventListener('touchstart', (e) => {this.onTouchStart(e)});
+        this.stage.el.addEventListener('touchmove', (e) => {this.onTouchMove(e)});
 
         this.chrome.events.addListener("fullscreen", (e) => {
             this.fullScreenToggle(e);
@@ -109,17 +112,44 @@ module.exports = class Scene {
         this.updateSize();
     }
 
+    onTouchStart(e) {
+        let touch = event.touches[ 0 ];
+        this.pointer.move_x = touch.screenX;
+        this.pointer.move_y = touch.screenY;
+    }
+
+    onTouchMove(e) {
+        console.log("touch move")
+        let touch = event.touches[ 0 ];
+        this.pointer.lon -= ( touch.screenX - this.pointer.move_x ) * 0.1;
+        this.pointer.lat += ( touch.screenY - this.pointer.move_y ) * 0.1;
+        this.pointer.move_x = touch.screenX;
+        this.pointer.move_y = touch.screenY;
+        this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+    }
+
+    onMouseMove(e) {
+        if (!this.user_interacting) {
+            this.pointer.move_x = e.clientX;
+            this.pointer.move_y = e.clientY;
+            this.pointer.lon = (e.clientX * 0.1)/8;
+            this.pointer.lat = (e.clientY * 0.1)/8;
+            this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+        }
+    }
 
     onMouseDown(e) {
+        this.user_interacting = true;
         this.pointer.down_x = e.clientX;
         this.pointer.down_y = e.clientY;
     }
 
     onMouseUp(e) {
-        this.pointer.move_x = Math.abs(this.pointer.down_x - e.clientX);
-        this.pointer.move_y = Math.abs(this.pointer.down_y - e.clientY);
+        // this.user_interacting = false;
+        let pointer_x = Math.abs(this.pointer.down_x - e.clientX);
+        let pointer_y = Math.abs(this.pointer.down_y - e.clientY);
 
-        if (this.pointer.move_x < 10 && this.pointer.move_y < 10 ) {
+        if (pointer_x < 10 && pointer_y < 10 ) {
             this.chrome.toggleUI();
         }
     }
