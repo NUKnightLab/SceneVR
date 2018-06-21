@@ -8,7 +8,8 @@
     padding-bottom: $ui-spacing;
     overflow:hidden;
     padding-top: $ui-spacing;
-    @include linear-gradient(rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+    // @include linear-gradient(rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+    background-color: rgba($color-dark, 0.6);
     .svr-thumbnail {
         cursor: pointer;
         margin-right: $ui-spacing;
