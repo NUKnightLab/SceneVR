@@ -16,7 +16,7 @@ module.exports = class Thumbnail {
         this.el.container.addEventListener('click', (e) => {this.onClick(e)});
 
         this.el.container.appendChild(this.el.image);
-        
+
         this.el.image.style.backgroundImage = `url(${this.data.image_url}image-thumbnail.jpg)`
 
         if (add_to_container) {
@@ -31,10 +31,8 @@ module.exports = class Thumbnail {
     set active(a) {
         this._active = a;
         if(this._active) {
-            console.log(`THUMB ${this.number} ACTIVE`)
             this.el.container.classList.add("svr-active");
         } else {
-            console.log(`THUMB ${this.number} NOT ACTIVE`)
             this.el.container.classList.remove("svr-active");
         }
     }
