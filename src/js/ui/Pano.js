@@ -12,7 +12,7 @@ module.exports = class Pano {
         this.texture_loader = new THREE.TextureLoader();
         this.high_resolution = false;
         this.tween = {};
-        this.active = false;
+        this._active = false;
         this.animation_time = 1;
         this.events = new EventEmitter();
         this.geometry_fixed = false;
@@ -29,7 +29,7 @@ module.exports = class Pano {
                 this.mesh.material = response;
                 this.mesh.material.transparent = true;
                 this.mesh.material.opacity = 0;
-                if (this.active) {
+                if (this._active) {
                     this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1});
                 }
                 this.events.emit("thumbnail_loaded", {test:"testing"});
@@ -38,34 +38,37 @@ module.exports = class Pano {
 
     }
 
-    makeActive() {
-        this.mesh.visible = true;
-        this.active = true;
-        this.tween.kill();
-        this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
-            console.log("LOADED HIGH REZ")
-            if (!this.high_resolution) {
-                this.loadTexture(`${this.data.image_url}image-l.jpg`).then(
-                    response => {
-                        let opac = this.mesh.material.opacity;
-                        this.tween.kill();
-                        this.high_resolution = true;
-                        this.mesh.material = response;
-                        this.mesh.material.transparent = true;
-                        this.mesh.material.opacity = opac;
-                        this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1});
-                    }
-                )
-            }
-        }});
-
+    get active() {
+        return this._active;
     }
 
-    makeInActive() {
-        this.tween.kill();
-        this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0, onComplete: () => {
-            this.mesh.visible = false;
-        }});
+    set active(a) {
+        if(a) {
+            this.mesh.visible = true;
+            this._active = true;
+            this.tween.kill();
+            this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
+                console.log("LOADED HIGH REZ")
+                if (!this.high_resolution) {
+                    this.loadTexture(`${this.data.image_url}image-l.jpg`).then(
+                        response => {
+                            let opac = this.mesh.material.opacity;
+                            this.tween.kill();
+                            this.high_resolution = true;
+                            this.mesh.material = response;
+                            this.mesh.material.transparent = true;
+                            this.mesh.material.opacity = opac;
+                            this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1});
+                        }
+                    )
+                }
+            }});
+        } else {
+            this.tween.kill();
+            this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0, onComplete: () => {
+                this.mesh.visible = false;
+            }});
+        }
     }
 
     fixGeometry(w, h) {

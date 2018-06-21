@@ -118,7 +118,7 @@ module.exports = class Scene {
             this.panos.push(pano);
             this.stage.addPano(pano);
         }
-        this.panos[this.current_pano].makeActive();
+        this.panos[this.current_pano].active = true;
     }
 
     onThumbnailLoaded(e, i) {
@@ -129,15 +129,17 @@ module.exports = class Scene {
     }
 
     goTo(n) {
-        this.panos[this.current_pano].makeInActive();
+        this.panos[this.current_pano].active = false;
         this.current_pano = n;
-        this.panos[this.current_pano].makeActive();
+        this.panos[this.current_pano].active = true;
     }
 
     render() {
-        if(this.stage){
+        if(this.stage) {
             this.stage.render();
-            this.chrome.updateCompass(Math.round(-this.stage.camera_angle-180));
+        }
+        if (this.chrome) {
+            this.chrome.compass = Math.round(-this.stage.camera_angle-180);
         }
 
     }

@@ -5,7 +5,7 @@ module.exports = class Thumbnail {
     constructor(data, n, add_to_container) {
         this.number = n;
         this.data = data;
-        this.active = false;
+        this._active = false;
         this.events = new EventEmitter();
 
         this.el = {
@@ -16,7 +16,7 @@ module.exports = class Thumbnail {
         this.el.container.addEventListener('click', (e) => {this.onClick(e)});
 
         this.el.container.appendChild(this.el.image);
-        // this.el.image.setAttribute("src", `${this.data.image_url}image-thumbnail.jpg`)
+        
         this.el.image.style.backgroundImage = `url(${this.data.image_url}image-thumbnail.jpg)`
 
         if (add_to_container) {
@@ -24,10 +24,13 @@ module.exports = class Thumbnail {
         };
     }
 
-    setActive(active) {
-        this.active = active;
+    get active() {
+        return this._active;
+    }
 
-        if(this.active) {
+    set active(a) {
+        this._active = a;
+        if(this._active) {
             console.log(`THUMB ${this.number} ACTIVE`)
             this.el.container.classList.add("svr-active");
         } else {
