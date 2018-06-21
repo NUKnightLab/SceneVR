@@ -50,7 +50,7 @@ module.exports = class Pano {
             this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
                 console.log("LOADED HIGH REZ")
                 if (!this.high_resolution) {
-                    this.loadTexture(`${this.data.image_url}image-l.jpg`).then(
+                    this.loadTexture(`${this.data.image_url}image-m.jpg`).then(
                         response => {
                             let opac = this.mesh.material.opacity;
                             this.tween.kill();
