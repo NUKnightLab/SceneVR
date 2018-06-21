@@ -1,10 +1,12 @@
 // Thumbnails // --------------------------------------------------
 #svr-thumbnail-container {
     display:flex;
+    box-sizing: border-box;
     align-items: center;
     justify-content: center;
     width:100%;
     padding-left: $ui-spacing;
+    
     padding-bottom: $ui-spacing;
     overflow:hidden;
     padding-top: $ui-spacing;
