@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageProcessorProSettings>
+  <input source="folder" includeSubFolders="true" path="/Users/zach/Desktop/original"/>
+  <output path="same" subfolder="false" keepStructure="false" retainOriginal="true"/>
+  <taskList>
+    <task enabled="true" subfolderName="Set 1" colorProfile="sRGB IEC61966-2.1">
+      <saveOptions fileSaveType="jpg" jpgQuality="4" jpgEmbedColorProfile="true" jpgFormat="Standard" jpgConvertToSRGB="false" saveForWeb="true"/>
+      <resizeOptions enabled="false"/>
+      <action enabled="true" when="Before Image Resize" set="SceneVR" name="Thumbnail"/>
+      <namingOptions startingSerial="1">Name,-thumbnail,lowerCaseExtension</namingOptions>
+    </task>
+    <task enabled="true" subfolderName="Set 2" colorProfile="sRGB IEC61966-2.1">
+      <saveOptions fileSaveType="jpg" jpgQuality="6" jpgEmbedColorProfile="true" jpgFormat="Standard" jpgConvertToSRGB="false" saveForWeb="true"/>
+      <resizeOptions enabled="false"/>
+      <action enabled="true" when="Before Image Resize" set="SceneVR" name="Small"/>
+      <namingOptions startingSerial="1">Name,-s,lowerCaseExtension</namingOptions>
+    </task>
+    <task enabled="true" subfolderName="Set 3" colorProfile="sRGB IEC61966-2.1">
+      <saveOptions fileSaveType="jpg" jpgQuality="7" jpgEmbedColorProfile="true" jpgFormat="Standard" jpgConvertToSRGB="false" saveForWeb="true"/>
+      <resizeOptions enabled="false"/>
+      <action enabled="true" when="Before Image Resize" set="SceneVR" name="Medium"/>
+      <namingOptions startingSerial="1">Name,-m,lowerCaseExtension</namingOptions>
+    </task>
+    <task enabled="true" subfolderName="Set 4" colorProfile="sRGB IEC61966-2.1">
+      <saveOptions fileSaveType="jpg" jpgQuality="9" jpgEmbedColorProfile="true" jpgFormat="Standard" jpgConvertToSRGB="false" saveForWeb="true"/>
+      <resizeOptions enabled="false"/>
+      <action enabled="true" when="Before Image Resize" set="SceneVR" name="Large"/>
+      <namingOptions startingSerial="1">Name,-l,lowerCaseExtension</namingOptions>
+    </task>
+  </taskList>
+  <preferences>
+    <preserveFileName>false</preserveFileName>
+  </preferences>
+  <date>2018-06-21T11:17:36</date>
+  <version>3.2b5</version>
+  <uiPrefs>
+    <lastSettingsFile>/Users/zach/Desktop/original/Image Processor Pro.xml</lastSettingsFile>
+  </uiPrefs>
+</ImageProcessorProSettings>
