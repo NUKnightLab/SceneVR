@@ -7,9 +7,11 @@
 @import "Thumbnail";
 @import "Caption";
 
+
 body {
     font-size  : $font-size-base;
     font-family: $fontFamily-sansSerif;
+    font-weight: 400;
     line-height: $font-line-height;
     margin: 0;
     padding: 0;
