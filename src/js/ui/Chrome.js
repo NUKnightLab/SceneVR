@@ -97,9 +97,15 @@ module.exports = class Chrome {
         }
     }
 
-    toggleUI() {
-        console.log("Toggle UI");
-        if (this._active) {
+    toggleUI(a) {
+        console.debug("Toggle UI");
+        let active = this._active;
+
+        if (a) {
+            active = a;
+        }
+
+        if (active) {
             this._active = false;
             let header_height = this.el.header.offsetHeight;
             this.el.header.classList.remove("svr-active");

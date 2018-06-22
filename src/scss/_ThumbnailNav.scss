@@ -51,6 +51,10 @@
 }
 
 .svr-mobile {
+    #svr-thumbnail-container {
+        padding-left: $ui-spacing;
+        padding-right: $ui-spacing;
+    }
     #svr-btn-arrow-left, #svr-btn-arrow-right {
         display: none;
     }
