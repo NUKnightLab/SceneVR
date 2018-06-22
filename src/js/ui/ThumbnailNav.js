@@ -32,6 +32,7 @@ module.exports = class ThumbnailNav {
             this.buttons.arrow_left.innerHTML = icons.chevron;
             this.buttons.arrow_right.innerHTML = icons.chevron;
             this.buttons.arrow_left.style.opacity = "0.2";
+            this.buttons.arrow_left.style.display = "none";
         }
 
         this.el.container.appendChild(this.el.scroll_container);
@@ -55,14 +56,18 @@ module.exports = class ThumbnailNav {
         TweenLite.to(this.el.container, .5, {scrollTo:{x:scroll_num}});
 
         if (scroll_num <= 0) {
-            this.buttons.arrow_left.style.opacity = "0.3";
+            this.buttons.arrow_left.style.opacity = "0.2";
+            this.buttons.arrow_left.style.display = "none";
         } else {
+            this.buttons.arrow_left.style.display = "flex";
             this.buttons.arrow_left.style.opacity = "1";
         }
 
         if (scroll_num >= scroll_max) {
-            this.buttons.arrow_right.style.opacity = "0.3";
+            this.buttons.arrow_right.style.opacity = "0.2";
+            this.buttons.arrow_right.style.display = "none";
         } else {
+            this.buttons.arrow_right.style.display = "flex";
             this.buttons.arrow_right.style.opacity = "1";
         }
 
@@ -80,6 +85,9 @@ module.exports = class ThumbnailNav {
             this.el.container.style.justifyContent = "flex-start";
             this.buttons.arrow_left.style.display = "flex";
             this.buttons.arrow_right.style.display = "flex";
+            if (this.el.container.scrollLeft === 0) {
+                this.buttons.arrow_left.style.display = "none";
+            }
         } else {
             this.el.container.style.justifyContent = "center";
             this.buttons.arrow_left.style.display = "none";
