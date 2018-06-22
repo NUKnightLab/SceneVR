@@ -19,5 +19,10 @@ module.exports = {
             <circle class="svr-compass-2" cx="256" cy="259.4" r="28.4"/>
             <path id="svr-compass-pointer" transform="rotate(0)"  d="M256 99.3c-68.1 0-118.4 35.8-144.4 94.3l101.8 45.2c7.4-16.2 23.7-27.4 42.7-27.4 19 0 35.3 11.2 42.7 27.4l101.8-45.2c-26.2-58.5-76.5-94.3-144.6-94.3z"/>
         </svg>
+    `,
+    chevron: `
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" fill="#ffffff" viewBox="0 0 24 24">
+            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+        </svg>
     `
 }

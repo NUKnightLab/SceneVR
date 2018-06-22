@@ -1,0 +1,56 @@
+// ThumbnailNav // --------------------------------------------------
+#svr-thumbnail-container {
+    display:flex;
+    box-sizing: border-box;
+    overflow-x: scroll;
+    position: relative;
+    align-items: center;
+    width:100%;
+    padding-left: $ui-spacing;
+    padding-top: $ui-spacing;
+    background-color: rgba($color-dark, 0.8);
+
+    .svr-thumbnail-scroll-conatiner {
+        display:flex;
+        justify-content: center;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: $ui-spacing;
+    }
+
+}
+
+#svr-btn-arrow-left, #svr-btn-arrow-right {
+    height: 86px;
+    width:76px;
+    margin:0;
+    position: fixed;
+    z-index: 20;
+    svg {
+        position:absolute;
+        right:-10px;
+        width: 76px;
+        height: 76px;
+    }
+}
+
+#svr-btn-arrow-left {
+    left: 0;
+    @include linear-gradient(to left, rgba(29, 31, 33,0) 0%, rgba(29, 31, 33,0.6) 50%);
+    svg {
+        left:-10px;
+        transform: rotate(180deg);
+    }
+}
+
+#svr-btn-arrow-right {
+    right: 0;
+    @include linear-gradient(to right, rgba(29, 31, 33,0) 0%, rgba(29, 31, 33,0.6) 50%);
+}
+
+.svr-mobile {
+    #svr-btn-arrow-left, #svr-btn-arrow-right {
+        display: none;
+    }
+}

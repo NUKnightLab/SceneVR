@@ -1,6 +1,6 @@
 const dom = require('../utils/dom.js');
 const icons = require('../ui/Icons.js');
-const Thumbnail = require('../ui/Thumbnail.js');
+const ThumbnailNav = require('../ui/ThumbnailNav.js');
 const Caption = require('../ui/Caption.js');
 const EventEmitter = require("../utils/EventEmitter.js");
 const isMobile = require("../utils/isMobile.js");
@@ -11,13 +11,12 @@ module.exports = class Chrome {
     constructor(data, add_to_container) {
         this.data = data;
         this.events = new EventEmitter();
-        this.thumbnails = [];
+        this.thumbnails = {};
         this._active = true;
         this._fullscreen = false;
         this.el = {
             container: dom.createElement('div', 'svr-chrome'),
             header: dom.createElement('div', 'svr-chrome-header'),
-            thumbnail_container: dom.createElement('div', 'svr-thumbnail-container'),
             footer_button_container: dom.createElement('div', '', ["svr-button-container"]),
             header_button_container: dom.createElement('div', '', ["svr-button-container"]),
             footer: dom.createElement('div', 'svr-chrome-footer'),
@@ -51,11 +50,10 @@ module.exports = class Chrome {
         this.el.footer.appendChild(this.el.footer_button_container);
         this.caption = new Caption(this.el.footer);
         this.caption.text = this.data.scenes[0].caption;
-        this.el.footer.appendChild(this.el.thumbnail_container);
 
-
-
-        this.makeThumbnails();
+        // THUMBNAILS
+        this.thumbnails = new ThumbnailNav(this.data, this.el.footer);
+        this.thumbnails.events.addListener("goto", (e) => {this.onThumbnailClick(e)})
 
         if (isMobile.any) {
             this.buttons.fullscreen.style.display = "none";
@@ -99,17 +97,6 @@ module.exports = class Chrome {
         }
     }
 
-    makeThumbnails() {
-        for (let i = 0; i < this.data.scenes.length; i++) {
-            let thumb = new Thumbnail(this.data.scenes[i], i, this.el.thumbnail_container);
-            thumb.events.addListener("click", (e) => {
-                this.onThumbnailClick(e)
-            })
-            this.thumbnails.push(thumb);
-        }
-        this.thumbnails[0].active = true;
-    }
-
     toggleUI() {
         console.log("Toggle UI");
         if (this._active) {
@@ -138,22 +125,17 @@ module.exports = class Chrome {
         }
     }
 
-
-
     onThumbnailClick(e) {
-        for (let i = 0; i < this.thumbnails.length; i++) {
-            if(e.number === i) {
-                this.thumbnails[i].active = true;
-                this.caption.text = `${this.thumbnails[i].data.caption}`;
-            } else {
-                this.thumbnails[i].active = false;
-            }
-        }
+        this.caption.text = e.text;
         this.events.emit("goto", {number:e.number});
     }
 
     onFullScreenButton() {
         this.events.emit("fullscreen", {test:"testing"});
+    }
+
+    updateSize() {
+        this.thumbnails.updateSize();
     }
 
 }

@@ -37,6 +37,7 @@ module.exports = class Scene {
                 this.buildTemplate();
                 this.startListening();
                 this.buildPanos();
+                this.updateSize();
             },
             response => {
                 console.error("FAILED TO LOAD DATA");
@@ -191,6 +192,7 @@ module.exports = class Scene {
     updateSize() {
         if(this.stage){
             this.stage.updateSize();
+            this.chrome.updateSize();
         }
     }
 
