@@ -20,6 +20,8 @@ module.exports = class Scene {
         this.current_pano = 0;
         this.panos = [];
         this.user_interacting = false;
+        this.user_first_interaction = false;
+        this.temp_ui_active = true;
         this.pointer = {
             down_x: 0,
             down_y: 0,
@@ -166,7 +168,7 @@ module.exports = class Scene {
     }
 
     onMouseMove(e) {
-        if (!this.user_interacting) {
+        if (!this.user_first_interaction) {
             this.pointer.move_x = e.clientX;
             this.pointer.move_y = e.clientY;
             let change_lon = (e.clientX * 0.1)/8;
@@ -175,26 +177,41 @@ module.exports = class Scene {
             this.animate_camera = new TweenLite(this.pointer, 1, {lon:change_lon, lat:change_lat ,onUpdate:(e) => {
                 this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
             }})
+        } else {
+            if (this.user_interacting && this.chrome.active) {
+                let pointer_x = Math.abs(this.pointer.down_x - e.clientX);
+                let pointer_y = Math.abs(this.pointer.down_y - e.clientY);
+                if (pointer_x > 10 || pointer_y > 10 ) {
+                    this.chrome.toggleUI(true);
+                }
+            }
         }
     }
 
     onMouseDown(e) {
         if (!this.user_interacting) {
             this.user_interacting = true;
+            this.user_first_interaction = true;
+            this.temp_ui_active = this.chrome.active;
             console.debug("remove onMouseMove listener")
             this.el.container.removeEventListener('mousemove', (e) => {console.log(e)});
+
         }
         this.pointer.down_x = e.clientX;
         this.pointer.down_y = e.clientY;
         this.animate_camera.kill();
+
     }
 
     onMouseUp(e) {
+        this.user_interacting = false;
         let pointer_x = Math.abs(this.pointer.down_x - e.clientX);
         let pointer_y = Math.abs(this.pointer.down_y - e.clientY);
 
         if (pointer_x < 10 && pointer_y < 10 ) {
             this.chrome.toggleUI();
+        } else if (this.temp_ui_active) {
+            this.chrome.toggleUI(false);
         }
     }
 
@@ -221,6 +238,7 @@ module.exports = class Scene {
         this.current_pano = n;
         this.panos[this.current_pano].active = true;
         this.user_interacting = false;
+        this.user_first_interaction = false;
     }
 
     render() {
