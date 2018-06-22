@@ -44,8 +44,7 @@ module.exports = class Stage {
             add_to_container.appendChild(this.el);
         };
 
-        this.is_device = isMobile.any;
-        if (this.is_device) {
+        if (isMobile.any) {
             this.controls = new THREE.DeviceOrientationControls( this.camera );
         } else {
             this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
@@ -56,16 +55,13 @@ module.exports = class Stage {
             this.camera.position.z = 0.01;
         }
 
-        // Testing
-        // TweenLite.to(this.pos, 15, {lon: 180});
-
     }
 
     addPano(pano) {
         pano.addToScene(this.scene);
     }
 
-    updateCameraTarget(lon, lat) {
+    updateCameraTarget(lon, lat, animate) {
         this.pos.lon = lon;
 
         this.pos.lon +=  0.1;
@@ -74,13 +70,16 @@ module.exports = class Stage {
 		this.pos.phi = THREE.Math.degToRad( 90 - this.pos.lat );
 		this.pos.theta = THREE.Math.degToRad( this.pos.lon );
 
+        this.pos.alpha_offset = -(this.pos.theta * 2);
+        this.pos.beta_offset = THREE.Math.degToRad( this.pos.lat );
+
         if (isMobile.any) {
-            this.controls.updateAlphaOffsetAngle( -(this.pos.theta * 2) );
-            this.controls.updateBetaOffsetAngle(THREE.Math.degToRad( this.pos.lat ));
+            this.controls.updateAlphaOffsetAngle( this.pos.alpha_offset);
+            this.controls.updateBetaOffsetAngle(this.pos.beta_offset);
         } else {
             this.controls.target.x = Math.sin( this.pos.phi ) * Math.cos( this.pos.theta );
-    		this.controls.target.y = Math.cos( this.pos.phi );
-    		this.controls.target.z = Math.sin( this.pos.phi ) * Math.sin( this.pos.theta );
+            this.controls.target.y = Math.cos( this.pos.phi );
+            this.controls.target.z = Math.sin( this.pos.phi ) * Math.sin( this.pos.theta );
         }
 
     }

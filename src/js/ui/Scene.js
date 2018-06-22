@@ -16,6 +16,7 @@ module.exports = class Scene {
             ui: {},
             loading: document.getElementById("svr-loading")
         };
+
         this.current_pano = 0;
         this.panos = [];
         this.user_interacting = false;
@@ -25,10 +26,14 @@ module.exports = class Scene {
             move_x: 0,
             move_y: 0,
             lat: 0,
-            lon: 0
+            lon: 0,
+            down_lon: 0,
+            down_lat: 0,
+            timer:0
         };
+        this.animate_camera = new TweenLite(this.pointer);
         this.loaded = [];
-
+        console.debug(`Is Mobile Device = ${isMobile.any}`)
 
         // LOAD DATA
         data.getJSON(this.config.source).then(
@@ -70,8 +75,11 @@ module.exports = class Scene {
             this.el.container.addEventListener('mousemove', (e) => {this.onMouseMove(e)});
         }
 
-        this.stage.el.addEventListener('touchstart', (e) => {this.onTouchStart(e)});
-        this.stage.el.addEventListener('touchmove', (e) => {this.onTouchMove(e)});
+        if (isMobile.any) {
+            this.stage.el.addEventListener('touchstart', (e) => {this.onTouchStart(e)});
+            this.stage.el.addEventListener('touchmove', (e) => {this.onTouchMove(e)});
+            this.stage.el.addEventListener('touchend', (e) => {this.onTouchEnd(e)});
+        }
 
         this.chrome.events.addListener("fullscreen", (e) => {
             this.fullScreenToggle(e);
@@ -114,35 +122,71 @@ module.exports = class Scene {
     }
 
     onTouchStart(e) {
+        this.animate_camera.kill();
+        console.debug("touch start")
         let touch = event.touches[ 0 ];
+        this.pointer.timer = new Date();
+        this.pointer.down_x = touch.screenX;
+        this.pointer.down_y = touch.screenY;
         this.pointer.move_x = touch.screenX;
         this.pointer.move_y = touch.screenY;
+        this.pointer.down_lon = 0;
+        this.pointer.down_lat = 0;
     }
 
     onTouchMove(e) {
-        console.log("touch move")
+        console.debug("touch move")
         let touch = event.touches[ 0 ];
         this.pointer.lon -= ( touch.screenX - this.pointer.move_x ) * 0.1;
         this.pointer.lat += ( touch.screenY - this.pointer.move_y ) * 0.1;
         this.pointer.move_x = touch.screenX;
         this.pointer.move_y = touch.screenY;
         this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+        console.debug(`this.pointer.lon ${this.pointer.lon} this.pointer.lat ${this.pointer.lat}`);
+    }
+
+    onTouchEnd(e) {
+        console.debug("touch end")
+        // let touch = event.touches[ 0 ],
+        //     timer = new Date(),
+        //     time_part = (timer - this.pointer.timer) / 500,
+        //     change_lon = (this.pointer.lon * 1) ,
+        //     change_lat = (this.pointer.lat * 1);
+        //
+        // console.debug(`change_lon ${this.pointer.lon + (change_lon/time_part)} change_lat ${this.pointer.lat + (change_lat/time_part)}`);
+        //
+        // this.animate_camera.kill();
+        // this.animate_camera = new TweenLite(this.pointer, time_part, {lon:change_lon, lat:change_lat ,onUpdate:(e) => {
+        //     this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+        // }})
+
     }
 
     onMouseMove(e) {
         if (!this.user_interacting) {
             this.pointer.move_x = e.clientX;
             this.pointer.move_y = e.clientY;
-            this.pointer.lon = (e.clientX * 0.1)/8;
-            this.pointer.lat = (e.clientY * 0.1)/8;
-            this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+            // this.pointer.lon = (e.clientX * 0.1)/8;
+            // this.pointer.lat = (e.clientY * 0.1)/8;
+            let change_lon = (e.clientX * 0.1)/8;
+            let change_lat = (e.clientY * 0.1)/8;
+            // this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+
+            this.animate_camera = new TweenLite(this.pointer, 1, {lon:change_lon, lat:change_lat ,onUpdate:(e) => {
+                this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+            }})
         }
     }
 
     onMouseDown(e) {
-        this.user_interacting = true;
+        if (!this.user_interacting) {
+            this.user_interacting = true;
+            console.debug("remove onMouseMove listener")
+            this.el.container.removeEventListener('mousemove', (e) => {console.log(e)});
+        }
         this.pointer.down_x = e.clientX;
         this.pointer.down_y = e.clientY;
+        this.animate_camera.kill();
     }
 
     onMouseUp(e) {
@@ -177,6 +221,7 @@ module.exports = class Scene {
         this.panos[this.current_pano].active = false;
         this.current_pano = n;
         this.panos[this.current_pano].active = true;
+        this.user_interacting = false;
     }
 
     render() {

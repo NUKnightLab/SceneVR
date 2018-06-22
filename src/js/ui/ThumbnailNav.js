@@ -2,6 +2,7 @@ const dom = require('../utils/dom.js');
 const Thumbnail = require('../ui/Thumbnail.js');
 const icons = require('../ui/Icons.js');
 const EventEmitter = require("../utils/EventEmitter.js");
+const isMobile = require("../utils/isMobile.js");
 import {TweenLite, CSSPlugin, ScrollToPlugin} from "gsap/all";
 
 module.exports = class ThumbnailNav {
@@ -18,15 +19,20 @@ module.exports = class ThumbnailNav {
         }
 
         this.buttons = {
-            arrow_left: dom.createElement('div', 'svr-btn-arrow-left', ["svr-btn"], this.el.container),
-            arrow_right: dom.createElement('div', 'svr-btn-arrow-right', ["svr-btn"], this.el.container)
+            arrow_left: {},
+            arrow_right: {}
         }
 
-        this.buttons.arrow_left.addEventListener("click", (e) => {this.onArrowClick("left")});
-        this.buttons.arrow_right.addEventListener("click", (e) => {this.onArrowClick("right")});
-        this.buttons.arrow_left.innerHTML = icons.chevron;
-        this.buttons.arrow_right.innerHTML = icons.chevron;
-        this.buttons.arrow_left.style.opacity = "0.2";
+        if (!isMobile.any) {
+            this.buttons.arrow_left = dom.createElement('div', 'svr-btn-arrow-left', ["svr-btn"], this.el.container);
+            this.buttons.arrow_right = dom.createElement('div', 'svr-btn-arrow-right', ["svr-btn"], this.el.container);
+
+            this.buttons.arrow_left.addEventListener("click", (e) => {this.onArrowClick("left")});
+            this.buttons.arrow_right.addEventListener("click", (e) => {this.onArrowClick("right")});
+            this.buttons.arrow_left.innerHTML = icons.chevron;
+            this.buttons.arrow_right.innerHTML = icons.chevron;
+            this.buttons.arrow_left.style.opacity = "0.2";
+        }
 
         this.el.container.appendChild(this.el.scroll_container);
         this.makeThumbnails();
@@ -63,7 +69,9 @@ module.exports = class ThumbnailNav {
     }
 
     updateSize() {
-        this.updateArrowButtons();
+        if (!isMobile.any) {
+            this.updateArrowButtons();
+        }
     }
 
     updateArrowButtons() {
