@@ -16,7 +16,7 @@ module.exports = class Scene {
             ui: {},
             loading: document.getElementById("svr-loading")
         };
-
+        this._stereo = false;
         this.current_pano = 0;
         this.panos = [];
         this.user_interacting = false;
@@ -85,8 +85,12 @@ module.exports = class Scene {
 
         this.chrome.events.addListener("fullscreen", (e) => {
             this.fullScreenToggle(e);
-
         })
+
+        this.chrome.events.addListener("cardboard", (e) => {
+            this.cardboardToggle(e);
+        })
+
         this.chrome.events.addListener("goto", (e) => {
             this.goTo(e.number);
 
@@ -123,9 +127,17 @@ module.exports = class Scene {
         this.updateSize();
     }
 
+    cardboardToggle(e) {
+        if (this.stereo) {
+            this.stereo = false;
+        } else {
+            this.stereo = true;
+        }
+    }
+
     onTouchStart(e) {
         this.animate_camera.kill();
-        console.debug("touch start")
+        // console.debug("touch start")
         let touch = event.touches[ 0 ];
         this.pointer.timer = new Date();
         this.pointer.down_x = touch.screenX;
@@ -137,7 +149,7 @@ module.exports = class Scene {
     }
 
     onTouchMove(e) {
-        console.debug("touch move")
+        // console.debug("touch move")
         let touch = event.touches[ 0 ];
         this.pointer.lon -= ( touch.screenX - this.pointer.move_x ) * 0.1;
         this.pointer.lat += ( touch.screenY - this.pointer.move_y ) * 0.1;
@@ -147,11 +159,11 @@ module.exports = class Scene {
         if (this.chrome.active) {
             this.chrome.toggleUI(true);
         }
-        console.debug(`this.pointer.lon ${this.pointer.lon} this.pointer.lat ${this.pointer.lat}`);
+        // console.debug(`this.pointer.lon ${this.pointer.lon} this.pointer.lat ${this.pointer.lat}`);
     }
 
     onTouchEnd(e) {
-        console.debug("touch end")
+        // console.debug("touch end")
         // let touch = event.touches[ 0 ],
         //     timer = new Date(),
         //     time_part = (timer - this.pointer.timer) / 500,
@@ -239,6 +251,16 @@ module.exports = class Scene {
         this.panos[this.current_pano].active = true;
         this.user_interacting = false;
         this.user_first_interaction = false;
+    }
+
+    get stereo() {
+        return this._stereo;
+    }
+
+    set stereo(s) {
+        this._stereo = s;
+        this.stage.stereo = this._stereo;
+        this.chrome.vr = this._stereo;
     }
 
     render() {

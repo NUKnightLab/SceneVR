@@ -14,6 +14,7 @@ module.exports = class Chrome {
         this.thumbnails = {};
         this._active = true;
         this._fullscreen = false;
+        this._vr = false;
         this.el = {
             container: dom.createElement('div', 'svr-chrome'),
             header: dom.createElement('div', 'svr-chrome-header'),
@@ -38,9 +39,10 @@ module.exports = class Chrome {
         this.el.compass_pointer = this.el.compass.querySelector('#svr-compass-pointer');
 
         this.buttons.fullscreen.innerHTML = icons.fullscreen;
-        this.buttons.cardboard.innerHTML = icons.cardboard;
         this.buttons.fullscreen.addEventListener('click', (e) => {this.onFullScreenButton(e)});
 
+        this.buttons.cardboard.innerHTML = icons.cardboard;
+        this.buttons.cardboard.addEventListener('click', (e) => {this.onCardboardButton(e)});
         // HEADER
         this.el.container.appendChild(this.el.header);
         this.el.header.appendChild(this.el.header_button_container);
@@ -64,6 +66,19 @@ module.exports = class Chrome {
         if (add_to_container) {
             add_to_container.appendChild(this.el.container);
         };
+    }
+
+    get vr() {
+        return this._vr;
+    }
+
+    set vr(v) {
+        this._vr = v;
+        if (this._vr) {
+            this.el.container.style.display = "none";
+        } else {
+            this.el.container.style.display = "block";
+        }
     }
 
     get compass() {
@@ -138,6 +153,10 @@ module.exports = class Chrome {
 
     onFullScreenButton() {
         this.events.emit("fullscreen", {test:"testing"});
+    }
+
+    onCardboardButton() {
+        this.events.emit("cardboard", {test:"testing"});
     }
 
     updateSize() {

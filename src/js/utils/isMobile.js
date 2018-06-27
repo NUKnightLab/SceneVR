@@ -102,6 +102,7 @@
             chrome:       match(other_chrome, ua),
             device:       match(other_blackberry, ua) || match(other_blackberry_10, ua) || match(other_opera, ua) || match(other_firefox, ua) || match(other_chrome, ua)
         };
+        this.vr = 'getVRDisplays' in navigator;
         this.seven_inch = match(seven_inch, ua);
         this.any = this.apple.device || this.android.device || this.windows.device || this.other.device || this.seven_inch;
 

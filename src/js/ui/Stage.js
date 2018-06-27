@@ -1,6 +1,7 @@
 const dom = require('../utils/dom.js');
 const THREE = require("three");
 const isMobile = require('../utils/isMobile.js');
+const isVR = require('../utils/isVR.js');
 const DeviceOrientationControls = require('../threejs/DeviceOrientationControls.js');
 const OrbitControls = require('../threejs/OrbitControls.js');
 import {TweenLite} from "gsap/TweenLite";
@@ -13,6 +14,8 @@ module.exports = class Stage {
         this.scene = new THREE.Scene();
         this.camera_direction = new THREE.Vector3();
         this.camera_angle = 0;
+
+        this._stereo = false;
 
         this.controls = {};
         this.pos = {
@@ -31,14 +34,13 @@ module.exports = class Stage {
 
         this.renderer.setPixelRatio( window.devicePixelRatio );
         this.renderer.setSize( window.innerWidth, window.innerHeight );
+
         this.el.appendChild( this.renderer.domElement );
 
         // USED FOR THREEJS CHROME INSPECTOR
         // REMOVE BEFORE DEPLOY
         // window.scene = this.scene;
         // window.THREE = THREE;
-
-
 
         if (add_to_container) {
             add_to_container.appendChild(this.el);
@@ -47,6 +49,11 @@ module.exports = class Stage {
         if (isMobile.any) {
             this.controls = new THREE.DeviceOrientationControls( this.camera );
         } else {
+            if (isMobile.vr) {
+                console.log("Supports VR");
+                this.renderer.vr.enabled = true;
+                this.is_vr = new isVR();
+            }
             this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
             this.controls.enableZoom = false;
 			this.controls.enablePan = false;
@@ -55,6 +62,19 @@ module.exports = class Stage {
             this.camera.position.z = 0.01;
         }
 
+    }
+
+    get stereo() {
+        return this._stereo;
+    }
+
+    set stereo(s) {
+        this._stereo = s;
+        if (this._stereo) {
+            this.stereo_camera = new THREE.StereoCamera();
+            this.stereo_camera.aspect = 0.5;
+            this.stereo_camera.eyeSep = 1;
+        }
     }
 
     addPano(pano) {
@@ -86,7 +106,36 @@ module.exports = class Stage {
 
     render() {
         this.controls.update();
-        this.renderer.render( this.scene, this.camera );
+        let render_size = this.renderer.getSize();
+        if (this._stereo) {
+            this.scene.updateMatrixWorld();
+            if ( this.camera.parent === null ) {
+                this.camera.updateMatrixWorld()
+            };
+            this.stereo_camera.update( this.camera );
+
+            if ( this.renderer.autoClear ) {
+                this.renderer.clear()
+            };
+            this.renderer.setScissorTest( true );
+
+            // LEFT CAMERA
+            this.renderer.setScissor( 0, 0, render_size.width / 2, render_size.height );
+            this.renderer.setViewport( 0, 0, render_size.width / 2, render_size.height );
+            this.renderer.render( this.scene, this.stereo_camera.cameraL );
+
+            // RIGHT CAMERA
+            this.renderer.setScissor( render_size.width / 2, 0, render_size.width / 2, render_size.height );
+            this.renderer.setViewport( render_size.width / 2, 0, render_size.width / 2, render_size.height );
+            this.renderer.render( this.scene, this.stereo_camera.cameraR );
+
+            this.renderer.setScissorTest( false );
+
+        } else {
+            this.renderer.setViewport( 0, 0, render_size.width, render_size.height );
+            this.renderer.render( this.scene, this.camera );
+        }
+
         this.camera.getWorldDirection(this.camera_direction);
         this.camera_angle = THREE.Math.radToDeg(Math.atan2(this.camera_direction.x,this.camera_direction.z) );
     }
