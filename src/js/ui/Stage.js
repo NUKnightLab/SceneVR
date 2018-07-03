@@ -141,25 +141,9 @@ module.exports = class Stage {
     }
 
     updateSize() {
-        let size = {
-            width: window.innerWidth,
-            height: window.innerHeight
-        }
-        if (isMobile.apple) {
-            let timer = setTimeout( () => {
-                size.width = window.innerWidth;
-                size.height = window.innerHeight;
-                this.updateStageSize(size);
-            }, 1000);
-        } else {
-            this.updateStageSize(size);
-        }
-    }
-
-    updateStageSize(s) {
-        this.camera.aspect = s.width / s.height;
+        this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize( s.width, s.height );
+        this.renderer.setSize( window.innerWidth, window.innerHeight );
     }
 
 

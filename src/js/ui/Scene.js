@@ -309,9 +309,15 @@ module.exports = class Scene {
                     this.stereo = true;
                 }
             }
-
-            this.stage.updateSize();
-            this.chrome.updateSize();
+            if (isMobile.apple) {
+                let timer = setTimeout( () => {
+                    this.stage.updateSize();
+                    this.chrome.updateSize();
+                }, 1000);
+            } else {
+                this.stage.updateSize();
+                this.chrome.updateSize();
+            }
         }
     }
 
