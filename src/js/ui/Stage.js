@@ -95,7 +95,7 @@ module.exports = class Stage {
 
         if (isMobile.any) {
             this.controls.updateAlphaOffsetAngle( this.pos.alpha_offset);
-            this.controls.updateBetaOffsetAngle(this.pos.beta_offset);
+            //this.controls.updateBetaOffsetAngle(this.pos.beta_offset);
         } else {
             this.controls.target.x = Math.sin( this.pos.phi ) * Math.cos( this.pos.theta );
             this.controls.target.y = Math.cos( this.pos.phi );
