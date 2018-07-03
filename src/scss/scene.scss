@@ -8,7 +8,9 @@
 @import "Thumbnail";
 @import "Caption";
 
-
+html, body {
+    -webkit-text-size-adjust: 100% !important;
+}
 body {
     font-size  : $font-size-base;
     font-family: $fontFamily-sansSerif;
@@ -21,6 +23,7 @@ body {
     background-color: $color-bg;
 }
 #scene-vr {
+    -webkit-text-size-adjust: 100% !important;
     height: 100%;
     overflow:hidden;
     background-color: $color-bg;
