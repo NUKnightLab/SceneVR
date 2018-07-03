@@ -14,6 +14,8 @@ module.exports = class Chrome {
         this.thumbnails = {};
         this._active = true;
         this._fullscreen = false;
+        this._turn_phone = false;
+        this._message = "";
         this._vr = false;
         this.el = {
             container: dom.createElement('div', 'svr-chrome'),
@@ -22,7 +24,8 @@ module.exports = class Chrome {
             header_button_container: dom.createElement('div', '', ["svr-button-container"]),
             footer: dom.createElement('div', 'svr-chrome-footer'),
             compass: {},
-            compass_pointer: {}
+            compass_pointer: {},
+            message: dom.createElement('div', 'svr-message')
         }
 
         this.buttons = {
@@ -57,6 +60,10 @@ module.exports = class Chrome {
         this.thumbnails = new ThumbnailNav(this.data, this.el.footer);
         this.thumbnails.events.addListener("goto", (e) => {this.onThumbnailClick(e)})
 
+        // MESSAGE
+        this.el.container.appendChild(this.el.message);
+        this.el.message.style.display = "none";
+
         if (isMobile.any) {
             this.buttons.fullscreen.style.display = "none";
         } else {
@@ -81,6 +88,21 @@ module.exports = class Chrome {
         }
     }
 
+    get turn_phone() {
+        return this._turn_phone;
+    }
+
+    set turn_phone(t) {
+        this._turn_phone = t;
+        if (this._turn_phone) {
+            // SHOW MESSAGE
+            this.message = "Place your phone into your Cardboard viewer";
+            this.el.message.style.display = "flex";
+        } else {
+            this.el.message.style.display = "none";
+        }
+    }
+
     get compass() {
         let c = this.el.compass_pointer.getAttribute("transform");
         return c;
@@ -101,6 +123,15 @@ module.exports = class Chrome {
 
     get fullscreen() {
         return this._fullscreen;
+    }
+
+    get message() {
+        return this._message;
+    }
+
+    set message(m) {
+        this._message = m;
+        this.el.message.innerHTML = `<div class="svr-message-container">${icons.cardboard_instruction} <p>${this._message}</p></div>`;
     }
 
     set fullscreen(f) {

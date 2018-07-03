@@ -17,6 +17,8 @@ module.exports = class Scene {
             loading: document.getElementById("svr-loading")
         };
         this._stereo = false;
+        this._stereo_pending = false;
+        this._orientation = "landscape";
         this.current_pano = 0;
         this.panos = [];
         this.user_interacting = false;
@@ -36,7 +38,7 @@ module.exports = class Scene {
         this.animate_camera = new TweenLite(this.pointer);
         this.loaded = [];
         console.debug(`Is Mobile Device = ${isMobile.any}`)
-
+        console.log(`The orientation is landscape? ${isMobile.orientation.landscape}`)
         // LOAD DATA
         data.getJSON(this.config.source).then(
             response => {
@@ -133,6 +135,7 @@ module.exports = class Scene {
         } else {
             this.stereo = true;
         }
+        this.fullScreenToggle(e);
     }
 
     onTouchStart(e) {
@@ -258,9 +261,46 @@ module.exports = class Scene {
     }
 
     set stereo(s) {
-        this._stereo = s;
-        this.stage.stereo = this._stereo;
-        this.chrome.vr = this._stereo;
+        if (s && this.orientation == "landscape") {
+            this.stereo_pending = false;
+            this._stereo = s;
+            this.stage.stereo = this._stereo;
+            this.chrome.vr = this._stereo;
+        } else if (s && this.orientation == "portrait" ) {
+            this.stereo_pending = true;
+        } else {
+            this._stereo = s;
+            this.stage.stereo = this._stereo;
+            this.chrome.vr = this._stereo;
+        }
+    }
+
+    get stereo_pending() {
+        return this._stereo_pending;
+    }
+
+    set stereo_pending(s) {
+        this._stereo_pending = s;
+        if (this._stereo_pending) {
+            this.chrome.turn_phone = true;
+        } else {
+            this.chrome.turn_phone = false;
+        }
+    }
+
+    get orientation() {
+        if (window.matchMedia("(orientation: portrait)").matches) {
+            this._orientation = "portrait";
+        }
+
+        if (window.matchMedia("(orientation: landscape)").matches) {
+            this._orientation = "landscape";
+        }
+        return this._orientation;
+    }
+
+    set orientation(o) {
+        this._orientation = o;
     }
 
     render() {
@@ -270,11 +310,22 @@ module.exports = class Scene {
         if (this.chrome) {
             this.chrome.compass = Math.round(-this.stage.camera_angle-180);
         }
-
     }
 
     updateSize() {
         if(this.stage){
+            // Check if orientation change
+            let current_orientation = this._orientation;
+            if (current_orientation != this.orientation) {
+                // Orientation Changed
+                if (this.stereo && this.orientation == "portrait") {
+                    this.stereo = false;
+                } else if (this.stereo_pending && this.orientation == "landscape") {
+                    this.stereo_pending = false;
+                    this.stereo = true;
+                }
+            }
+
             this.stage.updateSize();
             this.chrome.updateSize();
         }
