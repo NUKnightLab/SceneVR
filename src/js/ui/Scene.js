@@ -140,7 +140,6 @@ module.exports = class Scene {
 
     onTouchStart(e) {
         this.animate_camera.kill();
-        // console.debug("touch start")
         let touch = event.touches[ 0 ];
         this.pointer.timer = new Date();
         this.pointer.down_x = touch.screenX;
@@ -152,7 +151,6 @@ module.exports = class Scene {
     }
 
     onTouchMove(e) {
-        // console.debug("touch move")
         let touch = event.touches[ 0 ];
         this.pointer.lon -= ( touch.screenX - this.pointer.move_x ) * 0.1;
         this.pointer.lat += ( touch.screenY - this.pointer.move_y ) * 0.1;
@@ -162,23 +160,9 @@ module.exports = class Scene {
         if (this.chrome.active) {
             this.chrome.toggleUI(true);
         }
-        // console.debug(`this.pointer.lon ${this.pointer.lon} this.pointer.lat ${this.pointer.lat}`);
     }
 
     onTouchEnd(e) {
-        // console.debug("touch end")
-        // let touch = event.touches[ 0 ],
-        //     timer = new Date(),
-        //     time_part = (timer - this.pointer.timer) / 500,
-        //     change_lon = (this.pointer.lon * 1) ,
-        //     change_lat = (this.pointer.lat * 1);
-        //
-        // console.debug(`change_lon ${this.pointer.lon + (change_lon/time_part)} change_lat ${this.pointer.lat + (change_lat/time_part)}`);
-        //
-        // this.animate_camera.kill();
-        // this.animate_camera = new TweenLite(this.pointer, time_part, {lon:change_lon, lat:change_lat ,onUpdate:(e) => {
-        //     this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
-        // }})
 
     }
 
