@@ -102,6 +102,10 @@
             chrome:       match(other_chrome, ua),
             device:       match(other_blackberry, ua) || match(other_blackberry_10, ua) || match(other_opera, ua) || match(other_firefox, ua) || match(other_chrome, ua)
         };
+        this.orientation = {
+            portrait: false,
+            landscape: false
+        };
         this.vr = 'getVRDisplays' in navigator;
         this.seven_inch = match(seven_inch, ua);
         this.any = this.apple.device || this.android.device || this.windows.device || this.other.device || this.seven_inch;
@@ -111,6 +115,14 @@
 
         // excludes 7 inch devices, classifying as phone or tablet is left to the user
         this.tablet = this.apple.tablet || this.android.tablet || this.windows.tablet;
+
+        if (window.innerHeight > window.innerWidth) {
+            this.orientation.portrait = true;
+            this.orientation.landscape = false;
+        } else {
+            this.orientation.portrait = false;
+            this.orientation.landscape = true;
+        }
 
         if (typeof window === 'undefined') {
             return this;
