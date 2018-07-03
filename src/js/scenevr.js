@@ -1,6 +1,3 @@
-// const AFRAME = require("aframe");
-const THREE = require("three");
-const OrbitControls = require('three-orbitcontrols');
 const Scene = require('./ui/Scene.js');
 const isMobile = require('./utils/isMobile.js');
 const data_url = "/assets/test_panos/data.json";
