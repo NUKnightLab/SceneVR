@@ -17,6 +17,7 @@ module.exports = class Chrome {
         this._turn_phone = false;
         this._message = "";
         this._vr = false;
+        this.compass_offset = 75;
         this.el = {
             container: dom.createElement('div', 'svr-chrome'),
             header: dom.createElement('div', 'svr-chrome-header'),
@@ -152,13 +153,15 @@ module.exports = class Chrome {
         }
 
         if (active) {
-            this._active = false;
+            let footer_height = this.el.footer.offsetHeight;
             let header_height = this.el.header.offsetHeight;
+
+            this._active = false;
+
             this.el.header.classList.remove("svr-active");
             this.el.header.classList.add("svr-inactive");
-            this.el.header.style.top = `-${header_height - 75}px`;
+            this.el.header.style.top = `-${header_height - this.compass_offset}px`;
 
-            let footer_height = this.el.footer.offsetHeight;
             this.el.footer.classList.remove("svr-active");
             this.el.footer.classList.add("svr-inactive");
             this.el.footer.style.bottom = `-${footer_height - 42}px`;
@@ -177,6 +180,27 @@ module.exports = class Chrome {
         }
     }
 
+    updateChromePosition() {
+        if (window.innerHeight < 400) {
+            this.el.compass.style.display = "none";
+            this.compass_offset = 0;
+        } else {
+            this.compass_offset = 75;
+            this.el.compass.style.display = "block";
+        }
+
+        if (this._active) {
+            this.el.header.style.top = "0px";
+            this.el.footer.style.bottom = "0px";
+        } else {
+            let footer_height = this.el.footer.offsetHeight,
+                header_height = this.el.header.offsetHeight;
+            this.el.header.style.top = `-${header_height - this.compass_offset}px`;
+            this.el.footer.style.bottom = `-${footer_height - 42}px`;
+        }
+
+    }
+
     onThumbnailClick(e) {
         this.caption.text = e.text;
         this.events.emit("goto", {number:e.number});
@@ -192,6 +216,7 @@ module.exports = class Chrome {
 
     updateSize() {
         this.thumbnails.updateSize();
+        this.updateChromePosition();
     }
 
 }
