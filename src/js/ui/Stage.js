@@ -146,13 +146,5 @@ module.exports = class Stage {
         this.renderer.setSize( window.innerWidth, window.innerHeight );
     }
 
-    setScene(src) {
-
-    }
-
-    addImage(img) {
-
-    }
-
 
 }
