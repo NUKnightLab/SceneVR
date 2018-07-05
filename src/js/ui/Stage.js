@@ -10,7 +10,7 @@ module.exports = class Stage {
     constructor(config, add_to_container) {
         this.config = config;
         this.el = dom.createElement('div', 'svr-main');
-        this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1200 );
+        this.camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 1, 1200 );
         this.scene = new THREE.Scene();
         this.camera_direction = new THREE.Vector3();
         this.camera_angle = 0;
