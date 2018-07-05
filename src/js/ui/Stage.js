@@ -37,11 +37,6 @@ module.exports = class Stage {
 
         this.el.appendChild( this.renderer.domElement );
         this.scene.background = new THREE.Color( 0x000000 );
-        console.log(`this.scene.background ${this.scene.background}`);
-        // USED FOR THREEJS CHROME INSPECTOR
-        // REMOVE BEFORE DEPLOY
-        // window.scene = this.scene;
-        // window.THREE = THREE;
 
         if (add_to_container) {
             add_to_container.appendChild(this.el);
@@ -49,6 +44,17 @@ module.exports = class Stage {
 
         if (isMobile.any) {
             this.controls = new THREE.DeviceOrientationControls( this.camera );
+            console.log("mobile DEVICE")
+            console.log(navigator.userAgent)
+            console.log(isMobile.apple.device)
+            if (isMobile.apple.device) {
+                console.log("APPLE DEVICE")
+                // FIX ORIENTATION
+                this.controls.updateAlphaOffsetAngle(-90);
+            }
+            if (isMobile.android.device) {
+                console.log("ANDROID DEVICE")
+            }
         } else {
             if (isMobile.vr) {
                 console.log("Supports VR");
@@ -65,6 +71,11 @@ module.exports = class Stage {
             this.controls.target.z = 0;
             this.camera.position.z = 0.01;
         }
+
+        // USED FOR THREEJS CHROME INSPECTOR
+        // REMOVE BEFORE DEPLOY
+        // window.scene = this.scene;
+        // window.THREE = THREE;
 
     }
 
@@ -108,7 +119,12 @@ module.exports = class Stage {
 		this.pos.phi = THREE.Math.degToRad( 90 - this.pos.lat );
 		this.pos.theta = THREE.Math.degToRad( this.pos.lon );
 
-        this.pos.alpha_offset = -(this.pos.theta * 2);
+        if (isMobile.apple.device) {
+            this.pos.alpha_offset = -(this.pos.theta * 2) -90;
+        } else {
+            this.pos.alpha_offset = -(this.pos.theta * 2);
+        }
+
         this.pos.beta_offset = THREE.Math.degToRad( this.pos.lat );
 
         if (isMobile.any) {

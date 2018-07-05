@@ -11,7 +11,7 @@
  */
 (function (global) {
 
-    var apple_phone         = /iPhone/i,
+    let apple_phone         = /iPhone/i,
         apple_ipod          = /iPod/i,
         apple_tablet        = /iPad/i,
         android_phone       = /(?=.*\bAndroid\b)(?=.*\bMobile\b)/i, // Match 'Android' AND 'Mobile'

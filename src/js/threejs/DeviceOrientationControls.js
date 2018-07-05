@@ -8,7 +8,7 @@ const THREE = require("three");
 
 THREE.DeviceOrientationControls = function( object ) {
 
-	var scope = this;
+	let scope = this;
 
 	this.object = object;
 	this.object.rotation.reorder( "YXZ" );
@@ -24,15 +24,16 @@ THREE.DeviceOrientationControls = function( object ) {
 	this.gammaOffsetAngle = 0;
 
 
-	var onDeviceOrientationChangeEvent = function( event ) {
+	let onDeviceOrientationChangeEvent = function( event ) {
 
 		scope.deviceOrientation = event;
 
 	};
 
-	var onScreenOrientationChangeEvent = function() {
+	let onScreenOrientationChangeEvent = function() {
 
 		scope.screenOrientation = window.orientation || 0;
+        console.log(`window.orientation ${window.orientation}`)
 
 	};
 
@@ -40,13 +41,13 @@ THREE.DeviceOrientationControls = function( object ) {
 
 	var setObjectQuaternion = function() {
 
-		var zee = new THREE.Vector3( 0, 0, 1 );
+		let zee = new THREE.Vector3( 0, 0, 1 );
 
-		var euler = new THREE.Euler();
+		let euler = new THREE.Euler();
 
-		var q0 = new THREE.Quaternion();
+		let q0 = new THREE.Quaternion();
 
-		var q1 = new THREE.Quaternion( - Math.sqrt( 0.5 ), 0, 0, Math.sqrt( 0.5 ) ); // - PI/2 around the x-axis
+		let q1 = new THREE.Quaternion( - Math.sqrt( 0.5 ), 0, 0, Math.sqrt( 0.5 ) ); // - PI/2 around the x-axis
 
 		return function( quaternion, alpha, beta, gamma, orient ) {
 
@@ -86,13 +87,14 @@ THREE.DeviceOrientationControls = function( object ) {
 
 		if ( scope.enabled === false ) return;
 
-		var alpha = scope.deviceOrientation.alpha ? THREE.Math.degToRad( scope.deviceOrientation.alpha ) + this.alphaOffsetAngle : 0; // Z
-		var beta = scope.deviceOrientation.beta ? THREE.Math.degToRad( scope.deviceOrientation.beta ) + this.betaOffsetAngle : 0; // X'
-		var gamma = scope.deviceOrientation.gamma ? THREE.Math.degToRad( scope.deviceOrientation.gamma ) + this.gammaOffsetAngle : 0; // Y''
-		var orient = scope.screenOrientation ? THREE.Math.degToRad( scope.screenOrientation ) : 0; // O
+		let alpha = scope.deviceOrientation.alpha ? THREE.Math.degToRad( scope.deviceOrientation.alpha ) + this.alphaOffsetAngle : 0; // Z
+		let beta = scope.deviceOrientation.beta ? THREE.Math.degToRad( scope.deviceOrientation.beta ) + this.betaOffsetAngle : 0; // X'
+		let gamma = scope.deviceOrientation.gamma ? THREE.Math.degToRad( scope.deviceOrientation.gamma ) + this.gammaOffsetAngle : 0; // Y''
+		let orient = scope.screenOrientation ? THREE.Math.degToRad( scope.screenOrientation ) : 0; // O
 
 		setObjectQuaternion( scope.object.quaternion, alpha, beta, gamma, orient );
 		this.alpha = alpha;
+        // console.log(`alpha ${Math.round(scope.deviceOrientation.alpha)}, beta ${Math.round(scope.deviceOrientation.beta)}, gamma ${Math.round(scope.deviceOrientation.gamma)}, orientation ${Math.round(scope.screenOrientation)}`)
 
 	};
 
