@@ -10,11 +10,11 @@ module.exports = class Stage {
     constructor(config, add_to_container) {
         this.config = config;
         this.el = dom.createElement('div', 'svr-main');
-        this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
+        this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1200 );
         this.scene = new THREE.Scene();
         this.camera_direction = new THREE.Vector3();
         this.camera_angle = 0;
-
+        this._background = false;
         this._stereo = false;
 
         this.controls = {};
@@ -24,7 +24,7 @@ module.exports = class Stage {
             phi: 0,
             theta: 0
         }
-        this.camera_target = new THREE.Vector3( 0, 0, 0 );
+        this.camera_target = new THREE.Vector3( 1, 0, 0 );
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.vr.enabled = true;
@@ -36,7 +36,8 @@ module.exports = class Stage {
         this.renderer.setSize( window.innerWidth, window.innerHeight );
 
         this.el.appendChild( this.renderer.domElement );
-
+        this.scene.background = new THREE.Color( 0x000000 );
+        console.log(`this.scene.background ${this.scene.background}`);
         // USED FOR THREEJS CHROME INSPECTOR
         // REMOVE BEFORE DEPLOY
         // window.scene = this.scene;
@@ -59,6 +60,9 @@ module.exports = class Stage {
 			this.controls.enablePan = false;
 			this.controls.enableDamping = true;
 			this.controls.rotateSpeed = - 0.1;
+            this.controls.target.x = 1;
+            this.controls.target.y = 0;
+            this.controls.target.z = 0;
             this.camera.position.z = 0.01;
         }
 
@@ -77,6 +81,20 @@ module.exports = class Stage {
         }
     }
 
+    get background() {
+        return this._background;
+    }
+
+    set background(b) {
+        this._background = b;
+        if (!this._background) {
+            this.scene.background = new THREE.Color( 0x000000 );
+        } else {
+            this.scene.background = b;
+        }
+
+    }
+
     addPano(pano) {
         pano.addToScene(this.scene);
     }
@@ -85,7 +103,7 @@ module.exports = class Stage {
         this.pos.lon = lon;
 
         this.pos.lon +=  0.1;
-		this.pos.lat = Math.max( - 85, Math.min( 85, lat ) );
+		this.pos.lat = Math.max( - 90, Math.min( 90, lat ) );
 
 		this.pos.phi = THREE.Math.degToRad( 90 - this.pos.lat );
 		this.pos.theta = THREE.Math.degToRad( this.pos.lon );
