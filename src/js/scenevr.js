@@ -1,6 +1,6 @@
 const Scene = require('./ui/Scene.js');
 const isMobile = require('./utils/isMobile.js');
-const data_url = "/assets/test_panos/data.json";
+const data_url = "/assets/iphone_panos/data.json";
 
 
 function initalize() {
