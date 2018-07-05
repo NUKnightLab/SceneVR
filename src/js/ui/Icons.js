@@ -21,8 +21,8 @@ module.exports = {
         </svg>
     `,
     chevron: `
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" fill="#ffffff" viewBox="0 0 24 24">
-            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#ffffff" viewBox="0 0 7.41 12">
+            <path class="cls-1" d="M0,10.58,4.58,6,0,1.41,1.41,0l6,6-6,6Z"/>
         </svg>
     `,
     cardboard_instruction: `

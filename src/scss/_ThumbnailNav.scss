@@ -30,9 +30,9 @@
     z-index: 20;
     svg {
         position:absolute;
-        right:-10px;
-        width: 76px;
-        height: 76px;
+        right:3px;
+        width: 32px;
+        height: 32px;
     }
 }
 
@@ -40,7 +40,7 @@
     left: 0;
     @include linear-gradient(to left, rgba(29, 31, 33,0) 0%, rgba(29, 31, 33,0.6) 50%);
     svg {
-        left:-10px;
+        left:3px;
         transform: rotate(180deg);
     }
 }
