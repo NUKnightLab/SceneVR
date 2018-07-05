@@ -19,10 +19,47 @@
     display:flex;
     flex-direction: row-reverse;
     padding-bottom: $ui-spacing;
-    #svr-btn-fullscreen {
-        cursor: pointer;
-        &:hover {
-            color: #333;
-        }
+}
+
+#svr-btn-fullscreen {
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+}
+
+#svr-btn-next, #svr-btn-prev {
+    @include transition(0.4s);
+    svg {
+        width:52px;
+        height:52px;
+        top:-25px;
+        position:absolute;
+        left:0;
+    }
+}
+
+#svr-btn-next {
+    right:48px;
+}
+
+#svr-btn-prev {
+    transform: rotate(180deg);
+    left:52px;
+}
+
+.svr-inactive {
+    #svr-btn-next {
+        right:0px;
+    }
+
+    #svr-btn-prev {
+        left:0px;
+    }
+}
+
+.svr-mobile {
+    #svr-btn-next, #svr-btn-prev {
+        display: none;
     }
 }

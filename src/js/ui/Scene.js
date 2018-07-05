@@ -98,6 +98,14 @@ module.exports = class Scene {
 
         })
 
+        this.chrome.events.addListener("next", (e) => {
+            this.next(e);
+        })
+
+        this.chrome.events.addListener("prev", (e) => {
+            this.prev(e);
+        })
+
     }
 
     fullScreenToggle(e) {
@@ -247,6 +255,22 @@ module.exports = class Scene {
             // }
         }
 
+    }
+
+    next() {
+        let next_photo = this.current_pano + 1;
+        if ((this.panos.length - 1) >= next_photo) {
+            this.chrome.current_thumbnail = next_photo;
+            this.goTo(next_photo);
+        }
+    }
+
+    prev() {
+        let prev_photo = this.current_pano - 1;
+        if (prev_photo >= 0) {
+            this.chrome.current_thumbnail = prev_photo;
+            this.goTo(prev_photo);
+        }
     }
 
     get stereo() {

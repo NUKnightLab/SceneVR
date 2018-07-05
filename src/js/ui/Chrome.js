@@ -12,6 +12,7 @@ module.exports = class Chrome {
         this.data = data;
         this.events = new EventEmitter();
         this.thumbnails = {};
+        this._current_thumbnail = 0;
         this._active = true;
         this._fullscreen = false;
         this._turn_phone = false;
@@ -21,8 +22,10 @@ module.exports = class Chrome {
         this.el = {
             container: dom.createElement('div', 'svr-chrome'),
             header: dom.createElement('div', 'svr-chrome-header'),
+            middle: dom.createElement('div', 'svr-chrome-middle'),
             footer_button_container: dom.createElement('div', '', ["svr-button-container"]),
             header_button_container: dom.createElement('div', '', ["svr-button-container"]),
+            middle_button_container: dom.createElement('div', '', ["svr-button-container"]),
             footer: dom.createElement('div', 'svr-chrome-footer'),
             compass: {},
             compass_pointer: {},
@@ -30,8 +33,10 @@ module.exports = class Chrome {
         }
 
         this.buttons = {
-            fullscreen: dom.createElement('div', 'svr-btn-fullscreen', ["svr-btn"], this.el.footer_button_container),
-            cardboard: dom.createElement('div', 'svr-btn-cardboard', ["svr-btn"], this.el.footer_button_container)
+            fullscreen: dom.createElement('div', 'svr-btn-fullscreen', ["svr-btn"], this.el.footer_button_container, icons.fullscreen),
+            cardboard: dom.createElement('div', 'svr-btn-cardboard', ["svr-btn"], this.el.footer_button_container, icons.cardboard),
+            next: dom.createElement('div', 'svr-btn-next', ["svr-btn"], this.el.middle_button_container, icons.chevron),
+            prev: dom.createElement('div', 'svr-btn-prev', ["svr-btn"], this.el.middle_button_container, icons.chevron)
         }
 
         this.title = new Caption(this.el.header);
@@ -42,14 +47,31 @@ module.exports = class Chrome {
         this.el.compass.innerHTML = icons.compass;
         this.el.compass_pointer = this.el.compass.querySelector('#svr-compass-pointer');
 
-        this.buttons.fullscreen.innerHTML = icons.fullscreen;
-        this.buttons.fullscreen.addEventListener('click', (e) => {this.onFullScreenButton(e)});
+        // BUTTON LISTENERS
+        this.buttons.fullscreen.addEventListener('click', (e) => {
+            this.events.emit("fullscreen", {data:"fullscreen button"});
+        });
 
-        this.buttons.cardboard.innerHTML = icons.cardboard;
-        this.buttons.cardboard.addEventListener('click', (e) => {this.onCardboardButton(e)});
+        this.buttons.cardboard.addEventListener('click', (e) => {
+            this.events.emit("cardboard", {data:"cardboard button"});
+        });
+
+        this.buttons.next.addEventListener('click', (e) => {
+            this.events.emit("next", {data:"next button"});
+        });
+
+        this.buttons.prev.addEventListener('click', (e) => {
+            this.events.emit("prev", {data:"prev button"});
+        });
+
         // HEADER
         this.el.container.appendChild(this.el.header);
         this.el.header.appendChild(this.el.header_button_container);
+
+        // MIDDLE
+        this.el.container.appendChild(this.el.middle);
+        this.el.middle.appendChild(this.el.middle_button_container);
+        this.buttons.prev.style.display = "none";
 
         // FOOTER
         this.el.container.appendChild(this.el.footer);
@@ -59,7 +81,13 @@ module.exports = class Chrome {
 
         // THUMBNAILS
         this.thumbnails = new ThumbnailNav(this.data, this.el.footer);
-        this.thumbnails.events.addListener("goto", (e) => {this.onThumbnailClick(e)})
+        this.thumbnails.events.addListener("goto", (e) => {
+            this.caption.text = e.text;
+            this.events.emit("goto", {number:e.number});
+            this.updateNav(e.number)
+        })
+
+
 
         // MESSAGE
         this.el.container.appendChild(this.el.message);
@@ -76,6 +104,20 @@ module.exports = class Chrome {
         };
     }
 
+    updateNav(n) {
+        if (n == 0) {
+            this.buttons.prev.style.display = "none";
+        } else {
+            this.buttons.prev.style.display = "block";
+        }
+
+        if ((this.thumbnails.number_of_thumbnails -1) == n ) {
+            this.buttons.next.style.display = "none";
+        } else {
+            this.buttons.next.style.display = "block";
+        }
+    }
+
     get vr() {
         return this._vr;
     }
@@ -87,6 +129,15 @@ module.exports = class Chrome {
         } else {
             this.el.container.style.display = "block";
         }
+    }
+
+    get current_thumbnail() {
+        return this.thumbnails.current_thumbnail;
+    }
+
+    set current_thumbnail(n) {
+        this.updateNav(n);
+        this.thumbnails.current_thumbnail = n;
     }
 
     get turn_phone() {
@@ -162,6 +213,9 @@ module.exports = class Chrome {
             this.el.header.classList.add("svr-inactive");
             this.el.header.style.top = `-${header_height - this.compass_offset}px`;
 
+            this.el.middle.classList.remove("svr-active");
+            this.el.middle.classList.add("svr-inactive");
+
             this.el.footer.classList.remove("svr-active");
             this.el.footer.classList.add("svr-inactive");
             this.el.footer.style.bottom = `-${footer_height - 42}px`;
@@ -173,6 +227,9 @@ module.exports = class Chrome {
             this.el.header.classList.remove("svr-inactive");
             this.el.header.classList.add("svr-active");
             this.el.header.style.top = "0px";
+
+            this.el.middle.classList.remove("svr-inactive");
+            this.el.middle.classList.add("svr-active");
 
             this.el.footer.classList.remove("svr-inactive");
             this.el.footer.classList.add("svr-active");
@@ -199,19 +256,6 @@ module.exports = class Chrome {
             this.el.footer.style.bottom = `-${footer_height - 42}px`;
         }
 
-    }
-
-    onThumbnailClick(e) {
-        this.caption.text = e.text;
-        this.events.emit("goto", {number:e.number});
-    }
-
-    onFullScreenButton() {
-        this.events.emit("fullscreen", {test:"testing"});
-    }
-
-    onCardboardButton() {
-        this.events.emit("cardboard", {test:"testing"});
     }
 
     updateSize() {

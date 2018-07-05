@@ -10,7 +10,7 @@ module.exports = class ThumbnailNav {
         this.data = data;
         this.thumbnails = [];
         this.events = new EventEmitter();
-
+        this._current_thumbnail = 0;
         this.el = {
             container: dom.createElement('div', 'svr-thumbnail-container'),
             scroll_container: dom.createElement('div', '', ["svr-thumbnail-scroll-conatiner"]),
@@ -106,14 +106,31 @@ module.exports = class ThumbnailNav {
         this.thumbnails[0].active = true;
     }
 
-    onThumbnailClick(e) {
+    get current_thumbnail() {
+        return this._current_thumbnail;
+    }
+
+    set current_thumbnail(n) {
+        this._current_thumbnail = n;
         for (let i = 0; i < this.thumbnails.length; i++) {
-            if(e.number === i) {
+            if(this._current_thumbnail === i) {
                 this.thumbnails[i].active = true;
             } else {
                 this.thumbnails[i].active = false;
             }
         }
+    }
+
+    get number_of_thumbnails() {
+        return this.thumbnails.length;
+    }
+
+    set number_of_thumbnails(n) {
+
+    }
+
+    onThumbnailClick(e) {
+        this.current_thumbnail = e.number;
         this.events.emit("goto", {number:e.number, text:`${this.thumbnails[e.number].data.caption}`});
     }
 

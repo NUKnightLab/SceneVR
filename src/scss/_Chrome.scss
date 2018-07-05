@@ -31,7 +31,7 @@
 }
 
 // Header and Footer // --------------------------------------------------
-#svr-chrome-header, #svr-chrome-footer {
+#svr-chrome-header, #svr-chrome-footer, #svr-chrome-middle {
     position:fixed;
     left:0;
     width:100%;
@@ -56,4 +56,25 @@
 
 #svr-chrome-footer {
     bottom:0;
+}
+
+#svr-chrome-middle {
+    display:block;
+    .svr-button-container {
+        display:block;
+        position:absolute;
+        width:100%;
+        z-index:51;
+    }
+    .svr-btn {
+        position:absolute;
+        top:50vh;
+        svg {
+
+        }
+    }
+    // align-items: center;
+    // justify-content: center;
+    // height:100%;
+    // pointer-events: none;
 }
