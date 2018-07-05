@@ -16,7 +16,7 @@ module.exports = class Pano {
         this.animation_time = 1;
         this.events = new EventEmitter();
         this.geometry_fixed = false;
-
+        this._background = false;
 
         this.geometry.scale( - 1, 1, 1 );
 
@@ -24,6 +24,7 @@ module.exports = class Pano {
         this.mesh.material.opacity = 0;
         this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0});
         this.mesh.visible = false;
+        this.mesh.geometry.rotateY(Math.PI); // ROTATE TO CENTER
         this.loadTexture(`${this.data.image_url}image-thumbnail.jpg`).then(
             response => {
                 this.mesh.material = response;
@@ -38,12 +39,22 @@ module.exports = class Pano {
 
     }
 
+    get background() {
+        return this._background;
+    }
+
+    set background(b) {
+        this._background = b;
+    }
+
     get active() {
         return this._active;
     }
 
     set active(a) {
         if(a) {
+            console.log("not active")
+            this.mesh.material.opacity = 0;
             this.mesh.visible = true;
             this._active = true;
             this.tween.kill();
@@ -65,31 +76,36 @@ module.exports = class Pano {
             }});
         } else {
             this.tween.kill();
-            this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0, onComplete: () => {
+            if (this.geometry_fixed) {
                 this.mesh.visible = false;
-            }});
+            } else {
+                this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0, onComplete: () => {
+                    this.mesh.visible = false;
+                }});
+            }
+            this._active = false;
         }
     }
 
     fixGeometry(w, h) {
         if (!this.geometry_fixed) {
-            let image_multiplier = (w / h) * 60.8;
+            let fov = 60.8;//60.8;
+            let image_multiplier = (w / h) * fov;
             image_multiplier = THREE.Math.degToRad(image_multiplier)
-            // let image_multiplier = ( ( (texture.image.width / texture.image.height) * 60.8) * Math.PI)/180;
-            let thetaLength = (60.8 * Math.PI)/180;
             let g = {
-                radius: 1100, //1
-                widthSegments: 60, //8
-                heightSegments: 1000, //6
-                phiStart: 0, //0
-                phiLength: Math.PI*(image_multiplier/2), //Math.PI * 2
+                radius: 1100,
+                widthSegments: 60,
+                heightSegments: 1000,
+                phiStart: 0,
+                phiLength: Math.PI*(image_multiplier/3),
                 thetaStart: 45, //0
-                thetaLength: Math.PI/2 //Math.PI
+                thetaLength: (fov * Math.PI)/180
             }
             this.geometry = new THREE.SphereBufferGeometry( g.radius, g.widthSegments, g.heightSegments, g.phiStart, g.phiLength, g.thetaStart, g.thetaLength);
             this.geometry.scale( - 1, 1, 1 );
             this.mesh.geometry = this.geometry;
-            this.mesh.geometry.rotateY((180 * Math.PI)/180);
+            this.mesh.geometry.rotateY(image_multiplier/2);
+
             this.geometry_fixed = true;
         }
 
@@ -100,6 +116,7 @@ module.exports = class Pano {
             this.texture_loader.load(url, (texture) => {
                 // check if equilinear
                 if ((texture.image.height/texture.image.width) < 0.45) {
+                    this.background = texture;
                     console.debug("is not equilinear");
                     this.fixGeometry(texture.image.width, texture.image.height);
                 }

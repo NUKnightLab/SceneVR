@@ -168,6 +168,7 @@ module.exports = class Scene {
 
     onMouseMove(e) {
         if (!this.user_first_interaction) {
+            // this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
             this.pointer.move_x = e.clientX;
             this.pointer.move_y = e.clientY;
             let change_lon = (e.clientX * 0.1)/8;
@@ -233,11 +234,19 @@ module.exports = class Scene {
     }
 
     goTo(n) {
-        this.panos[this.current_pano].active = false;
-        this.current_pano = n;
-        this.panos[this.current_pano].active = true;
-        this.user_interacting = false;
-        this.user_first_interaction = false;
+        if (n != this.current_pano) {
+            this.panos[this.current_pano].active = false;
+            this.current_pano = n;
+            this.panos[this.current_pano].active = true;
+            this.user_interacting = false;
+            this.user_first_interaction = false;
+            // if (this.panos[this.current_pano].background) {
+            //     this.stage.background = this.panos[this.current_pano].background;
+            // } else {
+            //     this.stage.background = false;
+            // }
+        }
+
     }
 
     get stereo() {
