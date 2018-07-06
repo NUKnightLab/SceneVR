@@ -1,7 +1,8 @@
 const Scene = require('./ui/Scene.js');
+const version = 'Scene VR Version: 0.0.7 (2018-06-21)';
 
 window.init_scene = function(c) {
-    console.info('Scene VR Version: 0.0.7 (2018-06-21)');
+    console.info(version);
     let scene = new Scene(c);
 
     function animate() {
