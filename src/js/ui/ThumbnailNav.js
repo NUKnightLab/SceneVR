@@ -3,7 +3,9 @@ const Thumbnail = require('../ui/Thumbnail.js');
 const icons = require('../ui/Icons.js');
 const EventEmitter = require("../utils/EventEmitter.js");
 const isMobile = require("../utils/isMobile.js");
-import {TweenLite, CSSPlugin, ScrollToPlugin} from "gsap/all";
+import TweenLite from 'gsap/TweenLite';
+import 'gsap/CSSPlugin';
+import 'gsap/ScrollToPlugin';
 
 module.exports = class ThumbnailNav {
     constructor(data, add_to_container) {
