@@ -5,7 +5,8 @@ const Stage = require('../ui/Stage.js');
 const Pano = require('../ui/Pano.js');
 const Chrome = require('../ui/Chrome.js');
 const isMobile = require('../utils/isMobile.js');
-import {TweenLite, CSSPlugin} from "gsap/all";
+import {TweenLite, CSSPlugin} from "gsap/TweenLite";
+const plugins = [ CSSPlugin ];
 
 module.exports = class Scene {
     constructor(config) {

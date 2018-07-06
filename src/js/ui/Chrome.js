@@ -4,7 +4,9 @@ const ThumbnailNav = require('../ui/ThumbnailNav.js');
 const Caption = require('../ui/Caption.js');
 const EventEmitter = require("../utils/EventEmitter.js");
 const isMobile = require("../utils/isMobile.js");
-import {TweenLite, CSSPlugin} from "gsap/all";
+import TweenLite from 'gsap/TweenLite';
+import 'gsap/CSSPlugin';
+
 
 // TO DO SCROLLABLE THUMBNAIL PANEL
 module.exports = class Chrome {

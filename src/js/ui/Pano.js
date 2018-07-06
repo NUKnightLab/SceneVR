@@ -1,6 +1,6 @@
 const THREE = require("three");
 const EventEmitter = require("../utils/EventEmitter.js");
-import {TweenLite} from "gsap/TweenLite";
+import TweenLite from 'gsap/TweenLite';
 
 module.exports = class Pano {
     constructor(data, config) {
