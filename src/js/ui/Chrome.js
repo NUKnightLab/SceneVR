@@ -196,7 +196,6 @@ module.exports = class Chrome {
     }
 
     toggleUI(a) {
-        console.debug("Toggle UI");
         let active = this._active;
 
         if (a) {

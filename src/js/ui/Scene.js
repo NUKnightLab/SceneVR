@@ -201,7 +201,6 @@ module.exports = class Scene {
             this.user_interacting = true;
             this.user_first_interaction = true;
             this.temp_ui_active = this.chrome.active;
-            console.debug("remove onMouseMove listener")
             this.el.container.removeEventListener('mousemove', (e) => {console.log(e)});
 
         }
@@ -225,7 +224,7 @@ module.exports = class Scene {
 
     buildPanos() {
         for (let i = 0; i < this.data.scenes.length; i++) {
-            let pano = new Pano(this.data.scenes[i]);
+            let pano = new Pano(this.data.scenes[i], this.config);
             pano.events.addListener("thumbnail_loaded", (e) => {
                 this.onThumbnailLoaded(e, i)
             })
@@ -238,6 +237,7 @@ module.exports = class Scene {
     onThumbnailLoaded(e, i) {
         if (i === 0) {
             this.el.loading.style.display = "none";
+            this.el.loading.parentNode.removeChild(this.el.loading);
         }
     }
 

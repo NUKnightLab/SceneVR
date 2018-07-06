@@ -3,8 +3,16 @@ const EventEmitter = require("../utils/EventEmitter.js");
 import {TweenLite} from "gsap/TweenLite";
 
 module.exports = class Pano {
-    constructor(data) {
+    constructor(data, config) {
         this.data = data;
+        this.config = {
+            speed: "m"
+        };
+
+        if (config) {
+            this.config = config;
+        }
+
         this.geometry = new THREE.SphereBufferGeometry( 1000, 60, 40 );
 
         this.material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
@@ -61,7 +69,7 @@ module.exports = class Pano {
             this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
                 console.debug("LOADED HIGH REZ");
                 if (!this.high_resolution) {
-                    this.loadTexture(`${this.data.image_url}image-m.jpg`).then(
+                    this.loadTexture(`${this.data.image_url}image-${this.config.speed}.jpg`).then(
                         response => {
                             let opac = this.mesh.material.opacity;
                             this.tween.kill();

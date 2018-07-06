@@ -1,15 +1,8 @@
 const Scene = require('./ui/Scene.js');
-const isMobile = require('./utils/isMobile.js');
-const data_url = "/assets/iphone_panos/data.json";
 
-
-function initalize() {
+window.init_scene = function(c) {
     console.info('Scene VR Version: 0.0.7 (2018-06-21)');
-    const query_params = getQueryParams(window.location.search);
-    let config = {}
-    config.source = query_params.hasOwnProperty('source') ? query_params.source : data_url;
-    config.isMobile = isMobile.any;
-    let scene = new Scene(config);
+    let scene = new Scene(c);
 
     function animate() {
         window.requestAnimationFrame(animate);
@@ -22,26 +15,6 @@ function initalize() {
     };
 
     animate();
+
     window.addEventListener( 'resize', onResize, false );
-
 }
-
-
-
-// Get information from URL
-function getQueryParams(query_params) {
-    query_params = query_params.split("+").join(" ");
-
-    var params = {},
-        tokens,
-        re = /[?&]?([^=]+)=([^&]*)/g;
-
-    while (tokens = re.exec(query_params)) {
-        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-    }
-
-    return params;
-}
-
-
-window.onload = initalize;
