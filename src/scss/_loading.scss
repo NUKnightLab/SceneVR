@@ -18,11 +18,15 @@ $loading-width: 50px;
     font-size: 14px;
     color: $color-grey--darker;
     margin-top: $ui-spacing *2;
+    .svr-loading-message-dots {
+        font-family:monospace;
+    }
 }
 
 .svr-loading-cube {
     position: relative;
     margin: 0 auto;
+    border-radius:50%;
     width: $loading-width;
     height: $loading-width;
     -webkit-transform-style: preserve-3d;
@@ -35,7 +39,17 @@ $loading-width: 50px;
         width: $loading-width;
         height: $loading-width;
         background: rgba($color-grey--darkest, 0.2);
-        border: 1px solid rgba($color-grey--darkest, 0.6);
+        border: 1px solid rgba($color-bg-default, 1);
+
+        &.svr-loading-face-bottom {
+            display         : flex;
+            justify-content : center;
+            align-items     : center;
+            font-size: 26px;
+            color: $color-bg-default;
+            font-weight:900;
+            text-align: center;
+        }
         &:nth-child(1) {
             transform: translateZ($loading-width/2);
         }
