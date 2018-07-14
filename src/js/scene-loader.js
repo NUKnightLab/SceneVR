@@ -39,6 +39,7 @@ function svr_init() {
     let script = document.createElement('script');
     script.onload = svr_init_scene;
     svr_time.start = (new Date()).getTime();
+    // TODO: this src url is not portable to the CDN or S3 embeds
     script.src = "/js/scenevr.js";
 
     document.head.appendChild(script);
