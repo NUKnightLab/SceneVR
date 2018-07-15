@@ -8,7 +8,7 @@ const prompt = require('prompt'),
 
 const CDN_ROOT = '../cdn.knightlab.com', // maybe parameterize later
       PROJECT_NAME = 'scenevr', // can we read this from package.json?
-      EXCLUDE_FROM_DIST = ['templates', 'assets/test_panos']; // a list of dist-relative paths to be removed before zip/copy
+      EXCLUDE_FROM_DIST = ['templates', 'assets/test_panos', 'index.html']; // a list of dist-relative paths to be removed before zip/copy
 
 function makeCDNPath(version) {
   return path.normalize(path.join(CDN_ROOT,'app/libs',PROJECT_NAME, version));
@@ -18,6 +18,8 @@ function stageToCDN(version, latest) {
   var banner_version = (version == 'dev') ? new Date().toISOString() : version;
 
   EXCLUDE_FROM_DIST.forEach(function(p){
+    // maybe we can move these instead of remove 
+    // and then move back? otherwise remember to rebuild after staging
     fse.removeSync(path.join('dist', p), onErr);
   });
 
