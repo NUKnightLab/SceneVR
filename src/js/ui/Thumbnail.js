@@ -17,12 +17,21 @@ module.exports = class Thumbnail {
 
         this.el.container.appendChild(this.el.image);
 
-        this.el.image.style.backgroundImage = `url(${this.data.image_url}image-thumbnail.jpg)`
+        this.el.image.style.backgroundImage = `url(${this.getImageUrl('thumbnail')})`
 
         if (add_to_container) {
             add_to_container.appendChild(this.el.container);
         };
     }
+
+    getImageUrl(type) { // copied between Pano.js and Thumbnail.js - can we share?
+        var base = this.data.image_dir;
+        if (!base.endsWith('/')) {
+            base = `${base}/`;
+        }
+        return `${base}image-${type}.jpg`;
+    }
+
 
     get active() {
         return this._active;

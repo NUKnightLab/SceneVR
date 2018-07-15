@@ -47,8 +47,8 @@ module.exports = class Pano {
 
     }
 
-    getImageUrl(type) {
-        var base = this.data.image_url;
+    getImageUrl(type) { // copied between Pano.js and Thumbnail.js - can we share?
+        var base = this.data.image_dir;
         if (!base.endsWith('/')) {
             base = `${base}/`;
         }
