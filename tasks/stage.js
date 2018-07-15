@@ -3,7 +3,7 @@ const prompt = require('prompt'),
       fse = require('fs-extra'),
       path = require('path'),
       AdmZip = require('adm-zip'),
-      writeBanner = require('write-banner'), // note needs override of 'add-banner' dependency to git repo version
+      banner = require('add-banner'),
       glob = require('glob');
 
 const CDN_ROOT = '../cdn.knightlab.com', // maybe parameterize later
@@ -22,13 +22,15 @@ function stageToCDN(version, latest) {
     // and then move back? otherwise remember to rebuild after staging
     fse.removeSync(path.join('dist', p), onErr);
   });
-
+  
   var to_banner = glob.sync('dist/**/*.+(js|css)');
   to_banner.forEach(function(f) {
-    writeBanner(f, {
-      banner: 'banner.tmpl',
+    console.log(`bannering ${f}`)
+    var bannered = banner(f, {
+      template: 'banner.tmpl',
       version: banner_version,
     });
+    fse.writeFileSync(f,bannered);
   })
 
   if (fse.existsSync(CDN_ROOT)) {
