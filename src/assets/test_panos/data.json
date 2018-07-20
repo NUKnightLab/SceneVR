@@ -4,6 +4,10 @@
     "scenes": [
         {
             "caption": "The lower 9th Ward of New Orleans one month after Hurricane Katrina made landfall in 2005.",
+            "image_dir": "/assets/test_panos/galaxy_wide/"
+        },
+        {
+            "caption": "The lower 9th Ward of New Orleans one month after Hurricane Katrina made landfall in 2005.",
             "image_dir": "/assets/test_panos/nola_katrina_01/"
         },
         {
