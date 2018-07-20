@@ -1,9 +1,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0,maximum-scale=1.0,minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Scene VR</title>
-    <link rel="stylesheet" href="/css/scene.css"/>
+    <link rel="stylesheet" href="https://cloud.webtype.com/css/d4767ecb-457a-4677-8761-72f890add836.css"/>
+    <link rel="stylesheet" href="https://cdn.knightlab.com/libs/orangeline/latest/css/orangeline.min.css"/>
 
     <!-- favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/apple-touch-icon.png">
@@ -35,35 +36,273 @@
     <meta name="twitter:site" content="@knightlab">
     <meta name="twitter:creator" content="@knightlab">
     <!-- /Twitter Card -->
+
 </head>
+
+
 <body>
-    <section id="svr-loading">
-        <div class="svr-loading-cube">
-            <div class="svr-loading-face svr-loading-face-side"></div>
-            <div class="svr-loading-face svr-loading-face-side"></div>
-            <div class="svr-loading-face svr-loading-face-side"></div>
-            <div class="svr-loading-face svr-loading-face-side"></div>
-            <div class="svr-loading-face svr-loading-face-top"></div>
-            <div class="svr-loading-face svr-loading-face-bottom">00</div>
+    <nav id="navbar-product-top" class="navbar navbar-dark">
+        <ul>
+            <li class="logo">
+                <a href="http://knightlab.com">
+                    <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/knightlab-dark.png" />
+                </a>
+            </li>
+        </ul>
+        <div class="nav-mobile-menu">
+            <button class="button-plain">
+                <span class="icon-menu"></span>
+            </button>
         </div>
-        <p id="svr-loading-message">loading<span class="svr-loading-message-dots">...</span></p>
+        <ul class="nav-right navbar-nav">
+            <li><a class="button button-dark button-small-tablet button-active" href="http://knightlab.northwestern.edu/projects/">Projects</a></li>
+            <li><a class="button button-dark button-small-tablet" href="https://studio.knightlab.com/">Class</a></li>
+            <li><a class="button button-dark button-small-tablet" href="https://localnews.knightlab.com">Local News</a></li>
+            <li><a class="button button-dark button-small-tablet" href="http://knightlab.northwestern.edu/posts/">Posts</a></li>
+            <li><a class="button button-dark button-small-tablet" href="http://openlab.knightlab.com/">Community</a></li>
+            <li><a class="button button-dark button-small-tablet" href="http://knightlab.northwestern.edu/about/">About</a></li>
+        </ul>
+    </nav>
+
+    <header class="header-product">
+    	<h1 class="product-logo product-logo-large">Scene <span>VR</span></h1>
+    	<h2 class="product-tagline">Easy-to-make VR stories.</h2>
+    	<a class="button button-secondary button-large button-small-phone" href="#make">Make a Scene</a>
+        <nav id="navbar-secondary" class="navbar navbar-subnav column-hide-phone">
+            <ul>
+                <li class="logo">
+                    <h2 class="product-logo product-logo-smallest">Scene <span>VR</span></h2>
+                </li>
+            </ul>
+            <ul>
+                    <li><a class="button" href="#overview">Overview</a></li>
+                    <li><a class="button" href="#make">Make a Scene</a></li>
+                    <li><a class="button" href="#help">Help</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <article id="product-body">
+        <section id="demo" class="container-fluid">
+            <div class="product-demo">
+                <iframe frameborder="0" allowfullscreen src="/scene.html" width="100%" height="80vh" style="height:80vh;border-radius:8px;"></iframe>
+            </div>
+
+        </section>
+        <section id="overview" class="container">
+        	<div class="grid-size-2 grid-size-1-phone">
+        		<div class="grid-item">
+
+        			<p>
+        				SceneVR is an engaging way to tell stories from an entirely new perspective. It turns your collection of panoramic and VR-ready photos into a slideshow of navigable scenes, allowing you to create unique 360° narratives. A simple-to-use editor allows you to order your photos, add descriptions and add text. Your stories can then easily be embedded and viewed anywhere using simple and intuitive controls. Best of all, because SceneVR runs entirely in your browser, your stories can be viewed on desktop, mobile devices and even the most popular VR devices without the need for any extra apps or plugins.
+                    </p>
+
+        		</div>
+        		<div class="grid-item">
+        			<h3 style="margin-top:0;">Tips &amp; tricks</h3>
+        			<ol>
+						<li>Write each scene as part of a larger narrative</li>
+        				<li>Keep the text short and simple</li>
+                        <li>Ensure your photos are either panoramas or 360 images</li>
+        			</ol>
+
+
+        		</div>
+        	</div>
+
+        </section>
+
+        <section class="section-color section-color-complement" id="make">
+            <div class="container">
+                <div class="grid-size-2 grid-size-1-phone">
+            		<div class="grid-item">
+                        <h2>Make a Scene</h2>
+                        <p>
+                            Please come back on Jul 24th, 2018 <em>(just a couple days)</em>. <strong>We are about to launch the SceneVR editor!!</strong>
+                        </p>
+                        <p>
+                            If you can't wait and you don't mind a little JavaScript, you can grab our code for showing scenes from the our repo:
+                        </p>
+                        <p style="text-align:center">
+                            <a class="button button-light" href="https://github.com/NUKnightLab/SceneVR"><span class="icon-github"></span> SceneVR GitHub repo</a>
+                        </p>
+                    </div>
+                    <div class="grid-item">
+                        <!-- Begin MailChimp Signup Form -->
+                        <div class="panel" style="margin-top:3rem;">
+                            <div id="mc_embed_signup">
+                            	<form action="//northwestern.us2.list-manage.com/subscribe/post?u=ccc3ef81b4c3c762eb7a7d2b4&amp;id=42a09078e4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                            		<div id="mc_embed_signup_scroll">
+                            			<h5>Sign up for updates about SceneVR</h5>
+                            			<div class="mc-field-group">
+
+                            				<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
+                            			</div>
+                            			<div id="mce-responses" class="clear">
+                            				<div class="response" id="mce-error-response" style="display:none"></div>
+                            				<div class="response" id="mce-success-response" style="display:none"></div>
+                            			</div>
+                            			<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ccc3ef81b4c3c762eb7a7d2b4_42a09078e4" tabindex="-1" value=""></div>
+                            			<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button button-complement"></div>
+                            		</div>
+                            	</form>
+                            </div>
+                        </div>
+                        <!--End mc_embed_signup-->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section container " id="help">
+
+            <div class="grid">
+                <div class="column-8">
+                    <h2>Help</h2>
+                    <p>
+                        Need help? First, please be sure to look at our list of <a href="#faq">frequently asked questions</a> below.
+                    </p>
+                    <p>
+                        If you don't find an answer there, try our <a href="https://knightlab.zendesk.com/forums/22551396-TimelineJS">support forums</a> or use our <a href="https://knightlab.zendesk.com/anonymous_requests/new">tech support web form.</a> <strong>Please be clear</strong> with your question, <strong>include a link to your project</strong>, and if appropriate, a link to a page which shows the issue with which you need help. <strong>We can only answer support questions in English.</strong> We try to be prompt, but please understand that we do not have a dedicated tech support staff.
+                    </p>
+                    <p class="note">
+                        <strong>Find a bug?</strong> If you are confident you have found a bug, please report it as <a href="https://github.com/NUKnightLab/SceneVR/issues">a GitHub issue</a>. Be sure to include detailed instructions on how to reproduce the bug. If you're not sure, please start with <a href="https://knightlab.zendesk.com/anonymous_requests/new">the tech support system</a>.
+                    </p>
+                </div>
+                <div class="column-4">
+                    <h3>Technical documentation</h3>
+                    <p>Go further with Scene:</p>
+                    <ul>
+                            <li><a href="https://github.com/NUKnightLab/SceneVR">More info in out GitHub repo.</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid" id="faq">
+                <div class="grid-item">
+                    <h3>Frequently asked questions</h3>
+                    <ul class="accordion">
+                            <li>
+                                <input type="checkbox" checked>
+                                <i></i>
+                                <h3>How do I edit my projects?</h3>
+                                <div class="accordion-content">
+                                    Login with the same google account you used to make them. You should see a list of your projects. Tap or click on the project to edit the photos in that project.
+                                </div>
+                            </li>
+                            <li>
+                                <input type="checkbox" checked>
+                                <i></i>
+                                <h3>What web browsers does SceneVR work with?</h3>
+                                <div class="accordion-content">
+                                    We primarily develop for Google Chrome and Mozilla Firefox. We adhere closely to web standards, so we believe that SceneVR should work effectively in all modern web browsers. SceneVR is known to not work with Internet Explorer versions before IE10.
+                                </div>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </section>
+
+    </article>
+
+    <section class="moth--product">
+        <h3>Storytelling Tools</h3>
+        <p class="product-tagline">We build easy-to-use tools that can help you tell better stories.</p>
+        <div class="grid grid-size-4 grid-size-2-tablet grid-size-1-phone">
+            <div class="grid-item">
+                <a href="http://timeline.knightlab.com/" class="button button-dark">
+                    <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-timeline.png">
+                    <h4 class="product-logo product-logo-small">Timeline <span>JS</span></h4>
+                    <p class="product-tagline">Easy-to-make, beautiful timelines.</p>
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://storymap.knightlab.com/" class="button button-dark">
+                    <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-storymap.png">
+                    <h4 class="product-logo product-logo-small">StoryMap <span>JS</span></h4>
+                    <p class="product-tagline">Maps that tell stories.</p>
+
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://juxtapose.knightlab.com/" class="button button-dark">
+                    <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-juxtapose.jpg">
+                    <h4 class="product-logo product-logo-small">Juxtapose <span>JS</span></h4>
+                    <p class="product-tagline">Easy-to-make frame comparisons.</p>
+                </a>
+            </div>
+            <div class="grid-item">
+                <a href="http://soundcite.knightlab.com/" class="button button-dark">
+                    <img class="img-rounded" src="https://cdn.knightlab.com/libs/orangeline/latest/assets/screenshot-soundcite.png">
+                    <h4 class="product-logo product-logo-small">Soundcite <span>JS</span></h4>
+                    <p class="product-tagline">Seamless inline audio.</p>
+                </a>
+            </div>
+        </div>
+        <a href="http://knightlab.northwestern.edu/projects/" class="button button-dark" style="margin-top:1rem;z-index:22;">View More</a>
     </section>
-    <script type="text/javascript" src="/js/sceneloader.js"></script>
-    <script>
-        function ready(fn) {
-            if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-                fn();
-            } else {
-                document.addEventListener('DOMContentLoaded', fn);
-            }
-        }
-        var config = {
-            source: "/assets/test_panos/data.json",
-            speed: "m"
-        }
-        ready(function() {
-            var loader = new SceneLoader('/js/scenevr.js', config);
-            loader.load_scenevr();
-        })
-    </script>
+
+    <footer class="footer-knightlab--dark">
+        <div class="container">
+            <div class='grid grid-center'>
+                <div class='column-2 column-4-phone column-4-tablet'>
+                    <a href="http://knightlab.northwestern.edu" target="_blank">
+                        <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/logo-knightlab-stacked-dark-small.png" style="margin-left:auto;">
+                    </a>
+                    <ul class="list--social text-align-center">
+                        <li><a class="link--no-style" href="http://www.twitter.com/knightlab" target="_blank" title="Knight Lab on Twitter"><span class="icon-twitter"></span></a></li>
+                        <li><a class="link--no-style" href="https://www.facebook.com/knightlab" target="_blank" title="Knight Lab on Facebook"><span class="icon-facebook"></span></a></li>
+                        <li><a class="link--no-style" href="https://github.com/NUKnightLab/" target="_blank" title="Knight Lab on GitHub"><span class="icon-github"></span></a></li>
+                    </ul>
+                </div>
+                <div class='column-4 column-5-tablet column-6-phone footer-description'>
+                    <p>
+                        The <a title="Northwestern University" href="http://www.northwestern.edu/" target="_blank">Northwestern University</a> Knight Lab is a team of technologists and journalists working at advancing news media innovation through exploration and experimentation.
+                    </p>
+                    <div class="grid-size-2 grid-size-2-phone">
+                        <div class="grid-item">
+                            <a title="Medill School of Journalism, Media, Integrated Marketing Communications" href="http://www.medill.northwestern.edu/" target="_blank">
+                                <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/logo-medill-dark.png">
+                            </a>
+                        </div>
+
+                        <div class="grid-item">
+                            <a title="McCormick School of Engineering" href="http://www.mccormick.northwestern.edu/" target="_blank">
+                                <img src="https://cdn.knightlab.com/libs/orangeline/latest/assets/logo-mccormick-dark.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-center">
+                <div class="grid-item">
+                <address itemscope="" itemtype="http://data-vocabulary.org/Organization">
+                    <span style="display:none;" itemprop="name" title="Knight Lab | Advancing news media innovation through exploration and experimentation." class="address-name">Knight Lab</span>
+                    <span itemprop="tel" class="tel">(847) 467-4971</span>
+                    <span itemprop="address" itemscope="" itemtype="http://data-vocabulary.org/Address" class="address">
+                        <span itemprop="street-address" class="street-address">1845 Sheridan Road</span>
+                        <span class="room-num">Fisk #109 &amp; #111</span>
+                        <div class="address-group">
+                            <span itemprop="locality">Evanston,</span> <span itemprop="region">IL</span> <span itemprop="postal-code">60208 </span>
+                            <span style="display:none;" itemprop="geo" itemscope="" itemtype="http://www.data-vocabulary.org/Geo/" class="geo">
+                                Latitude: <span itemprop="latitude">42.056893</span><br>Longitude:
+                                <span itemprop="longitude">-87.676735</span>
+                            </span>
+                            <a style="display:none;" href="http://knightlab.northwestern.edu" itemprop="url" class="url">Northwesten University Knight Lab | Advancing media innovation through exploration and experimentation.</a>
+                        </div>
+                    </span>
+                </address>
+                <span class="copyright">© Copyright 2018 Northwestern University</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.knightlab.com/libs/orangeline/latest/js/main.js"></script>
+
+    <script src="https://cdn.knightlab.com/libs/orangeline/latest/js/main.js"></script>
+
 </body>
