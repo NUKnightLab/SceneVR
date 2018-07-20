@@ -249,11 +249,7 @@ module.exports = class Scene {
             this.panos[this.current_pano].active = true;
             this.user_interacting = false;
             this.user_first_interaction = false;
-            // if (this.panos[this.current_pano].background) {
-            //     this.stage.background = this.panos[this.current_pano].background;
-            // } else {
-            //     this.stage.background = false;
-            // }
+            this.chrome.current_thumbnail = this.current_pano;
         }
 
     }

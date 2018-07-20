@@ -84,9 +84,7 @@ module.exports = class Chrome {
         // THUMBNAILS
         this.thumbnails = new ThumbnailNav(this.data, this.el.footer);
         this.thumbnails.events.addListener("goto", (e) => {
-            this.caption.text = e.text;
             this.events.emit("goto", {number:e.number});
-            this.updateNav(e.number)
         })
 
 
@@ -140,6 +138,7 @@ module.exports = class Chrome {
     set current_thumbnail(n) {
         this.updateNav(n);
         this.thumbnails.current_thumbnail = n;
+        this.caption.text = this.thumbnails.caption;
     }
 
     get turn_phone() {

@@ -1,13 +1,13 @@
 {
-    "title": "Test VR",
-    "desc": "Description goes here. Sometimes it can be long.",
+    "title": "SceneVR Demo",
+    "desc": "A collection of panoramas made by <a href='http://zachwise.com' target='_blank'>Zach Wise</a> over the years. Some are from travel and some are from reporting. ",
     "scenes": [
         {
-            "caption": "We're in Doha! After an exhausting 14 hour flight, we finally check into our hotel. I remember dropping my bags in the lobby and just taking it all in - the marbled floors, multiple chandeliers, and cool lounge music. I wish we had the energy for a hotel tour, but we were ready for bed.",
+            "caption": "Victoria Harbour is a natural landform harbour situated between Hong Kong Island and Kowloon in Hong Kong. The harbour's deep, sheltered waters and strategic location on the South China Sea were instrumental in Hong Kong's establishment as a British colony and its subsequent development as a trading centre. &mdash; <a href='https://en.wikipedia.org/wiki/Victoria_Harbour' target='_blank'>Wikipedia</a>",
             "image_dir": "/assets/test_panos/hong-kong/"
         },
         {
-            "caption": "Hong Kong iPhone Panorama",
+            "caption": "Victoria Peak (Chinese: 太平山, or previously Chinese: 扯旗山) is a mountain on the western half of Hong Kong Island. As early as the 19th century, the Peak attracted prominent European residents because of its panoramic view over the city and its temperate climate compared to the sub-tropical climate in the rest of Hong Kong. &mdash; <a href='https://en.wikipedia.org/wiki/Victoria_Peak' target='_blank'>Wikipedia</a>",
             "image_dir": "/assets/test_panos/iphone_pano/"
         },
         {
