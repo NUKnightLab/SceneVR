@@ -3,6 +3,18 @@
     "desc": "A collection of panoramas made by <a href='http://zachwise.com' target='_blank'>Zach Wise</a> over the years. Some are from travel and some are from reporting. ",
     "scenes": [
         {
+            "caption": "The lower 9th Ward of New Orleans one month after Hurricane Katrina made landfall in 2005.",
+            "image_dir": "/assets/test_panos/nola_katrina_01/"
+        },
+        {
+            "caption": "The Neon Boneyard in Las Vegas, Nevada in 2007. The Boneyard is now part of the Neon Museum and features signs from old casinos and other businesses. The signs are considered by Las Vegas locals, businesses and government organizations to be not only artistically, but also historically, significant to the culture of the city.",
+            "image_dir": "/assets/test_panos/neon_boneyard_02/"
+        },
+        {
+            "caption": "Burning Man is an annual event at Black Rock City – a temporary city erected in the Black Rock Desert of Nevada, approximately 100 miles north of Reno. The  event is described as an experiment in community and art, influenced by ten main principles: radical inclusion, self-reliance, and self-expression, as well as community cooperation, civic responsibility, gifting, decommodification, participation, immediacy, and leaving no trace. Photo from 2007",
+            "image_dir": "/assets/test_panos/burningman_02/"
+        },
+        {
             "caption": "Victoria Harbour is a natural landform harbour situated between Hong Kong Island and Kowloon in Hong Kong. The harbour's deep, sheltered waters and strategic location on the South China Sea were instrumental in Hong Kong's establishment as a British colony and its subsequent development as a trading centre. &mdash; <a href='https://en.wikipedia.org/wiki/Victoria_Harbour' target='_blank'>Wikipedia</a>",
             "image_dir": "/assets/test_panos/hong-kong/"
         },
@@ -11,16 +23,16 @@
             "image_dir": "/assets/test_panos/iphone_pano/"
         },
         {
-            "caption": "Knight Lab Studio Class",
+            "caption": "The Museum of Islamic Art, Doha, Qatar. Architect I.M. Pei's design was influenced by ancient Islamic architecture, yet has a uniquely modern design involving geometric patterns. It is the first of its kind to feature over 14 centuries of Islamic art in the Arab States of the Persian Gulf. &mdash; <a href='https://en.wikipedia.org/wiki/Museum_of_Islamic_Art,_Doha' target='_blank'>Wikipedia</a>",
+            "image_dir": "/assets/test_panos/islamic_museum_art/"
+        },
+        {
+            "caption": "Knight Lab <a href='https://studio.knightlab.com' target='_blank'>Studio Class</a>",
             "image_dir": "/assets/test_panos/class-pano-2/"
         },
         {
-            "caption": "South Korea",
-            "image_dir": "/assets/test_panos/korea/"
-        },
-        {
-            "caption": "Epcot Disney World",
-            "image_dir": "/assets/test_panos/disney/"
+            "caption": "Team photo from 2007 for the <a href='http://2007.soulofathens.com/' target='_blank'>Soul of Athens</a> project I ran at <a href='https://www.ohio.edu/viscom/' target='_blank'>VisCom at Ohio University</a>.",
+            "image_dir": "/assets/test_panos/soul_of_athens/"
         }
     ]
 }
