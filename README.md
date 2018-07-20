@@ -30,11 +30,11 @@ project: {
     scenes: [
         {
             caption: "Caption info",
-            image_url: "url_to_image"
+            image_dir: "url_to_directory_of_images"
         },
         {
             caption: "Caption info",
-            image_url: "url_to_image"
+            image_dir: "url_to_directory_of_images"
         }
     ]
 }

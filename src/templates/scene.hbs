@@ -19,4 +19,23 @@ keywords: "story, news, vr, create, twitter, journalism, virtual reality, google
     {{partials 'loading' this}}
     <script type="text/javascript" src="/js/sceneloader.js"></script>
 
+    <script>
+        function ready(fn) {
+            if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                fn();
+            } else { document.addEventListener('DOMContentLoaded', fn); }
+        }
+
+        var config = {
+                source: "/assets/test_panos/data.json",
+                speed: "m"
+        }
+
+        ready(function() {
+            var loader = new SceneLoader('/js/scenevr.js', config);
+            loader.load_scenevr();
+        })
+    </script>
+
+
 </body>

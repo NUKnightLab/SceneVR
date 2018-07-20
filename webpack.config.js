@@ -5,12 +5,12 @@ const webpack = require('webpack'),
 module.exports = {
     context: path.join(__dirname),
     entry: {
-        scenevr: "./src/js/scenevr.js",
         sceneloader: "./src/js/scene-loader.js",
+        scenevr: "./src/js/scenevr.js",
     },
     output: {
         path: path.join(__dirname, "./dist/js"),
-        filename: "[name].js"
+        filename: "[name].js",
     },
     resolve: {
         modules: [path.resolve('./src/js'), "node_modules"]

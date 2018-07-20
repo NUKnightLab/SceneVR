@@ -33,7 +33,7 @@ module.exports = class Pano {
         this.tween = new TweenLite(this.mesh.material, 1, {opacity: 0});
         this.mesh.visible = false;
         this.mesh.geometry.rotateY(Math.PI); // ROTATE TO CENTER
-        this.loadTexture(`${this.data.image_url}image-thumbnail.jpg`).then(
+        this.loadTexture(this.getImageUrl('thumbnail')).then(
             response => {
                 this.mesh.material = response;
                 this.mesh.material.transparent = true;
@@ -45,6 +45,14 @@ module.exports = class Pano {
             }
         )
 
+    }
+
+    getImageUrl(type) { // copied between Pano.js and Thumbnail.js - can we share?
+        var base = this.data.image_dir;
+        if (!base.endsWith('/')) {
+            base = `${base}/`;
+        }
+        return `${base}image-${type}.jpg`;
     }
 
     get background() {
@@ -69,7 +77,7 @@ module.exports = class Pano {
             this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
                 console.debug("LOADED HIGH REZ");
                 if (!this.high_resolution) {
-                    this.loadTexture(`${this.data.image_url}image-${this.config.speed}.jpg`).then(
+                    this.loadTexture(this.getImageUrl(this.config.speed)).then(
                         response => {
                             let opac = this.mesh.material.opacity;
                             this.tween.kill();
