@@ -105,9 +105,20 @@ module.exports = class Pano {
 
     fixGeometry(w, h) {
         if (!this.geometry_fixed) {
-            let fov = 60.8;//60.8;
+            let fov = 60.8; // ASSUME IPHONE FOV
             let image_multiplier = (w / h) * fov;
-            image_multiplier = THREE.Math.degToRad(image_multiplier)
+            let max_multiplier = 345;
+
+            // HANDLE REALLY LONG IMAGES
+            if (image_multiplier >= max_multiplier) {
+                while (image_multiplier >= max_multiplier) {
+                    image_multiplier = (w / h) * fov;
+                    fov--;
+                }
+            }
+
+            image_multiplier = THREE.Math.degToRad(image_multiplier);
+
             let g = {
                 radius: 1100,
                 widthSegments: 60,
