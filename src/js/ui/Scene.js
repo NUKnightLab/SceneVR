@@ -355,7 +355,7 @@ module.exports = class Scene {
         this.el.loading.style.visibility = "hidden";
         this.el.container.appendChild(this.el.ui);
     }
-    
+
     static init_scene(window, config) {
         const version = 'Scene VR Version: 0.0.7 (2018-06-21)'; // how are we going to keep this up to date?
         console.info(version);
