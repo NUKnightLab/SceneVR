@@ -239,6 +239,9 @@ module.exports = class Chrome {
     }
 
     updateChromePosition() {
+        if (this.thumbnails.number_of_thumbnails < 2) {
+            this.thumbnails.visible = false;
+        }
         if (window.innerHeight < 400) {
             this.el.compass.style.display = "none";
             this.compass_offset = 0;

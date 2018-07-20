@@ -13,6 +13,7 @@ module.exports = class ThumbnailNav {
         this.thumbnails = [];
         this.events = new EventEmitter();
         this._current_thumbnail = 0;
+        this._visible = true;
         this.el = {
             container: dom.createElement('div', 'svr-thumbnail-container'),
             scroll_container: dom.createElement('div', '', ["svr-thumbnail-scroll-conatiner"]),
@@ -106,6 +107,9 @@ module.exports = class ThumbnailNav {
             this.thumbnails.push(thumb);
         }
         this.thumbnails[0].active = true;
+        if (this.number_of_thumbnails < 2) {
+            this.visible = false;
+        }
     }
 
     get caption() {
@@ -128,6 +132,19 @@ module.exports = class ThumbnailNav {
             } else {
                 this.thumbnails[i].active = false;
             }
+        }
+    }
+
+    get visible() {
+        return this._visible;
+    }
+
+    set visible(v) {
+        this._visible = v;
+        if (this._visible) {
+            this.el.container.style.display = "flex";
+        } else {
+            this.el.container.style.display = "none";
         }
     }
 
