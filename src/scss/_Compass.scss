@@ -1,0 +1,20 @@
+// Compass // --------------------------------------------------
+#svr-compass {
+    margin-right:$ui-spacing;
+    margin-top:$ui-spacing;
+    svg {
+        width:48px;
+        height:48px;
+        .svr-compass-1{
+            opacity:.54
+        };
+        .svr-compass-2 {
+            fill:#eaeaea;
+        }
+    }
+}
+
+#svr-compass-pointer {
+    fill:#fff;
+    @include prefix(transform-origin, center, webkit ms);
+}

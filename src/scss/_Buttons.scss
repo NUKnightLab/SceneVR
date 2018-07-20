@@ -1,0 +1,59 @@
+.svr-btn {
+    margin-right: $ui-spacing;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        width:32px;
+        height:32px;
+        -webkit-filter: drop-shadow( 1px 1px 2px #000 );
+                filter: drop-shadow( 1px 1px 2px #000 );
+        &:hover {
+            fill: #DDD;
+        }
+    }
+}
+
+.svr-button-container {
+    display:flex;
+    flex-direction: row-reverse;
+    padding-bottom: $ui-spacing;
+}
+
+#svr-btn-fullscreen {
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+}
+
+#svr-btn-next, #svr-btn-prev {
+    @include transition(0.4s);
+    svg {
+        width:52px;
+        height:52px;
+        top:-25px;
+        position:absolute;
+        left:0;
+    }
+}
+
+#svr-btn-next {
+    right:48px;
+}
+
+#svr-btn-prev {
+    transform: rotate(180deg);
+    left:52px;
+}
+
+.svr-inactive {
+    #svr-btn-next {
+        right:0px;
+    }
+
+    #svr-btn-prev {
+        left:0px;
+    }
+}

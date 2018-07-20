@@ -72,7 +72,7 @@ function build() {
     var filePattern = path.dirname(file).split('src/templates/')[1],
         fileName = path.basename(file, '.hbs');
     if(filePattern === undefined) {
-      var patternData = yml.load('src/data/oldData.yml'),
+      var patternData = {},//yml.load('src/data/oldData.yml'),
           renderIndex = renderTemplate(file, patternData),
           page = renderPage(renderIndex, 'src/templates/layouts/default.hbs');
 

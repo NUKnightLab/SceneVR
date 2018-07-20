@@ -1,0 +1,26 @@
+{
+    "title": "Test VR",
+    "desc": "Description goes here. Sometimes it can be long.",
+    "scenes": [
+        {
+            "caption": "We're in Doha! After an exhausting 14 hour flight, we finally check into our hotel. I remember dropping my bags in the lobby and just taking it all in - the marbled floors, multiple chandeliers, and cool lounge music. I wish we had the energy for a hotel tour, but we were ready for bed.",
+            "image_dir": "/assets/test_panos/hong-kong/"
+        },
+        {
+            "caption": "Hong Kong iPhone Panorama",
+            "image_dir": "/assets/test_panos/iphone_pano/"
+        },
+        {
+            "caption": "Knight Lab Studio Class",
+            "image_dir": "/assets/test_panos/class-pano-2/"
+        },
+        {
+            "caption": "South Korea",
+            "image_dir": "/assets/test_panos/korea/"
+        },
+        {
+            "caption": "Epcot Disney World",
+            "image_dir": "/assets/test_panos/disney/"
+        }
+    ]
+}
