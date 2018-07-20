@@ -108,6 +108,14 @@ module.exports = class ThumbnailNav {
         this.thumbnails[0].active = true;
     }
 
+    get caption() {
+        return this.thumbnails[this.current_thumbnail].data.caption
+    }
+
+    set caption(c) {
+        console.log("Cannot set caption seperate from active thumbnail.")
+    }
+
     get current_thumbnail() {
         return this._current_thumbnail;
     }
