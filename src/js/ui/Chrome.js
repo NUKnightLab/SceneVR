@@ -42,7 +42,8 @@ module.exports = class Chrome {
         }
 
         this.title = new Caption(this.el.header);
-        this.title.text = `<h2>${this.data.title}</h2><p>${this.data.desc}</p>`;
+        this.title.text = this.data.desc;
+        this.title.header_text = this.data.title;
 
         this.el.compass = dom.createElement('div', 'svr-compass', [" "], this.el.header_button_container);
         this.el.compass_pointer = {};

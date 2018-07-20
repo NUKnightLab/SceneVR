@@ -51,11 +51,20 @@
     top:0;
     .svr-caption {
         @include linear-gradient(rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+        background-color: rgba(0,0,0,0.2)
     }
 }
 
 #svr-chrome-footer {
     bottom:0;
+    .svr-caption {
+        // padding-bottom:0;
+        .svr-text {
+            p:last-child {
+                margin-bottom:0;
+            }
+        }
+    }
 }
 
 #svr-chrome-middle {
