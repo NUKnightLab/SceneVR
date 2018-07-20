@@ -1,124 +1,69 @@
----
-title: Scene
-title_suffix: VR
-path: "https://cdn.knightlab.com/libs/orangeline/latest/"
-intro: Easy-to-make VR stories.
-site_name: Scene VR
-main_image: "https://scene.knightlab.com/assets/screenshot-scenevr.jpg"
-description: Easy-to-make, VR stories.
-twitter_site: "@knightlab"
-twitter_author: "@knightlab"
-page_url: "https://scene.knightlab.com"
-keywords: "story, news, vr, create, twitter, journalism, virtual reality, google cardboard"
-button: Make a Scene
-video-link: "https://vimeo.com/143407878"
-zendesk-link: "https://knightlab.zendesk.com/forums/22551396-TimelineJS"
-github-link: "https://github.com/NUKnightLab/SceneVR/issues"
-subnav: [
-    {
-        title: "Overview",
-        link: "#overview"
-    },
-    {
-        title: "Make a Scene",
-        link: "#make"
-    },
-    {
-        title: "Help",
-        link: "#help"
-    }
-]
-tech_docs: [
-    {
-        title: "More info in out GitHub repo.",
-        link: "https://github.com/NUKnightLab/SceneVR"
-    }
-]
-examples: [
-    {
-        title: "Coming Soon",
-        link: "http://world.time.com/2013/12/05/nelson-mandelas-extraordinary-life-an-interactive-timeline/",
-        image: "https://timeline.knightlab.com/static/img/examples/thumbs/thumb_mandela.jpg"
-    }
-]
-faq: [
-    {
-        question: "How do I edit my scenes?",
-        answer: "You can make changes by going back to your Google spreadsheet. Changes you make to the spreadsheet are automatically available to your Scene. You do not need to repeat the 'publish to the web' step (step #2). If you want to make changes to the optional settings, you will need to update your embed code, but if you are only changing content in the spreadsheet, then there's nothing else to do.",
-        link: ""
-    },
-    {
-        question: "What web browsers does SceneVR work with?",
-        answer: "Our primary development and testing browser is Google Chrome. We adhere closely to web standards, so we believe that SceneVR should work effectively in all modern web browsers. SceneVR is known to not work with Internet Explorer versions before IE10.",
-        link: ""
-    }
-]
----
-{{partials 'head-index' this }}
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=0,maximum-scale=1.0,minimal-ui">
+    <title>Scene VR</title>
+    <link rel="stylesheet" href="/css/scene.css"/>
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/manifest.json">
+    <link rel="mask-icon" href="https://cdn.knightlab.com/libs/orangeline/latest/assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    <!-- /favicons -->
+
+    <!-- Meta -->
+    <meta name="keywords" content="story, news, vr, create, twitter, journalism, virtual reality, google cardboard">
+    <meta name="description" content="Easy-to-make, VR stories.">
+    <!-- /Meta -->
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Scene" />
+    <meta property="og:description" content="Easy-to-make, VR stories." />
+    <meta property="og:image" content="https://scene.knightlab.com/assets/screenshot-scenevr.jpg" />
+    <meta property="og:url" content="https://scene.knightlab.com" />
+    <meta property="og:site_name" content="Scene VR" />
+    <!-- /Open Graph -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:title" content="Scene">
+    <meta name="twitter:description" content="Easy-to-make, VR stories.">
+    <meta name="twitter:image" content="https://scene.knightlab.com/assets/screenshot-scenevr.jpg">
+    <meta name="twitter:site" content="@knightlab">
+    <meta name="twitter:creator" content="@knightlab">
+    <!-- /Twitter Card -->
+</head>
 <body>
-    {{partials 'navbar-product-top' this }}
-    {{partials 'header-product' this }}
-    <article id="product-body">
-        <section id="demo" class="container-fluid">
-            <div class="product-demo">
-                <iframe frameborder="0" allowfullscreen src="scene.html" width="100%" height="80vh" style="height:80vh;"></iframe>
-            </div>
-
-        </section>
-        <section id="overview" class="container">
-        	<div class="grid-size-2 grid-size-1-phone">
-        		<div class="grid-item">
-
-        			<p>
-        				SceneVR is an engaging way to tell stories from an entirely new perspective. It turns your collection of panoramic and VR-ready photos into a series of navigable scenes, allowing you to create unique 360° narratives. A simple-to-use editor allows you to order your photos, add descriptions and add text. Your stories can then easily be embedded and viewed anywhere using simple and intuitive controls. Best of all, because SceneVR runs entirely in your browser, your stories can be viewed on desktop, mobile devices and even the most popular VR devices without the need for any extra apps or plugins.
-                    </p>
-
-        		</div>
-        		<div class="grid-item">
-        			<!-- <h3 style="margin-top:0;">Tips &amp; tricks</h3>
-        			<ol>
-						<li>Write each scene as part of a larger narrative</li>
-        				<li>Keep the text short and simple</li>
-                        <li>Ensure your photos are hosted on Flickr</li>
-        			</ol> -->
-
-                    <!-- Begin MailChimp Signup Form -->
-                    <div class="panel" style="margin-top:3rem;">
-                        <div id="mc_embed_signup">
-                        	<form action="//northwestern.us2.list-manage.com/subscribe/post?u=ccc3ef81b4c3c762eb7a7d2b4&amp;id=42a09078e4" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                        		<div id="mc_embed_signup_scroll">
-                        			<h5>Sign up for updates about SceneVR</h5>
-                        			<div class="mc-field-group">
-
-                        				<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="Email Address">
-                        			</div>
-                        			<div id="mce-responses" class="clear">
-                        				<div class="response" id="mce-error-response" style="display:none"></div>
-                        				<div class="response" id="mce-success-response" style="display:none"></div>
-                        			</div>
-                        			<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                        			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ccc3ef81b4c3c762eb7a7d2b4_42a09078e4" tabindex="-1" value=""></div>
-                        			<div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button button-complement"></div>
-                        		</div>
-                        	</form>
-                        </div>
-                    </div>
-                    <!--End mc_embed_signup-->
-        		</div>
-        	</div>
-
-        </section>
-
-        <!-- {{partials 'make' this }} -->
-
-        {{partials 'help' this }}
-
-
-
-    </article>
-
-    {{partials 'moth-product' this }}
-    {{partials 'footer' this }}
-    {{partials 'javascript' this }}
+    <section id="svr-loading">
+        <div class="svr-loading-cube">
+            <div class="svr-loading-face svr-loading-face-side"></div>
+            <div class="svr-loading-face svr-loading-face-side"></div>
+            <div class="svr-loading-face svr-loading-face-side"></div>
+            <div class="svr-loading-face svr-loading-face-side"></div>
+            <div class="svr-loading-face svr-loading-face-top"></div>
+            <div class="svr-loading-face svr-loading-face-bottom">00</div>
+        </div>
+        <p id="svr-loading-message">loading<span class="svr-loading-message-dots">...</span></p>
+    </section>
+    <script type="text/javascript" src="/js/sceneloader.js"></script>
+    <script>
+        function ready(fn) {
+            if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+                fn();
+            } else {
+                document.addEventListener('DOMContentLoaded', fn);
+            }
+        }
+        var config = {
+            source: "/assets/test_panos/data.json",
+            speed: "m"
+        }
+        ready(function() {
+            var loader = new SceneLoader('/js/scenevr.js', config);
+            loader.load_scenevr();
+        })
+    </script>
 </body>

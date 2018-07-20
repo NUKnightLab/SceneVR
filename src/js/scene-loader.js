@@ -4,30 +4,23 @@ window.SceneLoader = class SceneLoader {
     constructor(scenevr_url, config) {
         this.scenevr_url = scenevr_url;
         this.config = config;
-
         this.svr_time = {
             js_size: 1598345, //bytes
             estimated: 0,
             start: 0,
             end: 0
         }
-
-
     }
 
     load_scenevr() {
-        console.log("class based")
         let script = document.createElement('script');
         var self = this;
         script.onload = function() {
             self.make_scene();
         }
         this.svr_time.start = (new Date()).getTime();
-
         script.src = this.scenevr_url;
-
         document.head.appendChild(script);
-
         let progress = new ProgressCube();
     }
 
@@ -52,7 +45,7 @@ window.SceneLoader = class SceneLoader {
         console.debug(`${message} SceneVR will use ${this.config.speed} images`);
         document.getElementById("svr-loading-message").innerHTML = message;
 
-        Scene.init_scene(window, this.config);        
+        Scene.init_scene(window, this.config);
     }
 
 }
