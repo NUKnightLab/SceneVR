@@ -4,23 +4,23 @@
     "scenes": [
         {
             "caption": "Victoria Harbour is a natural landform harbour situated between Hong Kong Island and Kowloon in Hong Kong. The harbour's deep, sheltered waters and strategic location on the South China Sea were instrumental in Hong Kong's establishment as a British colony and its subsequent development as a trading centre. &mdash; <a href='https://en.wikipedia.org/wiki/Victoria_Harbour' target='_blank'>Wikipedia</a>",
-            "image_url": "/assets/test_panos/hong-kong/"
+            "image_dir": "/assets/test_panos/hong-kong/"
         },
         {
             "caption": "Victoria Peak (Chinese: 太平山, or previously Chinese: 扯旗山) is a mountain on the western half of Hong Kong Island. As early as the 19th century, the Peak attracted prominent European residents because of its panoramic view over the city and its temperate climate compared to the sub-tropical climate in the rest of Hong Kong. &mdash; <a href='https://en.wikipedia.org/wiki/Victoria_Peak' target='_blank'>Wikipedia</a>",
-            "image_url": "/assets/test_panos/iphone_pano/"
+            "image_dir": "/assets/test_panos/iphone_pano/"
         },
         {
             "caption": "Knight Lab Studio Class",
-            "image_url": "/assets/test_panos/class-pano-2/"
+            "image_dir": "/assets/test_panos/class-pano-2/"
         },
         {
             "caption": "South Korea",
-            "image_url": "/assets/test_panos/korea/"
+            "image_dir": "/assets/test_panos/korea/"
         },
         {
             "caption": "Epcot Disney World",
-            "image_url": "/assets/test_panos/disney/"
+            "image_dir": "/assets/test_panos/disney/"
         }
     ]
 }
