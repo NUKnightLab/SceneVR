@@ -26,6 +26,13 @@ module.exports = class Scene {
         this.user_first_interaction = false;
         this.temp_ui_active = true;
         this.pointer = {
+            scaling: false,
+            pinch: {
+                start: 0,
+                current:0,
+                scale:0,
+                current_scale:0
+            },
             down_x: 0,
             down_y: 0,
             move_x: 0,
@@ -107,6 +114,10 @@ module.exports = class Scene {
         })
 
         this.chrome.events.addListener("compass", (e) => {
+            this.pointer.lon = 0;
+            this.pointer.lat = 0;
+            this.pointer.move_x = 0;
+            this.pointer.move_y = 0;
             this.stage.resetCamera();
         })
 
@@ -155,32 +166,83 @@ module.exports = class Scene {
     onTouchStart(e) {
         this.animate_camera.kill();
         let touch = event.touches[ 0 ];
-        this.pointer.timer = new Date();
-        this.pointer.down_x = touch.screenX;
-        this.pointer.down_y = touch.screenY;
-        this.pointer.move_x = touch.screenX;
-        this.pointer.move_y = touch.screenY;
-        this.pointer.down_lon = 0;
-        this.pointer.down_lat = 0;
+        if (e.touches.length === 2) {
+            console.log("Multitouch")
+            this.pointer.scaling = true;
+            this.onPinchStart(e);
+            e.preventDefault();
+        } else {
+
+            this.pointer.scaling = false;
+            this.pointer.timer = new Date();
+            this.pointer.down_x = touch.screenX;
+            this.pointer.down_y = touch.screenY;
+            this.pointer.move_x = touch.screenX;
+            this.pointer.move_y = touch.screenY;
+            this.pointer.down_lon = 0;
+            this.pointer.down_lat = 0;
+        }
+
     }
 
     onTouchMove(e) {
         let touch = event.touches[ 0 ];
-        this.pointer.lon -= ( touch.screenX - this.pointer.move_x ) * 0.1;
-        this.pointer.lat += ( touch.screenY - this.pointer.move_y ) * 0.1;
-        this.pointer.move_x = touch.screenX;
-        this.pointer.move_y = touch.screenY;
-        this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+        if (this.pointer.scaling) {
+            this.onPinchMove(e);
+        } else {
+            this.pointer.lon -= ( touch.screenX - this.pointer.move_x ) * 0.1;
+            this.pointer.lat += ( touch.screenY - this.pointer.move_y ) * 0.1;
+            this.pointer.move_x = touch.screenX;
+            this.pointer.move_y = touch.screenY;
+            this.stage.updateCameraTarget(this.pointer.lon, this.pointer.lat);
+        }
+
         if (this.chrome.active) {
             this.chrome.toggleUI(true);
         }
     }
 
     onTouchEnd(e) {
-        this.pointer.lon = 0;
-        this.pointer.lat = 0;
-        this.pointer.move_x = 0;
-        this.pointer.move_y = 0;
+        // this.pointer.lon = 0;
+        // this.pointer.lat = 0;
+        // this.pointer.move_x = 0;
+        // this.pointer.move_y = 0;
+    }
+
+    onPinchStart(e) {
+        this.pointer.pinch.start = Math.hypot(
+            e.touches[0].pageX - e.touches[1].pageX,
+            e.touches[0].pageY - e.touches[1].pageY
+        );
+    }
+
+    onPinchMove(e) {
+        if (e.touches.length === 2) {
+            this.pointer.pinch.current = Math.hypot(
+                e.touches[0].pageX - e.touches[1].pageX,
+                e.touches[0].pageY - e.touches[1].pageY
+            );
+
+            let range_scale = (this.pointer.pinch.current - this.pointer.pinch.start);
+
+            this.pointer.pinch.scale = ((range_scale) / 100);
+            if (this.pointer.pinch.scale > 1) {
+                this.pointer.pinch.scale = 1;
+            } else if (this.pointer.pinch.scale < 0) {
+                this.pointer.pinch.scale = 1 + this.pointer.pinch.scale;
+            }
+
+            if (this.pointer.pinch.scale < -1) {
+                this.pointer.pinch.scale = -1;
+            }
+
+            this.stage.scale = (this.pointer.pinch.scale);
+        }
+
+    }
+
+    onPinchEnd(e) {
+        this.pointer.pinch.current_scale = this.pointer.pinch.scale;
     }
 
     onMouseMove(e) {

@@ -10,15 +10,23 @@ module.exports = class Stage {
     constructor(config, add_to_container) {
         this.config = config;
         this.el = dom.createElement('div', 'svr-main');
+        this.fov = {
+            current: 70,
+            min: 40,
+            max: 110,
+            range: 70
+        };
         this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1200 );
         this.scene = new THREE.Scene();
         this.camera_direction = new THREE.Vector3();
         this.camera_angle = 0;
+        this._scale = 1;
         this._background = false;
         this._stereo = false;
         this.tween = {
             position:null,
-            target:null
+            target:null,
+            camera:null
         };
         this.controls = {};
         this.pos = {
@@ -76,11 +84,25 @@ module.exports = class Stage {
             this.controls.saveState();
         }
 
-        // USED FOR THREEJS CHROME INSPECTOR
-        // REMOVE BEFORE DEPLOY
-        // window.scene = this.scene;
-        // window.THREE = THREE;
+    }
 
+    get scale() {
+        return this._scale;
+    }
+
+    set scale(s) {
+        let multiplier = 1;
+        this._scale = s;
+        this.fov.current = this.fov.current - (this._scale * multiplier);
+        if (this.fov.current > this.fov.max) {
+            this.fov.current = this.fov.max;
+        }
+        if (this.fov.current < this.fov.min) {
+            this.fov.current = this.fov.min;
+        }
+
+        this.camera.fov = this.fov.current;
+        this.camera.updateProjectionMatrix();
     }
 
     get stereo() {
@@ -111,18 +133,18 @@ module.exports = class Stage {
     }
 
     resetCamera() {
-        if (!isMobile.any) {
+        if (isMobile.any) {
+            this.tween.position = new TweenLite(this.controls, 0.5, {alphaOffsetAngle: -90, onUpdate:(e) => {
+                this.controls.update();
+            }, onComplete: () => {
+                this.updateCameraTarget(0,0);
+            }});
+        } else {
+
             this.tween.position = new TweenLite(this.camera.position, 0.5, {x: this.controls.position0.x, y:this.controls.position0.y, z:this.controls.position0.z, onComplete: () => {
 
             }});
             this.tween.target = new TweenLite(this.controls.target, 0.5, {x: this.controls.target0.x, y: this.controls.target0.y, z: this.controls.target0.z, onComplete: () => {
-
-            }});
-        } else {
-            this.tween.position = new TweenLite(this.controls, 0.5, {alphaOffsetAngle: 0, onComplete: () => {
-                this.updateCameraTarget(0,0);
-            }});
-            this.tween.position = new TweenLite(this.pos, 0.5, {alpha_offset: 0, onComplete: () => {
 
             }});
 

@@ -101,7 +101,7 @@ THREE.DeviceOrientationControls = function( object ) {
 
 
 	this.updateAlphaOffsetAngle = function( angle ) {
-
+        console.log(this.alphaOffsetAngle)
 		this.alphaOffsetAngle = angle;
 		this.update();
 
