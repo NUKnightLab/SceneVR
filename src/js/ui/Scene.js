@@ -96,7 +96,6 @@ module.exports = class Scene {
 
         this.chrome.events.addListener("goto", (e) => {
             this.goTo(e.number);
-
         })
 
         this.chrome.events.addListener("next", (e) => {
@@ -106,6 +105,12 @@ module.exports = class Scene {
         this.chrome.events.addListener("prev", (e) => {
             this.prev(e);
         })
+
+        this.chrome.events.addListener("compass", (e) => {
+            this.stage.resetCamera();
+        })
+
+
 
     }
 
@@ -172,7 +177,10 @@ module.exports = class Scene {
     }
 
     onTouchEnd(e) {
-
+        this.pointer.lon = 0;
+        this.pointer.lat = 0;
+        this.pointer.move_x = 0;
+        this.pointer.move_y = 0;
     }
 
     onMouseMove(e) {
@@ -275,18 +283,24 @@ module.exports = class Scene {
     }
 
     set stereo(s) {
-        if (s && this.orientation == "landscape") {
+        if (this.stereo_pending) {
             this.stereo_pending = false;
-            this._stereo = s;
-            this.stage.stereo = this._stereo;
-            this.chrome.vr = this._stereo;
-        } else if (s && this.orientation == "portrait" ) {
-            this.stereo_pending = true;
         } else {
-            this._stereo = s;
-            this.stage.stereo = this._stereo;
-            this.chrome.vr = this._stereo;
+            if (s && this.orientation == "landscape") {
+                this.stereo_pending = false;
+                this._stereo = s;
+                this.stage.stereo = this._stereo;
+                this.chrome.vr = this._stereo;
+            } else if (s && this.orientation == "portrait" ) {
+                this.stereo_pending = true;
+            } else {
+                this._stereo = s;
+                this.stage.stereo = this._stereo;
+                this.chrome.vr = this._stereo;
+                this.stereo_pending = false;
+            }
         }
+
     }
 
     get stereo_pending() {

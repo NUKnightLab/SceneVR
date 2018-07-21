@@ -31,6 +31,7 @@ module.exports = class Chrome {
             footer: dom.createElement('div', 'svr-chrome-footer'),
             compass: {},
             compass_pointer: {},
+            message_container: dom.createElement('div', '', ['svr-message-container']),
             message: dom.createElement('div', 'svr-message')
         }
 
@@ -38,7 +39,8 @@ module.exports = class Chrome {
             fullscreen: dom.createElement('div', 'svr-btn-fullscreen', ["svr-btn"], this.el.footer_button_container, icons.fullscreen),
             cardboard: dom.createElement('div', 'svr-btn-cardboard', ["svr-btn"], this.el.footer_button_container, icons.cardboard),
             next: dom.createElement('div', 'svr-btn-next', ["svr-btn"], this.el.middle_button_container, icons.chevron),
-            prev: dom.createElement('div', 'svr-btn-prev', ["svr-btn"], this.el.middle_button_container, icons.chevron)
+            prev: dom.createElement('div', 'svr-btn-prev', ["svr-btn"], this.el.middle_button_container, icons.chevron),
+            message_close_button: dom.createElement('div', 'svr-message-close-button', ["svr-btn"], this.el.message, "X")
         }
 
         this.title = new Caption(this.el.header);
@@ -51,6 +53,10 @@ module.exports = class Chrome {
         this.el.compass_pointer = this.el.compass.querySelector('#svr-compass-pointer');
 
         // BUTTON LISTENERS
+        this.el.compass.addEventListener('click', (e) => {
+            this.events.emit("compass", {data:"compass"});
+        });
+
         this.buttons.fullscreen.addEventListener('click', (e) => {
             this.events.emit("fullscreen", {data:"fullscreen button"});
         });
@@ -92,7 +98,11 @@ module.exports = class Chrome {
 
         // MESSAGE
         this.el.container.appendChild(this.el.message);
+        this.el.message.appendChild(this.el.message_container)
         this.el.message.style.display = "none";
+        this.buttons.message_close_button.addEventListener('click', (e) => {
+            this.events.emit("cardboard", {data:"prev button"});
+        });
 
         if (isMobile.any) {
             this.buttons.fullscreen.style.display = "none";
@@ -147,6 +157,8 @@ module.exports = class Chrome {
     }
 
     set turn_phone(t) {
+        console.log("TURN PHONE")
+        console.log(t)
         this._turn_phone = t;
         if (this._turn_phone) {
             // SHOW MESSAGE
@@ -185,7 +197,7 @@ module.exports = class Chrome {
 
     set message(m) {
         this._message = m;
-        this.el.message.innerHTML = `<div class="svr-message-container">${icons.cardboard_instruction} <p>${this._message}</p></div>`;
+        this.el.message_container.innerHTML = `${icons.cardboard_instruction} <p>${this._message}</p>`;
     }
 
     set fullscreen(f) {
