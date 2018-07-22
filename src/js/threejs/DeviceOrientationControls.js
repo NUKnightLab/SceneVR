@@ -31,10 +31,7 @@ THREE.DeviceOrientationControls = function( object ) {
 	};
 
 	let onScreenOrientationChangeEvent = function() {
-
 		scope.screenOrientation = window.orientation || 0;
-        console.log(`window.orientation ${window.orientation}`)
-
 	};
 
 	// The angles alpha, beta and gamma form a set of intrinsic Tait-Bryan angles of type Z-X'-Y''
@@ -101,7 +98,6 @@ THREE.DeviceOrientationControls = function( object ) {
 
 
 	this.updateAlphaOffsetAngle = function( angle ) {
-        console.log(this.alphaOffsetAngle)
 		this.alphaOffsetAngle = angle;
 		this.update();
 

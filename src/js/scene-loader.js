@@ -5,7 +5,7 @@ window.SceneLoader = class SceneLoader {
         this.scenevr_url = scenevr_url;
         this.config = config;
         this.svr_time = {
-            js_size: 1598345, //bytes
+            js_size: 665345, //bytes
             estimated: 0,
             start: 0,
             end: 0
@@ -32,7 +32,7 @@ window.SceneLoader = class SceneLoader {
             speedBps = (bitsLoaded / duration).toFixed(2),
             speedKbps = (speedBps / 1024).toFixed(2),
             speedMbps = (speedKbps / 1024).toFixed(2),
-            message = `connection speed ${speedMbps}Mbps`;
+            message = `Connection speed ${speedMbps} Mbps`;
 
         if (speedMbps > 10) {
             this.config.speed = "l";
@@ -42,7 +42,11 @@ window.SceneLoader = class SceneLoader {
             this.config.speed = "s";
         }
 
-        console.debug(`${message} SceneVR will use ${this.config.speed} images`);
+        console.groupCollapsed("Connection Information");
+        console.debug(`${message}`);
+        console.debug(`SceneVR will use ${this.config.speed} images`);
+        console.groupEnd();
+
         document.getElementById("svr-loading-message").innerHTML = message;
 
         Scene.init_scene(window, this.config);

@@ -45,8 +45,13 @@ module.exports = class Scene {
         };
         this.animate_camera = new TweenLite(this.pointer);
         this.loaded = [];
+
+        console.groupCollapsed("Device Information");
         console.debug(`Is Mobile Device = ${isMobile.any}`)
-        console.log(`The orientation is landscape? ${isMobile.orientation.landscape}`)
+        console.debug(`The orientation is landscape? ${isMobile.orientation.landscape}`);
+        console.debug(`Config Speed ${this.config.speed}`);
+        console.groupEnd();
+
         // LOAD DATA
         data.getJSON(this.config.source).then(
             response => {
@@ -61,7 +66,6 @@ module.exports = class Scene {
                 console.log(response);
             }
         )
-
 
     }
 
@@ -435,6 +439,9 @@ module.exports = class Scene {
     static init_scene(window, config) {
         const version = 'Scene VR Version: 0.0.7 (2018-06-21)'; // how are we going to keep this up to date?
         console.info(version);
+        if (isMobile.any && config.speed == "l") {
+            config.speed = "m";
+        }
         let scene = new Scene(config);
 
         function animate() {

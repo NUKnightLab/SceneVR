@@ -69,13 +69,12 @@ module.exports = class Pano {
 
     set active(a) {
         if(a) {
-            console.log("not active")
             this.mesh.material.opacity = 0;
             this.mesh.visible = true;
             this._active = true;
             this.tween.kill();
             this.tween = new TweenLite(this.mesh.material, this.animation_time, {opacity: 1, onComplete: () => {
-                console.debug("LOADED HIGH REZ");
+                console.debug("Loaded high resolution image");
                 if (!this.high_resolution) {
                     this.loadTexture(this.getImageUrl(this.config.speed)).then(
                         response => {
@@ -144,7 +143,7 @@ module.exports = class Pano {
                 // check if equilinear
                 if ((texture.image.height/texture.image.width) < 0.45) {
                     this.background = texture;
-                    console.debug("is not equilinear");
+                    console.debug("Image is not equilinear (Phone panorama)");
                     this.fixGeometry(texture.image.width, texture.image.height);
                 }
                 resolve(new THREE.MeshBasicMaterial( {

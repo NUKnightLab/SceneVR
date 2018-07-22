@@ -55,20 +55,13 @@ module.exports = class Stage {
 
         if (isMobile.any) {
             this.controls = new THREE.DeviceOrientationControls( this.camera );
-            console.log("mobile DEVICE")
-            console.log(navigator.userAgent)
-            console.log(isMobile.apple.device)
             if (isMobile.apple.device) {
-                console.log("APPLE DEVICE")
                 // FIX ORIENTATION
                 this.controls.updateAlphaOffsetAngle(-90);
             }
-            if (isMobile.android.device) {
-                console.log("ANDROID DEVICE")
-            }
         } else {
             if (isMobile.vr) {
-                console.log("Supports VR");
+                console.debug("Supports VR");
                 this.renderer.vr.enabled = true;
                 this.is_vr = new isVR();
             }

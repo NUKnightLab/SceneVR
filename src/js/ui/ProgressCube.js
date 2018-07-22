@@ -29,7 +29,7 @@ module.exports = class ProgressCube {
 
         this.time.estimated = (parseInt((this.estimated_time/1000)%60)*100) * 2;
 
-        console.debug(`Estimated time to load ${this.time.estimated}`);
+        console.debug(`Estimated time to load SceneVR Javascript ${this.time.estimated/1000} seconds`);
 
         this.animateProgress();
 
