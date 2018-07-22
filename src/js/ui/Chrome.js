@@ -46,6 +46,9 @@ module.exports = class Chrome {
         this.title = new Caption(this.el.header);
         this.title.text = this.data.desc;
         this.title.header_text = this.data.title;
+        if (isMobile.phone) {
+            this.title.visible = false;
+        }
 
         this.el.compass = dom.createElement('div', 'svr-compass', [" "], this.el.header_button_container);
         this.el.compass_pointer = {};
@@ -210,16 +213,16 @@ module.exports = class Chrome {
     }
 
     toggleUI(a) {
-        let active = this._active;
+
+        let active = this._active,
+            footer_height = this.el.footer.offsetHeight,
+            header_height = this.el.header.offsetHeight;
 
         if (a) {
             active = a;
         }
 
         if (active) {
-            let footer_height = this.el.footer.offsetHeight;
-            let header_height = this.el.header.offsetHeight;
-
             this._active = false;
 
             this.el.header.classList.remove("svr-active");
@@ -232,9 +235,8 @@ module.exports = class Chrome {
             this.el.footer.classList.remove("svr-active");
             this.el.footer.classList.add("svr-inactive");
             this.el.footer.style.bottom = `-${footer_height - 42}px`;
-
-
         } else {
+
             this._active = true;
 
             this.el.header.classList.remove("svr-inactive");
@@ -248,18 +250,14 @@ module.exports = class Chrome {
             this.el.footer.classList.add("svr-active");
             this.el.footer.style.bottom = "0px";
         }
+
     }
 
     updateChromePosition() {
+
+
         if (this.thumbnails.number_of_thumbnails < 2) {
             this.thumbnails.visible = false;
-        }
-        if (window.innerHeight < 400) {
-            this.el.compass.style.display = "none";
-            this.compass_offset = 0;
-        } else {
-            this.compass_offset = 75;
-            this.el.compass.style.display = "block";
         }
 
         if (this._active) {

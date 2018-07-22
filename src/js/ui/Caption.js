@@ -4,6 +4,7 @@ module.exports = class Caption {
     constructor(add_to_container) {
         this._text = "";
         this._header_text = "";
+        this._visible = true;
 
         this.el = {
             container: dom.createElement("div", "", ["svr-caption"]),
@@ -16,6 +17,19 @@ module.exports = class Caption {
         if (add_to_container) {
             add_to_container.appendChild(this.el.container);
         };
+    }
+
+    get visible() {
+        return this._visible;
+    }
+
+    set visible(v) {
+        this._visible = v;
+        if (this._visible) {
+            this.el.container.style.display = "block";
+        } else {
+            this.el.container.style.display = "none";
+        }
     }
 
     get text() {

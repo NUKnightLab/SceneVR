@@ -36,6 +36,8 @@ module.exports = class ThumbnailNav {
             this.buttons.arrow_right.innerHTML = icons.chevron;
             this.buttons.arrow_left.style.opacity = "0.2";
             this.buttons.arrow_left.style.display = "none";
+        } else {
+            this.el.container.style.justifyContent = "left";
         }
 
         this.el.container.appendChild(this.el.scroll_container);

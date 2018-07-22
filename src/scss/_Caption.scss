@@ -4,6 +4,8 @@
     text-shadow: 1px 1px 3px $color-dark;
     // @include linear-gradient(rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
     padding: $ui-spacing;
+    padding-left: $ui-spacing * 2;
+    padding-right: $ui-spacing * 2;
     background-color: rgba($color-dark, 0.8);
     .svr-text {
         max-width: 800px;
