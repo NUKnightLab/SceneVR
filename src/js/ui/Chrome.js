@@ -40,7 +40,8 @@ module.exports = class Chrome {
             cardboard: dom.createElement('div', 'svr-btn-cardboard', ["svr-btn"], this.el.footer_button_container, icons.cardboard),
             next: dom.createElement('div', 'svr-btn-next', ["svr-btn"], this.el.middle_button_container, icons.chevron),
             prev: dom.createElement('div', 'svr-btn-prev', ["svr-btn"], this.el.middle_button_container, icons.chevron),
-            message_close_button: dom.createElement('div', 'svr-message-close-button', ["svr-btn"], this.el.message, "X")
+            message_close_button: dom.createElement('div', 'svr-message-close-button', ["svr-btn"], this.el.message, "X"),
+            cardboard_next: dom.createElement('div', 'svr-cardboard-next'),
         }
 
         this.title = new Caption(this.el.header);
@@ -64,12 +65,16 @@ module.exports = class Chrome {
             this.events.emit("fullscreen", {data:"fullscreen button"});
         });
 
+        this.buttons.cardboard_next.addEventListener('click', (e) => {
+            this.events.emit("next", {cardboard:true});
+        });
+
         this.buttons.cardboard.addEventListener('click', (e) => {
-            this.events.emit("cardboard", {data:"cardboard button"});
+            this.events.emit("cardboard", {data:"cardboard"});
         });
 
         this.buttons.next.addEventListener('click', (e) => {
-            this.events.emit("next", {data:"next button"});
+            this.events.emit("next", {cardboard:false});
         });
 
         this.buttons.prev.addEventListener('click', (e) => {
@@ -97,8 +102,6 @@ module.exports = class Chrome {
             this.events.emit("goto", {number:e.number});
         })
 
-
-
         // MESSAGE
         this.el.container.appendChild(this.el.message);
         this.el.message.appendChild(this.el.message_container)
@@ -113,8 +116,11 @@ module.exports = class Chrome {
             this.buttons.cardboard.style.display = "none";
         }
 
+        this.buttons.cardboard_next.style.display = "none";
+
         if (add_to_container) {
             add_to_container.appendChild(this.el.container);
+            add_to_container.appendChild(this.buttons.cardboard_next);
         };
     }
 
@@ -140,8 +146,10 @@ module.exports = class Chrome {
         this._vr = v;
         if (this._vr) {
             this.el.container.style.display = "none";
+            this.buttons.cardboard_next.style.display = "block";
         } else {
             this.el.container.style.display = "block";
+            this.buttons.cardboard_next.style.display = "none";
         }
     }
 
@@ -160,8 +168,6 @@ module.exports = class Chrome {
     }
 
     set turn_phone(t) {
-        console.log("TURN PHONE")
-        console.log(t)
         this._turn_phone = t;
         if (this._turn_phone) {
             // SHOW MESSAGE

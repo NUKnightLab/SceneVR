@@ -328,15 +328,18 @@ module.exports = class Scene {
 
     }
 
-    next() {
+    next(e) {
         let next_photo = this.current_pano + 1;
         if ((this.panos.length - 1) >= next_photo) {
             this.chrome.current_thumbnail = next_photo;
             this.goTo(next_photo);
+        } else if (e.cardboard) {
+            this.chrome.current_thumbnail = 0;
+            this.goTo(0);
         }
     }
 
-    prev() {
+    prev(e) {
         let prev_photo = this.current_pano - 1;
         if (prev_photo >= 0) {
             this.chrome.current_thumbnail = prev_photo;
