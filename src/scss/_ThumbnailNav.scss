@@ -5,6 +5,7 @@
     overflow-x: scroll;
     position: relative;
     align-items: center;
+    justify-content: center;
     width:100%;
     padding-left: 76px;
     padding-right: 76px;
@@ -28,6 +29,7 @@
     margin:0;
     position: fixed;
     z-index: 20;
+    display:none;
     svg {
         position:absolute;
         right:3px;
