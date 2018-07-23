@@ -17,6 +17,7 @@ module.exports = class Scene {
             ui: {},
             loading: document.getElementById("svr-loading")
         };
+        this.event_track = true;
         this._stereo = false;
         this._stereo_pending = false;
         this._orientation = "landscape";
@@ -99,22 +100,27 @@ module.exports = class Scene {
 
         this.chrome.events.addListener("fullscreen", (e) => {
             this.fullScreenToggle(e);
+            this.eventTrack("Fullscreen");
         })
 
         this.chrome.events.addListener("cardboard", (e) => {
             this.cardboardToggle(e);
+            this.eventTrack("Cardboard");
         })
 
         this.chrome.events.addListener("goto", (e) => {
             this.goTo(e.number);
+            this.eventTrack("GoTo", e.number);
         })
 
         this.chrome.events.addListener("next", (e) => {
             this.next(e);
+            this.eventTrack("Next");
         })
 
         this.chrome.events.addListener("prev", (e) => {
             this.prev(e);
+            this.eventTrack("Previous");
         })
 
         this.chrome.events.addListener("compass", (e) => {
@@ -123,6 +129,7 @@ module.exports = class Scene {
             this.pointer.move_x = 0;
             this.pointer.move_y = 0;
             this.stage.resetCamera();
+            this.eventTrack("Compass");
         })
 
 
@@ -344,6 +351,21 @@ module.exports = class Scene {
         if (prev_photo >= 0) {
             this.chrome.current_thumbnail = prev_photo;
             this.goTo(prev_photo);
+        }
+    }
+
+    eventTrack(a, v) {
+        if (this.event_track) {
+            let event_obj = {
+                hitType: "event",
+                eventCategory: "Navigation",
+                eventAction: a,
+                eventValue: ""
+            }
+            if (v) {
+                event_obj.eventValue = v;
+            }
+            window.ga('send', event_obj);
         }
     }
 
