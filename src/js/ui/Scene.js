@@ -355,7 +355,7 @@ module.exports = class Scene {
     }
 
     eventTrack(a, v) {
-        if (this.event_track) {
+        if (this.event_track && window.ga) {
             let event_obj = {
                 hitType: "event",
                 eventCategory: "Navigation",
