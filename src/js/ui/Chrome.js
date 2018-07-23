@@ -136,6 +136,10 @@ module.exports = class Chrome {
         } else {
             this.buttons.next.style.display = "block";
         }
+
+        if (this.thumbnails.number_of_thumbnails == 1) {
+            this.buttons.next.style.display = "none";
+        }
     }
 
     get vr() {
