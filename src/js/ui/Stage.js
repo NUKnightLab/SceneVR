@@ -16,7 +16,8 @@ module.exports = class Stage {
             max: 110,
             range: 70
         };
-        this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1200 );
+
+        this.camera = new THREE.PerspectiveCamera( this.fov.current, window.innerWidth / window.innerHeight, 1, 1200 );
         this.scene = new THREE.Scene();
         this.camera_direction = new THREE.Vector3();
         this.camera_angle = 0;
@@ -55,6 +56,8 @@ module.exports = class Stage {
 
         if (isMobile.any) {
             this.controls = new THREE.DeviceOrientationControls( this.camera );
+            this.fov.current = 90;
+            this.camera.fov = this.fov.current;
             if (isMobile.apple.device) {
                 // FIX ORIENTATION
                 this.controls.updateAlphaOffsetAngle(-90);
