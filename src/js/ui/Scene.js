@@ -80,7 +80,7 @@ module.exports = class Scene {
         document.body.appendChild(this.el.container);
 
         this.stage = new Stage(this.config, this.el.container);
-        this.chrome = new Chrome(this.data, this.el.container);
+        this.chrome = new Chrome(this.data, this.el.container, this.config);
 
     }
 

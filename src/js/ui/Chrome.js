@@ -10,8 +10,9 @@ import 'gsap/CSSPlugin';
 
 // TO DO SCROLLABLE THUMBNAIL PANEL
 module.exports = class Chrome {
-    constructor(data, add_to_container) {
+    constructor(data, add_to_container, config) {
         this.data = data;
+        this.config = config;
         this.events = new EventEmitter();
         this.thumbnails = {};
         this._current_thumbnail = 0;
@@ -47,7 +48,7 @@ module.exports = class Chrome {
         this.title = new Caption(this.el.header);
         this.title.text = this.data.desc;
         this.title.header_text = this.data.title;
-        if (isMobile.phone) {
+        if (isMobile.phone || !this.config.show_title) {
             this.title.visible = false;
         }
 
