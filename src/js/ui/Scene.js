@@ -358,14 +358,14 @@ module.exports = class Scene {
         if (this.event_track && window.gtag) {
             let event_obj = {
                 hitType: "event",
-                eventCategory: "Navigation",
+                eventCategory: a,
                 eventAction: a,
                 eventValue: ""
             }
             if (v) {
                 event_obj.eventValue = v;
             }
-            window.gtag('event', 'Navigation', event_obj);
+            window.gtag('event', a, event_obj);
 
         }
     }
