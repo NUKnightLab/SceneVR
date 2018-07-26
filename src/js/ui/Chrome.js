@@ -89,6 +89,7 @@ module.exports = class Chrome {
         this.el.container.appendChild(this.el.middle);
         this.el.middle.appendChild(this.el.middle_button_container);
         this.buttons.prev.style.display = "none";
+        this.buttons.next.style.display = "none";
 
         // FOOTER
         this.el.container.appendChild(this.el.footer);
@@ -285,6 +286,7 @@ module.exports = class Chrome {
     updateSize() {
         this.thumbnails.updateSize();
         this.updateChromePosition();
+        this.updateNav(this.current_thumbnail);
     }
 
 }
