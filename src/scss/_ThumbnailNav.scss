@@ -30,11 +30,19 @@
     position: fixed;
     z-index: 20;
     display:none;
+    bottom: 15px;
+    @include transition(0.4s);
     svg {
         position:absolute;
         right:3px;
         width: 32px;
         height: 32px;
+    }
+}
+
+.svr-inactive {
+    #svr-btn-arrow-left, #svr-btn-arrow-right {
+        bottom: -100px;
     }
 }
 
