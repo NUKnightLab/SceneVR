@@ -14,9 +14,11 @@ module.exports = class ThumbnailNav {
         this.events = new EventEmitter();
         this._current_thumbnail = 0;
         this._visible = true;
+        this.scroll_tween = null;
         this.el = {
             container: dom.createElement('div', 'svr-thumbnail-container'),
             scroll_container: dom.createElement('div', '', ["svr-thumbnail-scroll-conatiner"]),
+            scroll_space: dom.createElement('div', '', ["svr-thumbnail-scroll-space"]),
             button_left: "",
             button_right: ""
         }
@@ -41,6 +43,7 @@ module.exports = class ThumbnailNav {
         }
 
         this.el.container.appendChild(this.el.scroll_container);
+
         this.makeThumbnails();
 
 
@@ -51,31 +54,62 @@ module.exports = class ThumbnailNav {
     }
 
     onArrowClick(direction) {
-        let scroll_num = 0,
-            scroll_max = this.el.scroll_container.offsetWidth - this.el.container.offsetWidth;
+        let scroll_num = 0;
         if(direction == "left") {
             scroll_num = this.el.container.scrollLeft -300;
         } else {
             scroll_num = this.el.container.scrollLeft +300
         }
-        TweenLite.to(this.el.container, .5, {scrollTo:{x:scroll_num}});
+        this.scrollTo(scroll_num);
+    }
 
-        if (scroll_num <= 0) {
-            this.buttons.arrow_left.style.opacity = "0.2";
-            this.buttons.arrow_left.style.display = "none";
-        } else {
+    arrowLeftVisible(v) {
+        if (v) {
             this.buttons.arrow_left.style.display = "flex";
             this.buttons.arrow_left.style.opacity = "1";
-        }
-
-        if (scroll_num >= scroll_max) {
-            this.buttons.arrow_right.style.opacity = "0.2";
-            this.buttons.arrow_right.style.display = "none";
         } else {
+            this.buttons.arrow_left.style.opacity = "0.2";
+            this.buttons.arrow_left.style.display = "none";
+        }
+    }
+
+    arrowRightVisible(v) {
+        if (v) {
             this.buttons.arrow_right.style.display = "flex";
             this.buttons.arrow_right.style.opacity = "1";
+        } else {
+            this.buttons.arrow_right.style.opacity = "0.2";
+            this.buttons.arrow_right.style.display = "none";
         }
+    }
 
+    checkScroll() {
+
+    }
+
+    scrollTo(n) {
+        let scroll_max = this.el.scroll_container.offsetWidth - this.el.container.offsetWidth;
+        if (this.scroll_tween) {
+            this.scroll_tween.kill();
+        }
+        this.scroll_tween = new TweenLite.to(this.el.container, .5, {
+            scrollTo:{x:n},
+            onUpdate: ()=> {
+                if (!isMobile.any) {
+                    if (this.el.container.scrollLeft < 50) {
+                        this.arrowLeftVisible(false);
+                    } else {
+                        this.arrowLeftVisible(true);
+                    }
+
+                    if (this.el.container.scrollLeft >= scroll_max - (this.el.container.offsetWidth/2) ) {
+                        this.arrowRightVisible(false);
+                    } else {
+                        this.arrowRightVisible(true);
+                    }
+                }
+            }
+        });
     }
 
     updateSize() {
@@ -86,7 +120,6 @@ module.exports = class ThumbnailNav {
 
     updateArrowButtons() {
         if (this.el.scroll_container.offsetWidth > this.el.container.offsetWidth) {
-            console.log("NEEDS TO SCROLL");
             this.el.container.style.justifyContent = "flex-start";
             this.buttons.arrow_left.style.display = "flex";
             this.buttons.arrow_right.style.display = "flex";
@@ -98,6 +131,8 @@ module.exports = class ThumbnailNav {
             this.buttons.arrow_left.style.display = "none";
             this.buttons.arrow_right.style.display = "none";
         }
+
+        this.el.scroll_space.style.width = `${(this.el.container.offsetWidth/2) - 75}px`;
     }
 
     makeThumbnails() {
@@ -112,6 +147,7 @@ module.exports = class ThumbnailNav {
         if (this.number_of_thumbnails < 2) {
             this.visible = false;
         }
+        this.el.scroll_container.appendChild(this.el.scroll_space);
     }
 
     get caption() {
@@ -159,6 +195,7 @@ module.exports = class ThumbnailNav {
     }
 
     onThumbnailClick(e) {
+        this.scrollTo(e.pos - (this.el.container.offsetWidth/2) + 75);
         this.current_thumbnail = e.number;
         this.events.emit("goto", {number:e.number, text:`${this.thumbnails[e.number].data.caption}`});
     }

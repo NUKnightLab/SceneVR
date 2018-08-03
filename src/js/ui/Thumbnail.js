@@ -32,6 +32,13 @@ module.exports = class Thumbnail {
         return `${base}image-${type}.jpg`;
     }
 
+    get width() {
+        return 152; //this.el.container.offsetWidth;
+    }
+
+    set width(n) {
+        this.el.container.style.width = n;
+    }
 
     get active() {
         return this._active;
@@ -48,6 +55,6 @@ module.exports = class Thumbnail {
 
 
     onClick(e) {
-        this.events.emit("click", {number:this.number, data:this.data});
+        this.events.emit("click", {number:this.number, data:this.data, pos:this.el.container.offsetLeft});
     }
 }
