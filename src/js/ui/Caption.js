@@ -68,6 +68,12 @@ module.exports = class Caption {
             t += `<p>${this._text}</p>`
         }
 
+        if (this._header_text == "" && this._text == "") {
+            this.visible = false;
+        } else {
+            this.visible = true;
+        }
+
         this.el.text_container.innerHTML = t;
     }
 
