@@ -9,7 +9,7 @@ The folder directory is very important in determining how handlebars handles whe
 To utilize this templating system, drop in `{{partials [''name-of-partial-here]}}` into your file located in `src/templates/pages` or in `src/templates/partials`. 
 
 ### A note about front matter
-Front matter is the content in the body of a partial, that is in between the triple dashses.
+Front matter is the content in the body of a partial, that is in between the triple dashes.
 
 You can pass front matter into the partial in 2 ways.
 
